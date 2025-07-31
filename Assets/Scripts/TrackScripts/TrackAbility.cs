@@ -9,7 +9,7 @@ namespace DefaultNamespace
 
     public struct TimestampAction 
     {
-        readonly int audioClipSample;
+        readonly float audioTime;
         Action<ScoreManager, TrackSO, PlaylistController> Action;
     }
     public struct TrackAbility 
