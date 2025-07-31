@@ -6,6 +6,7 @@ namespace DefaultNamespace
     {
         [SerializeField] private TrackSO track;
         
-        public TrackSO Track => track;
+        public TrackSO Track {get => track; set => track = value;}
+        
     }
 }
