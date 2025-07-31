@@ -12,7 +12,4 @@ public class ScoreModifiers
     {
         { ScoreModifierEnum.X2, (track, scoreManager, scoredPoints) => { return scoredPoints * 2; } } //Example modifier
     };
-
-    
-
 }
