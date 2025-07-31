@@ -1,10 +1,12 @@
+using System;
 using Obvious.Soap;
 using PrimeTween;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
-public class DragAndDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IEndDragHandler, IDragHandler, IPointerEnterHandler, IPointerExitHandler
+public class DragAndDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IEndDragHandler, IDragHandler
 {
     [SerializeField] GameObjectVariable heldObject;
     [SerializeField] Canvas canvas;
@@ -16,6 +18,24 @@ public class DragAndDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler
         m_RectTransform = GetComponent<RectTransform>();
         m_Image = GetComponent<Image>();
     }
+
+    private void Update()
+    {
+        if (heldObject.Value && heldObject.Value != gameObject)
+        {
+            if(RectTransformUtility.ScreenPointToLocalPointInRectangle((RectTransform)m_RectTransform.parent, Mouse.current.position.value, Camera.current, out var localPoint))
+            {
+                Rect r = m_RectTransform.rect;
+
+                if (localPoint.y >= r.yMin && localPoint.y <= r.yMax)
+                {
+                    SnapToParent();
+                }
+                
+            }
+        }
+    }
+
     void IBeginDragHandler.OnBeginDrag(PointerEventData eventData)
     {
         heldObject.Value = gameObject;
@@ -32,8 +52,19 @@ public class DragAndDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler
     {
         heldObject.Value = null;
         m_Image.raycastTarget = true;
-        
-        transform.SetParent(playlistUtil.GetNextAvailableSlot() ?? canvas.transform);
+
+        SnapToParent();
+    }
+
+    void IPointerDownHandler.OnPointerDown(PointerEventData eventData)
+    {
+        //throw new System.NotImplementedException();
+    }
+
+    private void SnapToParent()
+    {
+        Tween.StopAll(m_RectTransform);
+        transform.SetParent(playlistUtil.GetNextEmptySlot() ?? canvas.transform);
         
         Tween.LocalPositionY(
             target: m_RectTransform,
@@ -43,33 +74,5 @@ public class DragAndDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler
             ease: Ease.InOutExpo,
             cycles:1
         );
-    }
-
-    void IPointerDownHandler.OnPointerDown(PointerEventData eventData)
-    {
-        //throw new System.NotImplementedException();
-    }
-
-    public void OnPointerEnter(PointerEventData eventData)
-    {
-        if (heldObject.Value)
-        {
-            transform.SetParent(playlistUtil.GetNextAvailableSlot() ?? canvas.transform);
-        
-            Tween.LocalPositionY(
-                target: m_RectTransform,
-                startValue: m_RectTransform.anchoredPosition.y,
-                endValue: 0,
-                duration: 0.5f,
-                ease: Ease.InOutExpo,
-                cycles:1
-            );
-        }
-        
-    }
-
-    public void OnPointerExit(PointerEventData eventData)
-    {
-        
     }
 }
