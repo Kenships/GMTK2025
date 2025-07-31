@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 69f5cda4b0f3a65448ee36b0c903aa3b, type: 3}
-  m_Name: TestTrack
+  m_Name: TestTrack 6
   m_EditorClassIdentifier: 
-  clip: {fileID: 8300000, guid: 0ccb189026a2ec94babaa1ecd87126f1, type: 3}
-  albumCover: {fileID: 897324308, guid: 9a962c70aaa3bc645a34c5af80f621f7, type: 3}
+  clip: {fileID: 8300000, guid: 9f31805cb7f5b264499004d12848c962, type: 3}
+  albumCover: {fileID: -1353320604, guid: 9a962c70aaa3bc645a34c5af80f621f7, type: 3}
   volumeOverride: 0
   ability: 0
   points: 0

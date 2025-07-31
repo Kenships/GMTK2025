@@ -1,6 +1,7 @@
-﻿using UnityEngine;
+﻿using DefaultNamespace;
+using UnityEngine;
 
-namespace DefaultNamespace
+namespace TrackScripts
 {
     [CreateAssetMenu(fileName = "TrackSO", menuName = "Scriptable Objects/TrackSO")]
     public class TrackSO : ScriptableObject

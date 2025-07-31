@@ -18,7 +18,8 @@ public class PlaylistController : MonoBehaviour
 
     [SerializeField]
     private int capacityMax;
-
+    
+    
     private RectTransform m_rectTransform;
     private List<Transform> children;
     
@@ -95,7 +96,7 @@ public class PlaylistController : MonoBehaviour
             
         if (!nextSlot) return false;
         
-        GameObject prefab = Instantiate(trackHolderPrefab, nextSlot.position, Quaternion.identity, nextSlot);
+        GameObject prefab = Instantiate(trackHolderPrefab, children[^1].position, Quaternion.identity);
         
         TrackHolder trackHolder = prefab.GetComponent<TrackHolder>();
         trackHolder.Track = track;
@@ -123,7 +124,10 @@ public class PlaylistController : MonoBehaviour
         {
             if (child.childCount == 1)
             {
+                double time = Time.realtimeSinceStartup;
                 TrackHolder trackHolder = child.GetChild(0).GetComponent<TrackHolder>();
+
+                Debug.Log(Time.realtimeSinceStartup - time);
                 
                 return trackHolder.Track;
             }

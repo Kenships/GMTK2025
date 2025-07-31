@@ -1,6 +1,7 @@
 ﻿using System;
 using DefaultNamespace;
 using ImprovedTimers;
+using Obvious.Soap;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -10,16 +11,20 @@ namespace TrackScripts
     {
         [SerializeField] GameSettingsSO settings;
         [SerializeField] AudioSource audioSource;
+        [SerializeField] AudioSource backgroundSource;
+        [SerializeField] AudioClip backgroundClip;
 
         [SerializeField] private PlaylistController activePlaylist;
         [SerializeField] private PlaylistController backupPlaylist;
-
-        private TrackSO currentTrack;
+        
+        [SerializeField] private ScriptableEventNoParam enqueueEvent;
+        [SerializeField] private ScriptableEventNoParam dequeueEvent;
         
         public UnityAction onSongEnd;
 
         private void Start()
         {
+            backgroundSource.clip = backgroundClip;
             StartSequence();
             Play();
             
@@ -28,35 +33,35 @@ namespace TrackScripts
 
         private void StartSequence()
         {
-            for (int i = 0; i < 2; i++)
-            {
-                activePlaylist.TryEnqueue(backupPlaylist.GetNextInQueue());
-            }
+            
         }
 
         private void OnSongEnd()
         {
-            backupPlaylist.TryEnqueue(currentTrack);
+            dequeueEvent?.Raise();
+            enqueueEvent?.Raise();
             
             Play();
         }
 
         private void Play()
         {
-            if (activePlaylist.TryDequeue(out TrackSO track))
-            {
-                currentTrack = track;
-                
-                CountdownTimer timer = new CountdownTimer(track.clip.length);
-                timer.OnTimerEnd += () => onSongEnd?.Invoke();
-                audioSource.clip = track.clip;
-                audioSource.Play();
-                timer.Start();
-            }
+            audioSource.Stop();
+            backgroundSource.Stop();
             
-            if (backupPlaylist.TryDequeue(out track))
+            TrackSO track = activePlaylist.GetNextInQueue();
+
+            audioSource.clip = track.clip;
+            
+            audioSource.Play();
+            backgroundSource.Play();
+        }
+
+        private void Update()
+        {
+            if (!audioSource.isPlaying)
             {
-                activePlaylist.TryEnqueue(track);
+                OnSongEnd();
             }
         }
     }
