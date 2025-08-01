@@ -15,7 +15,9 @@ MonoBehaviour:
   clip: {fileID: 8300000, guid: 27d88318d82b15d44ac38bfe57ed6280, type: 3}
   albumCover: {fileID: -5355658132565943540, guid: 9a962c70aaa3bc645a34c5af80f621f7, type: 3}
   volumeOverride: 0
-  ability: 0
-  points: 0
+  ability: 2
+  defaultPoints: 4
+  points: 4
   description: 
+  tag: 0
   bars: 2

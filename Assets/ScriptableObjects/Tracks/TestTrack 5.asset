@@ -16,6 +16,8 @@ MonoBehaviour:
   albumCover: {fileID: 188288607, guid: 9a962c70aaa3bc645a34c5af80f621f7, type: 3}
   volumeOverride: 0
   ability: 0
-  points: 0
+  defaultPoints: 4
+  points: 4
   description: 
+  tag: 0
   bars: 2

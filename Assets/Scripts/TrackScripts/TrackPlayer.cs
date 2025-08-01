@@ -1,8 +1,10 @@
 using System;
+using System.Collections.Generic;
 using DefaultNamespace;
 using ImprovedTimers;
 using Obvious.Soap;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace TrackScripts
 {
@@ -20,7 +22,7 @@ namespace TrackScripts
 
         [SerializeField] private AudioClip backgroundClip;
 
-        [SerializeField] private ScoreManager scoreManager;
+        [SerializeField] private ScoreManager.ScoreManager scoreManager;
 
         [SerializeField] private PlaylistController discoBall;
 
@@ -34,14 +36,18 @@ namespace TrackScripts
         [SerializeField] private ScriptableEventNoParam activeToDiscoEvent;
 
         [SerializeField] private ScriptableEventNoParam discoToBackup;
+        [SerializeField] private ScriptableEventNoParam discoToActive;
+        
 
         [SerializeField] private FloatVariable progress;
+
+        public UnityAction OnSongPlay;
 
         public FloatVariable PlayBackSpeed;
 
         private TrackSO currentTrack;
         
-        [SerializeField] private bool firstRun = true;
+        private bool firstRun = true;
 
         private void Awake()
         {
@@ -69,7 +75,12 @@ namespace TrackScripts
         {
             if (TrackAbilities.EnumToAbility.TryGetValue(currentTrack.ability, out var ability))
             {
-                ability.endAction.Invoke(scoreManager, currentTrack, backupPlaylist);
+                List<TrackSO> allTracks = new List<TrackSO>();
+                allTracks.AddRange(discoBall.GetAllTracks());
+                allTracks.AddRange(activePlaylist.GetAllTracks());
+                allTracks.AddRange(backupPlaylist.GetAllTracks());
+                
+                ability.endAction.Invoke(scoreManager, currentTrack, allTracks);
             }
             
             Debug.Log(currentTrack.name + " has been ended");
@@ -78,7 +89,7 @@ namespace TrackScripts
 
         private void Play()
         {
-            
+            OnSongPlay?.Invoke();
             
             audioSource.Stop();
             backgroundSource.Stop();
@@ -87,9 +98,22 @@ namespace TrackScripts
             
             if (!firstRun)
             {
-                backupToActiveEvent?.Raise();
-                activeToDiscoEvent?.Raise();
-                discoToBackup?.Raise();
+                if (backupPlaylist.TrackCount > 0)
+                {
+                    discoToBackup?.Raise();
+                    activeToDiscoEvent?.Raise();
+                    backupToActiveEvent?.Raise();
+                    
+                }
+                else if (activePlaylist.TrackCount > 0)
+                {
+                    activeToDiscoEvent?.Raise();
+                    discoToActive?.Raise();
+                }
+                else
+                {
+                    currentTrack = discoBall.GetNextInQueue();
+                }
             }
             else
             {
@@ -102,18 +126,32 @@ namespace TrackScripts
             audioSource.Play();
             backgroundSource.Play();
 
+            float timeForOneBar = currentTrack.clip.length / 4f / PlayBackSpeed;
+            Debug.Log(currentTrack.bars);
+            CountdownTimerRepeat scoreTimer = new CountdownTimerRepeat(timeForOneBar, currentTrack.bars);
+            scoreTimer.OnTimerRaised += () =>
+            {
+                scoreManager.ScorePoints(currentTrack, currentTrack.points / currentTrack.bars);
+            };
+            scoreTimer.Start();
 
             if (TrackAbilities.EnumToAbility.TryGetValue(currentTrack.ability, out var ability))
             {
-                ability.startAction(scoreManager, currentTrack, backupPlaylist);
+                List<TrackSO> allTracks = new List<TrackSO>();
+                allTracks.AddRange(discoBall.GetAllTracks());
+                allTracks.AddRange(activePlaylist.GetAllTracks());
+                allTracks.AddRange(backupPlaylist.GetAllTracks());
+                
+                ability.startAction(scoreManager, currentTrack, allTracks);
                 foreach (TimestampAction ta in ability.timestampActions)
                 {
-                    var taTimer = new CountdownTimer(ta.audioTime);
+                    float adjustedTime = ta.audioTime / PlayBackSpeed.Value;
+                    
+                    var taTimer = new CountdownTimer(adjustedTime);
                     taTimer.Start();
-                    taTimer.OnTimerEnd += () => { ta.Action(scoreManager, currentTrack, backupPlaylist); };
+                    taTimer.OnTimerEnd += () => { ta.Action(scoreManager, currentTrack, allTracks); };
                 }   
             }
-            
             
         }
 

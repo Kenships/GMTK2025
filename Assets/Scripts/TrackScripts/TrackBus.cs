@@ -1,3 +1,4 @@
+using DefaultNamespace;
 using Obvious.Soap;
 using PrimeTween;
 using UnityEngine;
@@ -9,12 +10,7 @@ namespace TrackScripts
     {
         [SerializeField]
         private ScriptableEventNoParam moveTrack;
-    
-        [SerializeField]
-        Transform startPos;
-    
-        [SerializeField]
-        Transform endPos;
+        
     
         [SerializeField]
         PlaylistController playlistControllerStart;
@@ -32,7 +28,6 @@ namespace TrackScripts
         {
             moveTrack.OnRaised += MoveTrackOnRaised;
             gameObject.SetActive(false);
-            transform.position = startPos.position;
         }
 
         private void InputActionOnperformed(InputAction.CallbackContext obj)
@@ -44,18 +39,27 @@ namespace TrackScripts
         {
             gameObject.SetActive(true);
 
+            TrackHolder trackHolder = playlistControllerStart.GetNextTrackHolderInQueue();
+            
+            if (!trackHolder)
+            {
+                return;
+            }
+            
             
 
             if (playlistControllerStart.TryDequeue(out currentTrack))
             {
+                Vector3 startPosition = trackHolder.transform.position;
+                Vector3 endPosition = playlistControllerEnd.GetLastChild().transform.position;
                 if (duration == 0)
                 {
                     playlistControllerEnd.TryEnqueue(currentTrack);
                 }
                 Tween.Position(
                     target: transform,
-                    startPos.position,
-                    endPos.position,
+                    startPosition,
+                    endPosition,
                     duration: duration == 0 ? 0.5f : duration,
                     ease: Ease.InOutExpo,
                     cycles: 1

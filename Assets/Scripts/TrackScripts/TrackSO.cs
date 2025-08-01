@@ -11,9 +11,12 @@ namespace TrackScripts
         public Sprite albumCover;
         public float volumeOverride;
         public TrackAbilityEnum ability;
+        public int defaultPoints;
         public int points;
         public string description;
         public Tag tag;
         public int bars;
+
+        
     }
 }
