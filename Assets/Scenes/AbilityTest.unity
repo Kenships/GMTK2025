@@ -969,6 +969,53 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1391a2d30087cdf41919b185c7a9e0b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &698750217
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 698750219}
+  - component: {fileID: 698750218}
+  m_Layer: 0
+  m_Name: ScoreManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &698750218
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 698750217}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e9b540240923124b8c6d3dd08703a17, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TrackPlayer: {fileID: 950056265}
+  Score: {fileID: 11400000, guid: 6eb54474f19aef049935ff9f3e8b99e1, type: 2}
+  PreviousScore: {fileID: 11400000, guid: 58528e1e458b8a84b837963365e5981e, type: 2}
+--- !u!4 &698750219
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 698750217}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 690.65894, y: 224.59691, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &950056262
 GameObject:
   m_ObjectHideFlags: 0
@@ -1116,12 +1163,15 @@ MonoBehaviour:
   audioSource: {fileID: 950056264}
   backgroundSource: {fileID: 1044985172}
   backgroundClip: {fileID: 8300000, guid: aa3871a2036221e4aa6b77828ecf9f3b, type: 3}
+  scoreManager: {fileID: 698750218}
   discoBall: {fileID: 228692501}
   activePlaylist: {fileID: 1920547267}
+  backupPlaylist: {fileID: 671771590}
   backupToActiveEvent: {fileID: 11400000, guid: 0d6ccf12f49d7cc4c89dfa352a9b8900, type: 2}
   activeToDiscoEvent: {fileID: 11400000, guid: aead39f9ea5f3c246bd2dab8add2a006, type: 2}
   discoToBackup: {fileID: 11400000, guid: 61ca5870aa0b20a4e9333bda8c604c8c, type: 2}
   progress: {fileID: 11400000, guid: a7e9ec1dce325544aa7fe1d0e4290dec, type: 2}
+  PlayBackSpeed: {fileID: 11400000, guid: cdd9cb38a59409c45937a417ae1fb10f, type: 2}
 --- !u!1 &1023822656
 GameObject:
   m_ObjectHideFlags: 0
@@ -1873,118 +1923,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1999111246}
   m_CullTransparentMesh: 1
---- !u!1 &2080547533 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5266079121233645077, guid: c10e70f62272c4649845afd0e1f75bd4, type: 3}
-  m_PrefabInstance: {fileID: 8004007411589409258}
-  m_PrefabAsset: {fileID: 0}
---- !u!96 &2080547536
-TrailRenderer:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2080547533}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 0
-  m_LightProbeUsage: 0
-  m_ReflectionProbeUsage: 0
-  m_RayTracingMode: 0
-  m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 0}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Time: 5
-  m_PreviewTimeScale: 1
-  m_Parameters:
-    serializedVersion: 3
-    widthMultiplier: 1
-    widthCurve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    colorGradient:
-      serializedVersion: 2
-      key0: {r: 1, g: 1, b: 1, a: 1}
-      key1: {r: 1, g: 1, b: 1, a: 1}
-      key2: {r: 0, g: 0, b: 0, a: 0}
-      key3: {r: 0, g: 0, b: 0, a: 0}
-      key4: {r: 0, g: 0, b: 0, a: 0}
-      key5: {r: 0, g: 0, b: 0, a: 0}
-      key6: {r: 0, g: 0, b: 0, a: 0}
-      key7: {r: 0, g: 0, b: 0, a: 0}
-      ctime0: 0
-      ctime1: 65535
-      ctime2: 0
-      ctime3: 0
-      ctime4: 0
-      ctime5: 0
-      ctime6: 0
-      ctime7: 0
-      atime0: 0
-      atime1: 65535
-      atime2: 0
-      atime3: 0
-      atime4: 0
-      atime5: 0
-      atime6: 0
-      atime7: 0
-      m_Mode: 0
-      m_ColorSpace: -1
-      m_NumColorKeys: 2
-      m_NumAlphaKeys: 2
-    numCornerVertices: 0
-    numCapVertices: 0
-    alignment: 0
-    textureMode: 0
-    textureScale: {x: 1, y: 1}
-    shadowBias: 0.5
-    generateLightingData: 0
-  m_MinVertexDistance: 0.1
-  m_MaskInteraction: 0
-  m_Autodestruct: 0
-  m_Emitting: 1
-  m_ApplyActiveColorSpace: 1
 --- !u!1001 &2513515844304285362
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2581,10 +2519,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 5266079121233645077, guid: c10e70f62272c4649845afd0e1f75bd4, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2080547536}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c10e70f62272c4649845afd0e1f75bd4, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
@@ -2595,3 +2530,4 @@ SceneRoots:
   - {fileID: 950056263}
   - {fileID: 1044985173}
   - {fileID: 8004007411589409258}
+  - {fileID: 698750219}
