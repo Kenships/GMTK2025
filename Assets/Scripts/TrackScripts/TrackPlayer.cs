@@ -40,6 +40,8 @@ namespace TrackScripts
         public FloatVariable PlayBackSpeed;
 
         private TrackSO currentTrack;
+        
+        [SerializeField] private bool firstRun = true;
 
         private void Awake()
         {
@@ -54,32 +56,47 @@ namespace TrackScripts
                                                 audioSource.pitch = value; 
                                                 backgroundSource.pitch = value;
                                             };
-            startGame.OnRaised += Play;
+            startGame.OnRaised += () =>
+            {
+                firstRun = true;
+                Play();
+            };
+            
+            Debug.Log(audioSource.clip);
         }
 
         private void OnSongEnd()
         {
-            backupToActiveEvent?.Raise();
-            activeToDiscoEvent?.Raise();
-            discoToBackup?.Raise();
-
             if (TrackAbilities.EnumToAbility.TryGetValue(currentTrack.ability, out var ability))
             {
                 ability.endAction.Invoke(scoreManager, currentTrack, backupPlaylist);
             }
             
-
+            Debug.Log(currentTrack.name + " has been ended");
             Play();
         }
 
         private void Play()
         {
             
+            
             audioSource.Stop();
             backgroundSource.Stop();
-
-            currentTrack = discoBall.GetNextInQueue() ?? activePlaylist.GetNextInQueue();
-
+        
+            currentTrack = activePlaylist.GetNextInQueue();
+            
+            if (!firstRun)
+            {
+                backupToActiveEvent?.Raise();
+                activeToDiscoEvent?.Raise();
+                discoToBackup?.Raise();
+            }
+            else
+            {
+                currentTrack = discoBall.GetNextInQueue();
+                firstRun = false;
+            }
+            Debug.Log(currentTrack.name + " has been played");
             audioSource.clip = currentTrack.clip;
 
             audioSource.Play();
@@ -96,6 +113,8 @@ namespace TrackScripts
                     taTimer.OnTimerEnd += () => { ta.Action(scoreManager, currentTrack, backupPlaylist); };
                 }   
             }
+            
+            
         }
 
         private void Update()

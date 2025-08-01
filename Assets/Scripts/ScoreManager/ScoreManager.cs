@@ -11,6 +11,7 @@ public struct ModifierInstance
     public int LifeTime;
     public ScoreModifierEnum Modifier;
 }
+
 public class ScoreManager : MonoBehaviour
 {
     public TrackPlayer TrackPlayer;
@@ -78,9 +79,11 @@ public class ScoreManager : MonoBehaviour
         timedEffects.Add(countdownTimer);
         countdownTimer.OnTimerEnd += () =>
                                      {
+                                         Debug.Log("End");
                                          timedEffects.Remove(countdownTimer);
                                          action.Invoke();
                                      };
         countdownTimer.Start();
+        Debug.Log("Start");
     }
 }

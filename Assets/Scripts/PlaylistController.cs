@@ -92,8 +92,6 @@ public class PlaylistController : MonoBehaviour
     public bool TryEnqueue(TrackSO track)
     {
         Transform nextSlot = GetNextEmptySlot();
-        
-        Debug.Log(nextSlot);
             
         if (!nextSlot) return false;
         
@@ -125,10 +123,7 @@ public class PlaylistController : MonoBehaviour
         {
             if (child.childCount == 1)
             {
-                double time = Time.realtimeSinceStartup;
                 TrackHolder trackHolder = child.GetChild(0).GetComponent<TrackHolder>();
-
-                Debug.Log(Time.realtimeSinceStartup - time);
                 
                 return trackHolder.Track;
             }
