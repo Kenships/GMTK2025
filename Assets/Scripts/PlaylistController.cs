@@ -19,6 +19,8 @@ public class PlaylistController : MonoBehaviour
     [SerializeField]
     private int capacityMax;
     
+    public int Capacity => capacityMax;
+    
     
     private RectTransform m_rectTransform;
     private List<Transform> children;
