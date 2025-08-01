@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 69f5cda4b0f3a65448ee36b0c903aa3b, type: 3}
-  m_Name: TestTrack 2
+  m_Name: GuitarPhaseOne4Bar
   m_EditorClassIdentifier: 
-  clip: {fileID: 8300000, guid: 9633e33e189d73a4f8e34e617382f1ab, type: 3}
-  albumCover: {fileID: 2049055421, guid: 9a962c70aaa3bc645a34c5af80f621f7, type: 3}
+  clip: {fileID: 8300000, guid: bb780617fca11b74bae1e1fa987d1ad4, type: 3}
+  albumCover: {fileID: 2116106990, guid: 9a962c70aaa3bc645a34c5af80f621f7, type: 3}
   volumeOverride: 0
-  ability: 3
+  ability: 0
   defaultPoints: 4
   points: 4
   description: 

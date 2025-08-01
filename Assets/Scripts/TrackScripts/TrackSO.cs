@@ -3,7 +3,12 @@ using UnityEngine;
 
 namespace TrackScripts
 {
-    public enum Tag { }
+    public enum Tag
+    {
+        PhaseOne,
+        PhaseTwo,
+        PhaseThree
+    }
     [CreateAssetMenu(fileName = "TrackSO", menuName = "Scriptable Objects/TrackSO")]
     public class TrackSO : ScriptableObject
     {
