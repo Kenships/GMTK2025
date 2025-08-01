@@ -10,7 +10,7 @@ namespace TrackScripts
         public AudioClip clip;
         public Sprite albumCover;
         public float volumeOverride;
-        public TrackAbility ability;
+        public TrackAbilityEnum ability;
         public int points;
         public string description;
         public Tag tag;

@@ -2,6 +2,7 @@ using DefaultNamespace;
 using System;
 using UnityEngine;
 using System.Collections.Generic;
+using ImprovedTimers;
 using Obvious.Soap;
 using TrackScripts;
 
@@ -10,7 +11,7 @@ public struct ModifierInstance
     public int LifeTime;
     public ScoreModifierEnum Modifier;
 }
-public class ScoreManager : ScriptableObject
+public class ScoreManager : MonoBehaviour
 {
     public TrackPlayer TrackPlayer;
     public IntVariable Score;
@@ -18,6 +19,8 @@ public class ScoreManager : ScriptableObject
 
     public List<ModifierInstance> modifiers;
     private Dictionary<TrackSO, TrackSO> trackTypeToModified = new () { };
+    
+    private List<CountdownTimer> timedEffects = new List<CountdownTimer>();
 
     public int ScorePoints(TrackSO track, int points) 
     {
@@ -67,5 +70,17 @@ public class ScoreManager : ScriptableObject
     {
         if (!trackTypeToModified[track]) trackTypeToModified[track] = track;
         return trackTypeToModified[track];
+    }
+
+    public void AddTimedEffect(float duration, Action action)
+    {
+        CountdownTimer countdownTimer = new CountdownTimer(duration);
+        timedEffects.Add(countdownTimer);
+        countdownTimer.OnTimerEnd += () =>
+                                     {
+                                         timedEffects.Remove(countdownTimer);
+                                         action.Invoke();
+                                     };
+        countdownTimer.Start();
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using DefaultNamespace;
 using ImprovedTimers;
 using Obvious.Soap;
@@ -40,9 +41,19 @@ namespace TrackScripts
 
         private TrackSO currentTrack;
 
+        private void Awake()
+        {
+            PlayBackSpeed.Value = 1;
+        }
+
         private void Start()
         {
             backgroundSource.clip = backgroundClip;
+            PlayBackSpeed.OnValueChanged += (value) =>
+                                            {
+                                                audioSource.pitch = value; 
+                                                backgroundSource.pitch = value;
+                                            };
             startGame.OnRaised += Play;
         }
 
@@ -51,7 +62,12 @@ namespace TrackScripts
             backupToActiveEvent?.Raise();
             activeToDiscoEvent?.Raise();
             discoToBackup?.Raise();
-            currentTrack.ability.endAction(scoreManager, currentTrack, backupPlaylist);
+
+            if (TrackAbilities.EnumToAbility.TryGetValue(currentTrack.ability, out var ability))
+            {
+                ability.endAction.Invoke(scoreManager, currentTrack, backupPlaylist);
+            }
+            
 
             Play();
         }
@@ -69,12 +85,16 @@ namespace TrackScripts
             audioSource.Play();
             backgroundSource.Play();
 
-            currentTrack.ability.startAction(scoreManager, currentTrack, backupPlaylist);
-            foreach (TimestampAction ta in currentTrack.ability.timestampActions)
+
+            if (TrackAbilities.EnumToAbility.TryGetValue(currentTrack.ability, out var ability))
             {
-                var taTimer = new CountdownTimer(ta.audioTime);
-                taTimer.Start();
-                taTimer.OnTimerEnd += () => { ta.Action(scoreManager, currentTrack, backupPlaylist); };
+                ability.startAction(scoreManager, currentTrack, backupPlaylist);
+                foreach (TimestampAction ta in ability.timestampActions)
+                {
+                    var taTimer = new CountdownTimer(ta.audioTime);
+                    taTimer.Start();
+                    taTimer.OnTimerEnd += () => { ta.Action(scoreManager, currentTrack, backupPlaylist); };
+                }   
             }
         }
 
