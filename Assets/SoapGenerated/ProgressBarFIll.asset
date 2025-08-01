@@ -10,18 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a9978ce9c8bdc724896114c9952c52ea, type: 3}
-  m_Name: VolumeVar
+  m_Name: ProgressBarFIll
   m_EditorClassIdentifier: 
   TagIndex: 0
   Description: 
-  _guid: 5910c083d276494409bf4a3387b40025
+  _guid: 
   _saveGuid: 0
-  _value: 91.48801
+  _value: 0
   _debugLogEnabled: 0
-  _saved: 1
-  _defaultValue: 75
+  _saved: 0
+  _defaultValue: 0
   _resetOn: 0
-  _runtimeValue: 91.48801
+  _runtimeValue: 0
   _isClamped: 0
   _min:
     UseLocal: 1

@@ -4,6 +4,7 @@ using ImprovedTimers;
 using Obvious.Soap;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
 
 namespace TrackScripts
 {
@@ -14,11 +15,19 @@ namespace TrackScripts
         [SerializeField] AudioSource backgroundSource;
         [SerializeField] AudioClip backgroundClip;
 
-        [SerializeField] private PlaylistController activePlaylist;
-        [SerializeField] private PlaylistController backupPlaylist;
+        [SerializeField]
+        private PlaylistController discoBall;
+        [SerializeField]
+        private PlaylistController activePlaylist;
         
-        [SerializeField] private ScriptableEventNoParam enqueueEvent;
-        [SerializeField] private ScriptableEventNoParam dequeueEvent;
+        [SerializeField] private ScriptableEventNoParam backupToActiveEvent;
+        [SerializeField] private ScriptableEventNoParam activeToDiscoEvent;
+        [SerializeField] private ScriptableEventNoParam discoToBackup;
+
+        [SerializeField]
+        private FloatVariable progress;
+        
+        private TrackSO currentTrack;
         
         public UnityAction onSongEnd;
 
@@ -38,8 +47,9 @@ namespace TrackScripts
 
         private void OnSongEnd()
         {
-            dequeueEvent?.Raise();
-            enqueueEvent?.Raise();
+            backupToActiveEvent?.Raise();
+            activeToDiscoEvent?.Raise();
+            discoToBackup?.Raise();
             
             Play();
         }
@@ -49,9 +59,9 @@ namespace TrackScripts
             audioSource.Stop();
             backgroundSource.Stop();
             
-            TrackSO track = activePlaylist.GetNextInQueue();
-
-            audioSource.clip = track.clip;
+            currentTrack = discoBall.GetNextInQueue() ?? activePlaylist.GetNextInQueue();
+            
+            audioSource.clip = currentTrack.clip;
             
             audioSource.Play();
             backgroundSource.Play();
@@ -59,6 +69,13 @@ namespace TrackScripts
 
         private void Update()
         {
+            if (currentTrack != null)
+            {
+                progress.Value = audioSource.time / (audioSource.clip.length * (currentTrack.bars/4f)) * 100f;
+            }
+            
+            
+            Debug.Log(progress);
             if (!audioSource.isPlaying)
             {
                 OnSongEnd();

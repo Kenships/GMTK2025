@@ -12,5 +12,6 @@ namespace TrackScripts
         public TrackAbility ability;
         public int points;
         public string description;
+        public int bars;
     }
 }

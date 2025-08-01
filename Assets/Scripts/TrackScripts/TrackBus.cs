@@ -25,6 +25,9 @@ namespace TrackScripts
         [SerializeField]
         InputAction inputAction;
 
+        [SerializeField]
+        private float duration = 0.5f;
+
         private TrackSO currentTrack;
         
         private void Start()
@@ -45,19 +48,28 @@ namespace TrackScripts
         {
             gameObject.SetActive(true);
 
+            
+
             if (playlistControllerStart.TryDequeue(out currentTrack))
             {
+                if (duration == 0)
+                {
+                    playlistControllerEnd.TryEnqueue(currentTrack);
+                }
                 Tween.Position(
                     target: transform,
                     startPos.position,
                     endPos.position,
-                    duration: 0.5f,
+                    duration: duration == 0 ? 0.5f : duration,
                     ease: Ease.InOutExpo,
                     cycles: 1
                 ).OnComplete(() =>
                 {
+                    if (duration > 0)
+                    {
+                        playlistControllerEnd.TryEnqueue(currentTrack);
+                    }
                     gameObject.SetActive(false);
-                    playlistControllerEnd.TryEnqueue(currentTrack);
                 });
             }
         }
