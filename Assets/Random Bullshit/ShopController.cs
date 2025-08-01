@@ -3,83 +3,184 @@ using UnityEngine.UI;
 using System.Collections.Generic;
 using TMPro;
 using Obvious.Soap;
+using DefaultNamespace;
 
 public class ShopController : MonoBehaviour
 {
     //is my naming trash? yes.
+    public InventorySO playerInventory;
+    public ShopBankSO shopBank;
+
     public Transform buyTracksUI;
     public Transform ownedTracksUI;
     public Transform buyItemsUI;
     public Transform ownedItemsUI;
     public GameObject BItem;
     public GameObject BTrack;
+    public int maxBuyTrack;
+    public int maxBuyItem;
+    public int maxOwnedTrack;
+    public int maxOwnedItem;
 
-    private GameObject selectedTrack;
-
-
-    private List<string> tempShopItems = new() { "a", "b", "c" };
-    private List<string> tempShopTracks = new() { "e","d","f"};
-    private List<string> tempOwnedItems = new() { "1","2","3"};
-    private List<string> tempOwnedTracks = new() { "hol","lee","fukl"};
+    private GameObject selectedTrackGO;
+    private TrackSO selectedTrackSO;
 
     [SerializeField] private IntVariable dollars;
 
     void Start()
     {
+        var tempInventory = Instantiate(playerInventory);
+        // tempInventory.tracks = new List<TrackSO>(playerInventory.tracks);
+        // tempInventory.items = new List<ItemSO>(playerInventory.items);
+        playerInventory = tempInventory;
+
+        var tempBank = Instantiate(shopBank);
+        // tempBank.tracks = new List<TrackSO>(playerInventory.tracks);
+        // tempBank.items = new List<ItemSO>(playerInventory.items);
+        shopBank = tempBank;
         UpdateShop();
+        UpdateInventory();
     }
 
-    void BuyTrack(GameObject e)
+    void UpdateShop()
     {
-        string thing = e.GetComponentInChildren<TextMeshProUGUI>().text;
-        tempOwnedTracks.Add(thing);
-        var f = Instantiate(BTrack, ownedTracksUI);
-        f.GetComponentInChildren<TextMeshProUGUI>().text = thing;
+        foreach (Transform t in buyItemsUI) Destroy(t.gameObject);
+        foreach (Transform t in buyTracksUI) Destroy(t.gameObject);
 
-        dollars.Value -= 1;
+        //create buttons, need a price thign in a sec, codes getting bad 🤮🤮🤮 idgaf ill fight my own demons
+        int count = 0;
+        foreach (var item in shopBank.availableItems)
+        {
+            //no dupes
+            if (playerInventory.items.Contains(item)) continue;
+            if (count >= maxBuyItem) break;
+            count++;
 
-        Destroy(e);
+            var e = Instantiate(BItem, buyItemsUI);
+            e.GetComponentInChildren<TextMeshProUGUI>().text = $"{item.name} - ${item.price}";
+
+            var holder = e.GetComponent<ItemHolder>();
+            holder.Item = item;
+
+            e.GetComponentInChildren<Button>().onClick.AddListener(() => BuyItem(item, e));
+        }
+        count = 0; //this is insanity
+        foreach (var track in shopBank.availableTracks)
+        {
+            //no dupes, it really shouldnt even be here cuz not possible technically
+            if (playerInventory.tracks.Contains(track)) continue;
+            if (count >= maxBuyTrack) break;
+            count++;
+
+                var e = Instantiate(BTrack, buyTracksUI);
+            e.GetComponentInChildren<TextMeshProUGUI>().text = $"{track.name} - ${track.price}";
+
+            var holder = e.GetComponent<TrackHolder>();
+            holder.Track = track;
+
+            e.GetComponentInChildren<Button>().onClick.AddListener(() => BuyTrack(track, e));
+        }
+    }
+     void UpdateInventory()
+    {
+        foreach (Transform t in ownedItemsUI) Destroy(t.gameObject);
+        foreach (Transform t in ownedTracksUI) Destroy(t.gameObject);
+
+        
+        foreach (var item in playerInventory.items)
+        {
+            var e = Instantiate(BItem, ownedItemsUI);
+            e.GetComponentInChildren<TextMeshProUGUI>().text = item.name;
+
+            var holder = e.GetComponent<ItemHolder>();
+            holder.Item = item;
+
+        }
+        foreach (var track in playerInventory.tracks)
+        {
+            var e = Instantiate(BTrack, ownedTracksUI);
+            e.GetComponentInChildren<TextMeshProUGUI>().text = track.name;
+
+            var holder = e.GetComponent<TrackHolder>();
+            holder.Track = track;
+
+            
+            e.GetComponentInChildren<Button>().onClick.AddListener(() => SelectTrack(e));
+        }
     }
 
-    void BuyItem(GameObject e)
+
+    void BuyTrack(TrackSO track, GameObject e)
     {
-        string thing = e.GetComponentInChildren<TextMeshProUGUI>().text;
-        tempOwnedItems.Add(thing);
-        var f = Instantiate(BItem, ownedItemsUI);
-        f.GetComponentInChildren<TextMeshProUGUI>().text = thing;
+        //MAKE SURE TO ADD A VISUAL TO SHOW U CANT BUY IT
+        if (dollars.Value < track.price) return;
+        if (playerInventory.tracks.Count >= maxOwnedTrack) return;
 
-        dollars.Value -= 1;
+        playerInventory.tracks.Add(track);
+        dollars.Value -= track.price;
 
-        Destroy(e);
+        shopBank.availableTracks.Remove(track);
+
+        //Destroy(e);
+        e.GetComponentInChildren<Button>().interactable = false;
+        e.GetComponent<CanvasGroup>().alpha = 0f;
+
+        UpdateInventory();
+    }
+
+    void BuyItem(ItemSO item, GameObject e)
+    {
+        if (dollars.Value < item.price) return;
+        if (playerInventory.items.Count >= maxOwnedItem) return;
+
+        playerInventory.items.Add(item);
+        dollars.Value -= item.price;
+
+        shopBank.availableItems.Remove(item);
+
+        // Destroy(e);
+        e.GetComponentInChildren<Button>().interactable = false;
+        e.GetComponent<CanvasGroup>().alpha = 0f;
+
+        UpdateInventory();
     }
 
     void SelectTrack(GameObject e)
     {
-        if (selectedTrack == e) return;
-        if (selectedTrack != null)
+        Debug.Log(selectedTrackGO);
+        if (selectedTrackGO == e) return;
+        if (selectedTrackGO != null)
         {
             //reset colour of prev selection
         }
 
-        selectedTrack = e;
+        selectedTrackGO = e;
+        selectedTrackSO = e.GetComponent<TrackHolder>().Track;
         //add highlight logic here
     }
 
     public void SellTrack()
     {
-        if (selectedTrack == null) return;
-        string thing = selectedTrack.GetComponentInChildren<TextMeshProUGUI>().text;
-        tempOwnedTracks.Remove(thing);
+        Debug.Log(selectedTrackGO);
+        if (selectedTrackGO == null) return;
 
-        Destroy(selectedTrack);
-        selectedTrack = null;
+        if (playerInventory.tracks.Contains(selectedTrackSO))
+        {
+            playerInventory.tracks.Remove(selectedTrackSO);
+            shopBank.availableTracks.Add(selectedTrackSO);
+            dollars.Value += selectedTrackSO.price;
+        }
 
-        dollars.Value += 1;
+        Destroy(selectedTrackGO);
+        selectedTrackGO = null;
+        selectedTrackSO = null;
+
+        UpdateInventory();
     }
 
     public void Reroll()
     {
-        Shuffle(tempShopTracks);
+        Shuffle(shopBank.availableTracks);
         UpdateShop();
     }
 
@@ -92,45 +193,7 @@ public class ShopController : MonoBehaviour
         }
     }
 
-    void UpdateShop()
-    {
-
-        foreach (Transform child in buyItemsUI) Destroy(child.gameObject);
-        foreach (Transform child in buyTracksUI) Destroy(child.gameObject);
-        foreach (Transform child in ownedItemsUI) Destroy(child.gameObject);
-        foreach (Transform child in ownedTracksUI) Destroy(child.gameObject);
-        //create buttons, need a price thign in a sec, its getting bad
-        foreach (string thing in tempShopItems)
-        {
-            Debug.Log(thing);
-            var e = Instantiate(BItem, buyItemsUI);
-            e.GetComponentInChildren<TextMeshProUGUI>().text = thing;
-
-            var copy = e;
-            e.GetComponentInChildren<Button>().onClick.AddListener(() => BuyItem(copy));
-        }
-        foreach (string thing in tempShopTracks)
-        {
-            var e = Instantiate(BTrack, buyTracksUI);
-            e.GetComponentInChildren<TextMeshProUGUI>().text = thing;
-
-            var copy = e;
-            e.GetComponentInChildren<Button>().onClick.AddListener(() => BuyTrack(copy));
-        }
-        foreach (string thing in tempOwnedItems)
-        {
-            var e = Instantiate(BItem, ownedItemsUI);
-            e.GetComponentInChildren<TextMeshProUGUI>().text = thing;
-            //e.GetComponentInChildren<Button>().onClick.AddListener(() => BuyTrack(e));
-        }
-        foreach (string thing in tempOwnedTracks)
-        {
-            var e = Instantiate(BTrack, ownedTracksUI);
-            e.GetComponentInChildren<TextMeshProUGUI>().text = thing;
-            e.GetComponentInChildren<Button>().onClick.AddListener(() => SelectTrack(e));
-        }
-    }
-
+   
     // Update is called once per frame
     void Update()
     {

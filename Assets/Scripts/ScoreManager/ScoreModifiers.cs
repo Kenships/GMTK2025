@@ -1,5 +1,6 @@
 using DefaultNamespace;
 using System;
+using TrackScripts;
 using System.Collections.Generic;
 
 public enum ScoreModifierEnum

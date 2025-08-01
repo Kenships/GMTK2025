@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using DefaultNamespace;
 
 namespace DefaultNamespace
 {
@@ -11,7 +12,9 @@ namespace DefaultNamespace
         public float volumeOverride;
         public TrackAbility ability;
         public int points;
+        public int price;
         public string description;
+        public string name;
         public Tag tag;
     }
 }

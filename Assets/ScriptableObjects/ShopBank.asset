@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12824b52ee3db5a48b84f7d60ed66840, type: 3}
+  m_Name: ShopBank
+  m_EditorClassIdentifier: 
+  availableTracks:
+  - {fileID: 11400000, guid: 30e24dac95561fe479206c6bb7172960, type: 2}
+  - {fileID: 11400000, guid: 0f93da0b9dc9c6b449efaedebca00638, type: 2}
+  - {fileID: 11400000, guid: 58833428fef7d2e45b4b903bade35bef, type: 2}
+  - {fileID: 11400000, guid: 97a77982cc4831d4495d18f24bfd93f4, type: 2}
+  - {fileID: 11400000, guid: 124b3856762c477488925ddf3e5ba699, type: 2}
+  - {fileID: 11400000, guid: e7b71242055fdf543a88459b8a1c3468, type: 2}
+  - {fileID: 11400000, guid: 4e3d7b51ced7b984296b3e044faab124, type: 2}
+  - {fileID: 11400000, guid: f24d539e458e0a646940889d3e565941, type: 2}
+  - {fileID: 11400000, guid: 0b26faf0e1e648040aa12b7c0ac305ef, type: 2}
+  - {fileID: 11400000, guid: d170568a83eb74142b425ce08ec1af25, type: 2}
+  - {fileID: 11400000, guid: 96f663eb2b3d5a449b770f95c6a81c29, type: 2}
+  - {fileID: 11400000, guid: 9e64e8983df9ac1429db217bad0960fb, type: 2}
+  - {fileID: 11400000, guid: e73883849b4d079419d523255c253b09, type: 2}
+  - {fileID: 11400000, guid: 8fc279e3e584add40b819c23b4cf00a4, type: 2}
+  - {fileID: 11400000, guid: 9ac3d8f581c8d3b4ab705f97731270b9, type: 2}
+  - {fileID: 11400000, guid: ba978d2229c05d741801fee46c9995c8, type: 2}
+  availableItems:
+  - {fileID: 11400000, guid: 71b61550279ad654ab6fa1fdd9a37b5d, type: 2}
+  - {fileID: 11400000, guid: a64b7fd907e28764c9184161bb8bac89, type: 2}
+  - {fileID: 11400000, guid: 4f625ffbfcf752d4f870fff45b13f9d3, type: 2}
+  - {fileID: 11400000, guid: f56af4685a9b6474f9fa6cbf228624f3, type: 2}
+  - {fileID: 11400000, guid: 6586d89b226a01c43b1501fdf957d678, type: 2}
+  - {fileID: 11400000, guid: 7b669120873219549ac0d566dfa68e81, type: 2}

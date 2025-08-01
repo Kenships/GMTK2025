@@ -1,6 +1,7 @@
 using DefaultNamespace;
 using System;
 using UnityEngine;
+using TrackScripts;
 using System.Collections.Generic;
 
 public struct ModifierInstance 
