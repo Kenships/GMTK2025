@@ -2,20 +2,18 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!114 &11400000
 MonoBehaviour:
-  m_ObjectHideFlags: 32
+  m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1029764d2e72d2348af146d62d964668, type: 3}
-  m_Name: ResolutionVar
+  m_Script: {fileID: 11500000, guid: 69f5cda4b0f3a65448ee36b0c903aa3b, type: 3}
+  m_Name: TestTrack
   m_EditorClassIdentifier: 
-  TagIndex: 0
-  Description: 
-  _guid: e2b135bb7cc5fe74a8ca701e3bd092ba
-  _saveGuid: 0
-  _debugLogEnabled: 0
-  _saved: 1
-  _resetOn: 0
+  clip: {fileID: 0}
+  volumeOverride: 0
+  ability: 0
+  points: 0
+  description: 
