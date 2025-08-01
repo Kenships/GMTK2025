@@ -62,6 +62,10 @@ public class ShopController : MonoBehaviour
             var holder = e.GetComponent<ItemHolder>();
             holder.Item = item;
 
+            var tooltip = e.AddComponent<Tooltip>();
+            tooltip.Message = $"{item.name}\nBuy: ${item.price}\n{item.description}";
+            //tooltip.sprite = track.icon;
+
             e.GetComponentInChildren<Button>().onClick.AddListener(() => BuyItem(item, e));
         }
         count = 0; //this is insanity
@@ -72,11 +76,15 @@ public class ShopController : MonoBehaviour
             if (count >= maxBuyTrack) break;
             count++;
 
-                var e = Instantiate(BTrack, buyTracksUI);
+            var e = Instantiate(BTrack, buyTracksUI);
             e.GetComponentInChildren<TextMeshProUGUI>().text = $"{track.name} - ${track.price}";
 
             var holder = e.GetComponent<TrackHolder>();
             holder.Track = track;
+
+            var tooltip = e.AddComponent<Tooltip>();
+            tooltip.Message = $"{track.name}\nBuy: ${track.price}\n{track.description}";
+            //tooltip.sprite = track.icon;
 
             e.GetComponentInChildren<Button>().onClick.AddListener(() => BuyTrack(track, e));
         }
@@ -86,7 +94,7 @@ public class ShopController : MonoBehaviour
         foreach (Transform t in ownedItemsUI) Destroy(t.gameObject);
         foreach (Transform t in ownedTracksUI) Destroy(t.gameObject);
 
-        
+
         foreach (var item in playerInventory.items)
         {
             var e = Instantiate(BItem, ownedItemsUI);
@@ -94,6 +102,10 @@ public class ShopController : MonoBehaviour
 
             var holder = e.GetComponent<ItemHolder>();
             holder.Item = item;
+            
+            var tooltip = e.AddComponent<Tooltip>();
+            tooltip.Message = $"{item.name}\n{item.description}";
+            //tooltip.sprite = track.icon;
 
         }
         foreach (var track in playerInventory.tracks)
@@ -104,6 +116,9 @@ public class ShopController : MonoBehaviour
             var holder = e.GetComponent<TrackHolder>();
             holder.Track = track;
 
+            var tooltip = e.AddComponent<Tooltip>();
+            tooltip.Message = $"{track.name}\nSell: ${track.price}\n{track.description}";
+            //tooltip.sprite = track.icon;
             
             e.GetComponentInChildren<Button>().onClick.AddListener(() => SelectTrack(e));
         }

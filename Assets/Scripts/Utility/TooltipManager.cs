@@ -96,7 +96,7 @@ public class TooltipManager : MonoBehaviour
         {
             mousePos = new Vector2(Mouse.current.position.value.x - (rect.rect.width / canvasScaler.referenceResolution.x) * cam.pixelWidth * 0.55f, Mouse.current.position.value.y + (rect.rect.height / canvasScaler.referenceResolution.y) * cam.pixelHeight * 0.55f);
         }
-        else 
+        else
         {
             mousePos = new Vector2(Mouse.current.position.value.x + (rect.rect.width / canvasScaler.referenceResolution.x) * cam.pixelWidth * 0.55f, Mouse.current.position.value.y + (rect.rect.height / canvasScaler.referenceResolution.y) * cam.pixelHeight * 0.55f);
         }
