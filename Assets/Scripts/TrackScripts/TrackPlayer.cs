@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using DefaultNamespace;
 using ImprovedTimers;
 using Obvious.Soap;
@@ -14,25 +14,25 @@ namespace TrackScripts
         [SerializeField] ScriptableEventNoParam startGame;
         
         [Header("Track References")]
-        [SerializeField] GameSettingsSO settings;
-        [SerializeField] AudioSource audioSource;
-        [SerializeField] AudioSource backgroundSource;
-        [SerializeField] AudioClip backgroundClip;
+        [SerializeField] private GameSettingsSO settings;
+        [SerializeField] private AudioSource audioSource;
+        [SerializeField] private AudioSource backgroundSource;
+        [SerializeField] private AudioClip backgroundClip;
+        [SerializeField] private ScoreManager scoreManager;
         
 
-        [SerializeField]
-        private PlaylistController discoBall;
-        [SerializeField]
-        private PlaylistController activePlaylist;
+        [SerializeField] private PlaylistController discoBall;
+        [SerializeField] private PlaylistController activePlaylist;
+        [SerializeField] private PlaylistController backupPlaylist;
         
         [Header("Track Bus Events")]
         
         [SerializeField] private ScriptableEventNoParam backupToActiveEvent;
         [SerializeField] private ScriptableEventNoParam activeToDiscoEvent;
         [SerializeField] private ScriptableEventNoParam discoToBackup;
+        
 
-        [SerializeField]
-        private FloatVariable progress;
+        [SerializeField] private FloatVariable progress;
         
         private TrackSO currentTrack;
         
@@ -49,6 +49,7 @@ namespace TrackScripts
             backupToActiveEvent?.Raise();
             activeToDiscoEvent?.Raise();
             discoToBackup?.Raise();
+            currentTrack.ability.endAction(scoreManager, currentTrack, backupPlaylist);
             
             Play();
         }
@@ -64,6 +65,13 @@ namespace TrackScripts
             
             audioSource.Play();
             backgroundSource.Play();
+
+            currentTrack.ability.startAction(scoreManager, currentTrack, backupPlaylist);
+                foreach (TimestampAction ta in currentTrack.ability.timestampActions) 
+                {
+                    CountdownTimer taTimer = new CountdownTimer(ta.audioTime);
+                    taTimer.OnTimerEnd += () => { ta.Action(scoreManager, currentTrack, backupPlaylist); };
+                }
         }
 
         private void Update()

@@ -1,8 +1,9 @@
-﻿using DefaultNamespace;
+using DefaultNamespace;
 using UnityEngine;
 
 namespace TrackScripts
 {
+    public enum Tag { }
     [CreateAssetMenu(fileName = "TrackSO", menuName = "Scriptable Objects/TrackSO")]
     public class TrackSO : ScriptableObject
     {
@@ -12,6 +13,7 @@ namespace TrackScripts
         public TrackAbility ability;
         public int points;
         public string description;
+        public Tag tag;
         public int bars;
     }
 }
