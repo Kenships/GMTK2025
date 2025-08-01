@@ -8,8 +8,8 @@ public enum ScoreModifierEnum
 }
 public class ScoreModifiers
 {
-    public static Dictionary<ScoreModifierEnum, Func<TrackSO, ScoreManager, int, int>> enumToModifier = new()
+    public static Dictionary<ScoreModifierEnum, Func<TrackSO, TrackSO, ScoreManager, int, int>> enumToModifier = new()
     {
-        { ScoreModifierEnum.X2, (track, scoreManager, scoredPoints) => { return scoredPoints * 2; } } //Example modifier
+        { ScoreModifierEnum.X2, (trackType, trackValue, scoreManager, scoredPoints) => { return scoredPoints * 2; } } //Example modifier
     };
 }

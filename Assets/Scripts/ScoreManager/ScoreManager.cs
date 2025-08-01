@@ -14,13 +14,15 @@ public class ScoreManager : ScriptableObject
     public int PreviousScore { get; set; }
 
     public List<ModifierInstance> modifiers;
+    private Dictionary<TrackSO, TrackSO> trackTypeToModified = new () { };
 
-    public int ScorePoints(TrackSO track,int points) 
+    public int ScorePoints(TrackSO track, int points) 
     {
+        TrackSO actualTrack = GetUpToDateTrack(track);
         List<ModifierInstance> toRemove = new List<ModifierInstance>();
         foreach (ModifierInstance m in modifiers) 
         {
-            points = ScoreModifiers.enumToModifier[m.Modifier](track, this, points);
+            points = ScoreModifiers.enumToModifier[m.Modifier](track, actualTrack, this, points);
             if (m.LifeTime <= 0) toRemove.Add(m);
         }
         foreach (ModifierInstance modifier in toRemove) modifiers.Remove(modifier);
@@ -52,5 +54,14 @@ public class ScoreManager : ScriptableObject
         {
             modifiers.Remove(m);
         }
+    }
+    public void AddTrackModifier(TrackSO track, Func<TrackSO, TrackSO> modification) 
+    {
+        trackTypeToModified[track] = modification(trackTypeToModified[track]);
+    }
+    public TrackSO GetUpToDateTrack(TrackSO track) 
+    {
+        if (!trackTypeToModified[track]) trackTypeToModified[track] = track;
+        return trackTypeToModified[track];
     }
 }

@@ -13,6 +13,7 @@ namespace TrackScripts
 
         [SerializeField] private PlaylistController activePlaylist;
         [SerializeField] private PlaylistController backupPlaylist;
+        [SerializeField] private ScoreManager scoreManager;
 
         private TrackSO currentTrack;
         
@@ -36,6 +37,7 @@ namespace TrackScripts
 
         private void OnSongEnd()
         {
+            currentTrack.ability.endAction(scoreManager, currentTrack, backupPlaylist);
             backupPlaylist.TryEnqueue(currentTrack);
             
             Play();
@@ -52,6 +54,12 @@ namespace TrackScripts
                 audioSource.clip = track.clip;
                 audioSource.Play();
                 timer.Start();
+                currentTrack.ability.startAction(scoreManager, currentTrack, backupPlaylist);
+                foreach (TimestampAction ta in currentTrack.ability.timestampActions) 
+                {
+                    CountdownTimer taTimer = new CountdownTimer(ta.audioTime);
+                    taTimer.OnTimerEnd += () => { ta.Action(scoreManager, currentTrack, backupPlaylist); };
+                }
             }
             
             if (backupPlaylist.TryDequeue(out track))

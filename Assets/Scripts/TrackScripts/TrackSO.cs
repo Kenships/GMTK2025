@@ -2,6 +2,7 @@
 
 namespace DefaultNamespace
 {
+    public enum Tag { }
     [CreateAssetMenu(fileName = "TrackSO", menuName = "Scriptable Objects/TrackSO")]
     public class TrackSO : ScriptableObject
     {
@@ -11,5 +12,6 @@ namespace DefaultNamespace
         public TrackAbility ability;
         public int points;
         public string description;
+        public Tag tag;
     }
 }
