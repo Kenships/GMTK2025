@@ -22,8 +22,6 @@ namespace TrackScripts
         [SerializeField]
         PlaylistController playlistControllerEnd;
         
-        [SerializeField]
-        InputAction inputAction;
 
         [SerializeField]
         private float duration = 0.5f;
@@ -32,8 +30,6 @@ namespace TrackScripts
         
         private void Start()
         {
-            inputAction.Enable();
-            inputAction.performed += InputActionOnperformed;
             moveTrack.OnRaised += MoveTrackOnRaised;
             gameObject.SetActive(false);
             transform.position = startPos.position;

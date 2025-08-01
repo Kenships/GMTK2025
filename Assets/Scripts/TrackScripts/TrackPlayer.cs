@@ -10,15 +10,22 @@ namespace TrackScripts
 {
     public class TrackPlayer : MonoBehaviour
     {
+        [Header("Game Start Trigger")]
+        [SerializeField] ScriptableEventNoParam startGame;
+        
+        [Header("Track References")]
         [SerializeField] GameSettingsSO settings;
         [SerializeField] AudioSource audioSource;
         [SerializeField] AudioSource backgroundSource;
         [SerializeField] AudioClip backgroundClip;
+        
 
         [SerializeField]
         private PlaylistController discoBall;
         [SerializeField]
         private PlaylistController activePlaylist;
+        
+        [Header("Track Bus Events")]
         
         [SerializeField] private ScriptableEventNoParam backupToActiveEvent;
         [SerializeField] private ScriptableEventNoParam activeToDiscoEvent;
@@ -29,21 +36,13 @@ namespace TrackScripts
         
         private TrackSO currentTrack;
         
-        public UnityAction onSongEnd;
 
         private void Start()
         {
             backgroundSource.clip = backgroundClip;
-            StartSequence();
-            Play();
-            
-            onSongEnd += OnSongEnd;
+            startGame.OnRaised += Play;
         }
-
-        private void StartSequence()
-        {
-            
-        }
+        
 
         private void OnSongEnd()
         {
@@ -74,9 +73,7 @@ namespace TrackScripts
                 progress.Value = audioSource.time / (audioSource.clip.length * (currentTrack.bars/4f)) * 100f;
             }
             
-            
-            Debug.Log(progress);
-            if (!audioSource.isPlaying)
+            if (audioSource.clip && !audioSource.isPlaying)
             {
                 OnSongEnd();
             }
