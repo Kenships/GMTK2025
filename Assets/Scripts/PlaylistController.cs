@@ -38,7 +38,6 @@ public class PlaylistController : MonoBehaviour
 
         foreach (Transform child in transform)
         {
-            Debug.Log(child.position);
             children.Add(child);
             if (child.childCount > 0)
             {
