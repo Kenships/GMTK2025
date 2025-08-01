@@ -2,6 +2,8 @@ using DefaultNamespace;
 using System;
 using UnityEngine;
 using System.Collections.Generic;
+using Obvious.Soap;
+using TrackScripts;
 
 public struct ModifierInstance 
 {
@@ -10,8 +12,9 @@ public struct ModifierInstance
 }
 public class ScoreManager : ScriptableObject
 {
-    public int Score { get; set; }
-    public int PreviousScore { get; set; }
+    public TrackPlayer TrackPlayer;
+    public IntVariable Score;
+    public IntVariable PreviousScore;
 
     public List<ModifierInstance> modifiers;
     private Dictionary<TrackSO, TrackSO> trackTypeToModified = new () { };
@@ -22,13 +25,13 @@ public class ScoreManager : ScriptableObject
         List<ModifierInstance> toRemove = new List<ModifierInstance>();
         foreach (ModifierInstance m in modifiers) 
         {
-            points = ScoreModifiers.enumToModifier[m.Modifier](track, actualTrack, this, points);
+            points = ScoreModifiers.enumToModifier[m.Modifier](actualTrack, this, points);
             if (m.LifeTime <= 0) toRemove.Add(m);
         }
         foreach (ModifierInstance modifier in toRemove) modifiers.Remove(modifier);
 
-        PreviousScore = Score;
-        Score += points;
+        PreviousScore.Value = Score;
+        Score.Value += points;
         return points;
     }
 
@@ -59,6 +62,7 @@ public class ScoreManager : ScriptableObject
     {
         trackTypeToModified[track] = modification(trackTypeToModified[track]);
     }
+    
     public TrackSO GetUpToDateTrack(TrackSO track) 
     {
         if (!trackTypeToModified[track]) trackTypeToModified[track] = track;
