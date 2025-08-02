@@ -56,11 +56,6 @@ public class GameStartSequence : MonoBehaviour
         countDownTimer.Start();
     }
 
-    private void StartGame()
-    {
-        startGame?.Raise();
-    }
-
     private void Shuffle(List<TrackSO> tracks)
     {
         System.Random random = new System.Random();
