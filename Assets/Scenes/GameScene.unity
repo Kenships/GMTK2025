@@ -937,6 +937,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startGame: {fileID: 11400000, guid: 897360a55de959444a664b504991aa4a, type: 2}
+  endGame: {fileID: 11400000, guid: 404b6b6b3bf336d4fadb789020308f90, type: 2}
   settings: {fileID: 11400000, guid: 7bd9d722c57bdd545a7bef6550ed1df2, type: 2}
   audioSource: {fileID: 610126914}
   backgroundSource: {fileID: 458840328}
@@ -950,6 +951,8 @@ MonoBehaviour:
   discoToBackup: {fileID: 11400000, guid: 61ca5870aa0b20a4e9333bda8c604c8c, type: 2}
   discoToActive: {fileID: 11400000, guid: d38f4e4554b29324eb545ca16213f776, type: 2}
   progress: {fileID: 11400000, guid: a7e9ec1dce325544aa7fe1d0e4290dec, type: 2}
+  currentBarNumber: 0
+  trackHistory: []
 --- !u!1001 &1097781380
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1771,9 +1774,17 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3719706025979049900, guid: c10e70f62272c4649845afd0e1f75bd4, type: 3}
+      propertyPath: gameState
+      value: 
+      objectReference: {fileID: 11400000, guid: 809a66c841cdef54caad57a248c5d1af, type: 2}
+    - target: {fileID: 3719706025979049900, guid: c10e70f62272c4649845afd0e1f75bd4, type: 3}
       propertyPath: inventory
       value: 
-      objectReference: {fileID: 11400000, guid: 932371640b5aa4e4e87602366b202d23, type: 2}
+      objectReference: {fileID: 11400000, guid: cd3340c336f701d46bb85e2604d61bcd, type: 2}
+    - target: {fileID: 3719706025979049900, guid: c10e70f62272c4649845afd0e1f75bd4, type: 3}
+      propertyPath: startGame
+      value: 
+      objectReference: {fileID: 11400000, guid: 897360a55de959444a664b504991aa4a, type: 2}
     - target: {fileID: 3719706025979049900, guid: c10e70f62272c4649845afd0e1f75bd4, type: 3}
       propertyPath: playlists.Array.size
       value: 3
