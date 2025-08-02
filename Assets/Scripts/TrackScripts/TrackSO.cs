@@ -1,6 +1,5 @@
 using DefaultNamespace;
 using UnityEngine;
-using DefaultNamespace;
 
 namespace TrackScripts
 {
@@ -21,7 +20,7 @@ namespace TrackScripts
         public int points;
         public int price;
         public string description;
-        public string name;
+        public string trackName;
         public Tag tag;
         public int bars;
 

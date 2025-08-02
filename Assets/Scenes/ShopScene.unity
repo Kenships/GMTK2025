@@ -429,6 +429,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &239919255 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7283496541450412047, guid: 1bd2ba4a86b69a24889269b9efa3f593, type: 3}
+  m_PrefabInstance: {fileID: 2522638102501444961}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &261403001
 GameObject:
   m_ObjectHideFlags: 0
@@ -1735,6 +1740,11 @@ MonoBehaviour:
   m_Spacing: {x: 0, y: 148}
   m_Constraint: 0
   m_ConstraintCount: 2
+--- !u!1 &1130588115 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 536095408354253229, guid: 7a6aa98ce9600a044a7e890d60aecb46, type: 3}
+  m_PrefabInstance: {fileID: 3847863861411056399}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1141102069
 GameObject:
   m_ObjectHideFlags: 0
@@ -1817,7 +1827,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1141102072}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 11400000, guid: 3c6bba17af3526d4ab5d082dd48842f8, type: 2}
+        m_TargetAssemblyTypeName: Obvious.Soap.ScriptableEventNoParam, Obvious.Soap
+        m_MethodName: Raise
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1141102072
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1960,14 +1982,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ecc2679f033bba4bab0d8545a334f2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerInventory: {fileID: 11400000, guid: 17070e4ddde3e174798df3878364b026, type: 2}
+  playerInventory: {fileID: 11400000, guid: 932371640b5aa4e4e87602366b202d23, type: 2}
   shopBank: {fileID: 11400000, guid: 7a28385fde12ab14a825ab1c4353a5f5, type: 2}
   buyTracksUI: {fileID: 1673023267}
   ownedTracksUI: {fileID: 97807740}
   buyItemsUI: {fileID: 317546295}
   ownedItemsUI: {fileID: 1094896441}
-  BItem: {fileID: 7283496541450412047, guid: 1bd2ba4a86b69a24889269b9efa3f593, type: 3}
-  BTrack: {fileID: 536095408354253229, guid: 7a6aa98ce9600a044a7e890d60aecb46, type: 3}
+  BItem: {fileID: 239919255}
+  BTrack: {fileID: 1130588115}
   maxBuyTrack: 4
   maxBuyItem: 3
   maxOwnedTrack: 8
@@ -2789,6 +2811,53 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1724747761}
   m_CullTransparentMesh: 1
+--- !u!1 &1730123449
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1730123451}
+  - component: {fileID: 1730123450}
+  m_Layer: 0
+  m_Name: SceneLoader
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1730123450
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1730123449}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7becccbb9d4f0743896f40ba63e04d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  trigger: {fileID: 11400000, guid: 3c6bba17af3526d4ab5d082dd48842f8, type: 2}
+  loadingProgress: {fileID: 11400000, guid: 1fd8c9b66fd96914eaf8b79bdca7dcb4, type: 2}
+  sceneName: AbilityTest
+--- !u!4 &1730123451
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1730123449}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1267.8086, y: 328.07977, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2018585601
 GameObject:
   m_ObjectHideFlags: 0
@@ -3267,3 +3336,4 @@ SceneRoots:
   - {fileID: 1462673215}
   - {fileID: 1085619783}
   - {fileID: 107106924}
+  - {fileID: 1730123451}

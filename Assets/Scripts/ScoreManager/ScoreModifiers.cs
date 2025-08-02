@@ -1,8 +1,8 @@
-using DefaultNamespace;
+
 using System;
 using TrackScripts;
 using System.Collections.Generic;
-using TrackScripts;
+
 
 public enum ScoreModifierEnum
 {

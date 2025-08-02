@@ -6159,7 +6159,7 @@ MonoBehaviour:
   leftDiskEnd: {fileID: 595199307}
   rightDiskEnd: {fileID: 635678122}
   fullScreen: {fileID: 11400000, guid: 18d60c6e0e599334bb49af96cf3ed553, type: 2}
-  ButtonCanvas: {fileID: 0}
+  ButtonCanvas: {fileID: 1757930550}
 --- !u!1 &2084172033
 GameObject:
   m_ObjectHideFlags: 0

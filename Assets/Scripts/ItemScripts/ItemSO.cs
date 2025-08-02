@@ -9,6 +9,6 @@ namespace DefaultNamespace
         public Sprite itemCover;
         public string description;
         public int price;
-        public string name;
+        public string itemName;
     }
 }

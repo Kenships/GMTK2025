@@ -17,14 +17,18 @@ public class SettingsOpen : MonoBehaviour
     [SerializeField]
     private GameObject ButtonCanvas;
 
+    private Action disable;
+
     private void Start()
     {
         fullScreen.OnValueChanged += (value) => Screen.fullScreen = value;
         gameObject.SetActive(false);
+        disable += () => gameObject.SetActive(false);
     }
 
     public void Close()
     {
+        
         Sequence.Create(Tween.Position(
             target: leftDisk,
             startValue: leftDiskEnd.position,
@@ -38,8 +42,8 @@ public class SettingsOpen : MonoBehaviour
                 endValue: leftDiskStart.rotation,
                 duration: 0.3f,
                 ease: Ease.InOutSine,
-                cycles: 1));
-        Sequence.Create(Tween.Position(
+                cycles: 1))
+            .Group(Tween.Position(
             target: rightDisk,
             startValue: rightDiskEnd.position,
             endValue: rightDiskStart.position,
@@ -54,8 +58,8 @@ public class SettingsOpen : MonoBehaviour
                 ease: Ease.InOutSine,
                 cycles: 1)).OnComplete(() =>
         {
-            gameObject.SetActive(false);
             ButtonCanvas.SetActive(true);
+            disable?.Invoke();
         });
     }
     

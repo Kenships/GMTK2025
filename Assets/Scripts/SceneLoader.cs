@@ -4,6 +4,7 @@ using Obvious.Soap;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+
 public class SceneLoader : MonoBehaviour
 {
     [SerializeField]
@@ -17,17 +18,47 @@ public class SceneLoader : MonoBehaviour
     
     void Start()
     {
-        trigger.OnRaised += () => StartCoroutine(LoadLevelAsync());
+        if (string.IsNullOrEmpty(sceneName))
+        {
+            Debug.LogError("Scene name is not set in SceneLoader");
+            return;
+        }
+
+        if (trigger == null)
+        {
+            Debug.LogError("Trigger event is not assigned in SceneLoader");
+            return;
+        }
+
+        trigger.OnRaised += HandleSceneLoad;
+    }
+
+    private void HandleSceneLoad()
+    {
+        StartCoroutine(LoadLevelAsync());
     }
 
     IEnumerator LoadLevelAsync()
     {
+        if (!Application.CanStreamedLevelBeLoaded(sceneName))
+        {
+            Debug.LogError($"Scene '{sceneName}' cannot be loaded. Make sure it exists and is added to build settings.");
+            yield break;
+        }
+
         AsyncOperation loadOperation = SceneManager.LoadSceneAsync(sceneName);
-        
+
         while(!loadOperation.isDone)
         {
-            loadingProgress.Value = loadOperation.progress;
+            if (loadingProgress != null)
+                loadingProgress.Value = loadOperation.progress;
             yield return null;
         }
+    }
+
+    private void OnDestroy()
+    {
+        if (trigger != null)
+            trigger.OnRaised -= HandleSceneLoad;
     }
 }
