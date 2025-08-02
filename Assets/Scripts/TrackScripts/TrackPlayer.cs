@@ -79,6 +79,7 @@ namespace TrackScripts
 
         private void OnSongEnd()
         {
+            Shuffle();
             if (TrackAbilities.EnumToAbility.TryGetValue(currentTrack.ability, out var ability))
             {
                 List<TrackSO> allTracks = new List<TrackSO>();
@@ -95,7 +96,6 @@ namespace TrackScripts
 
         private void Play()
         {
-            
             
             audioSource.Stop();
             bool repeated = false;
@@ -179,11 +179,6 @@ namespace TrackScripts
             {
                 progress.Value = audioSource.time / (audioSource.clip.length * (currentTrack.bars / 4f)) * 100f;
             }
-
-            // if (audioSource.clip && !audioSource.isPlaying)
-            // {
-            //     OnSongEnd();
-            // }
         }
 
         private void OnApplicationPause(bool pauseStatus)
@@ -198,5 +193,61 @@ namespace TrackScripts
             backgroundSource.UnPause();
             audioSource.UnPause();
         }
+        
+        private void Shuffle()
+        {
+            List<TrackSO> tracks = new List<TrackSO>();
+            tracks.AddRange(discoBall.GetAllTracks());
+            tracks.AddRange(activePlaylist.GetAllTracks());
+            tracks.AddRange(backupPlaylist.GetAllTracks());
+            
+            System.Random random = new System.Random();
+            int n = tracks.Count;
+            while (n > 1)
+            {
+                n--;
+                int k = random.Next(n + 1);
+                (tracks[k], tracks[n]) = (tracks[n], tracks[k]);
+            }
+            
+            discoBall.RemoveAll();
+            activePlaylist.RemoveAll();
+            backupPlaylist.RemoveAll();
+            
+            int i = 0;
+            
+            for (int j = 0; j < discoBall.Capacity; j++)
+            {
+                if(i >= tracks.Count) break;
+            
+                Debug.Log(discoBall.TryEnqueue(tracks[i]));
+            
+                i++;
+            }
+            
+            for (int j = 0; j < activePlaylist.Capacity; j++)
+            {
+                if(i >= tracks.Count) break;
+            
+                Debug.Log(activePlaylist.TryEnqueue(tracks[i]));
+            
+                i++;
+            }
+            
+            for (int j = 0; j < backupPlaylist.Capacity; j++)
+            {
+                if(i >= tracks.Count) break;
+            
+                Debug.Log(backupPlaylist.TryEnqueue(tracks[i]));
+            
+                i++;
+            }
+
+            firstRun = true;
+            
+            
+        }
+        
+        
     }
 }

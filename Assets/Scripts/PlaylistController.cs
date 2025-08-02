@@ -176,6 +176,25 @@ public class PlaylistController : MonoBehaviour
         return null;
     }
 
+    public void RemoveAll()
+    {
+        if (HeldTrack && HeldTrack.Value)
+        {
+            Destroy(HeldTrack.Value);
+            HeldTrack.Value = null;
+        }
+
+        foreach (Transform child in children)
+        {
+            if (child.childCount > 0)
+            {
+                Transform grandChild = child.GetChild(0);
+                grandChild.SetParent(null);
+                Destroy(grandChild.gameObject);
+            }
+        }
+    }
+
     public TrackSO Remove(int index)
     {
         
