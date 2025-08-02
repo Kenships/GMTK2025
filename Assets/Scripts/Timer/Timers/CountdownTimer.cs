@@ -41,8 +41,6 @@ namespace ImprovedTimers {
             if (IsRunning && CurrentTime <= 0) {
                 if (_repeat > 0)
                 {
-                    OnTimerEnd.Invoke();
-                    
                     // Reset
                     CurrentTime = initialTime;
                     

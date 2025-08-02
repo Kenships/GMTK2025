@@ -74,7 +74,6 @@ namespace ScoreManager
             PreviousScore.Value = Score;
             Score.Value += points;
             
-            Debug.Log("+" + (Score.Value - PreviousScore.Value));
             return points;
         }
 

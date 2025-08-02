@@ -27,7 +27,6 @@ public class SceneLoader : MonoBehaviour
         while(!loadOperation.isDone)
         {
             loadingProgress.Value = loadOperation.progress;
-            Debug.Log(loadOperation.progress + "%");
             yield return null;
         }
     }

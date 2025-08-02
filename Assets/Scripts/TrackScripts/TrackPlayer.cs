@@ -36,12 +36,13 @@ namespace TrackScripts
         [SerializeField] private ScriptableEventNoParam activeToDiscoEvent;
 
         [SerializeField] private ScriptableEventNoParam discoToBackup;
+        
         [SerializeField] private ScriptableEventNoParam discoToActive;
         
 
         [SerializeField] private FloatVariable progress;
 
-        public UnityAction OnSongPlay;
+        public UnityAction OnDownBeat;
 
         public FloatVariable PlayBackSpeed;
 
@@ -65,6 +66,7 @@ namespace TrackScripts
             startGame.OnRaised += () =>
             {
                 firstRun = true;
+                backgroundSource.Play();
                 Play();
             };
             
@@ -82,17 +84,14 @@ namespace TrackScripts
                 
                 ability.endAction.Invoke(scoreManager, currentTrack, allTracks);
             }
-            
-            Debug.Log(currentTrack.name + " has been ended");
             Play();
         }
 
         private void Play()
         {
-            OnSongPlay?.Invoke();
+            
             
             audioSource.Stop();
-            backgroundSource.Stop();
         
             currentTrack = activePlaylist.GetNextInQueue();
             
@@ -100,10 +99,9 @@ namespace TrackScripts
             {
                 if (backupPlaylist.TrackCount > 0)
                 {
-                    discoToBackup?.Raise();
                     activeToDiscoEvent?.Raise();
                     backupToActiveEvent?.Raise();
-                    
+                    discoToBackup?.Raise();
                 }
                 else if (activePlaylist.TrackCount > 0)
                 {
@@ -120,19 +118,22 @@ namespace TrackScripts
                 currentTrack = discoBall.GetNextInQueue();
                 firstRun = false;
             }
-            Debug.Log(currentTrack.name + " has been played");
             audioSource.clip = currentTrack.clip;
 
             audioSource.Play();
-            backgroundSource.Play();
 
             float timeForOneBar = currentTrack.clip.length / 4f / PlayBackSpeed;
-            Debug.Log(currentTrack.bars);
+            
+            
             CountdownTimerRepeat scoreTimer = new CountdownTimerRepeat(timeForOneBar, currentTrack.bars);
             scoreTimer.OnTimerRaised += () =>
             {
+                OnDownBeat?.Invoke();
                 scoreManager.ScorePoints(currentTrack, currentTrack.points / currentTrack.bars);
             };
+
+            scoreTimer.OnTimerEnd += OnSongEnd;
+            
             scoreTimer.Start();
 
             if (TrackAbilities.EnumToAbility.TryGetValue(currentTrack.ability, out var ability))
@@ -162,10 +163,23 @@ namespace TrackScripts
                 progress.Value = audioSource.time / (audioSource.clip.length * (currentTrack.bars / 4f)) * 100f;
             }
 
-            if (audioSource.clip && !audioSource.isPlaying)
-            {
-                OnSongEnd();
-            }
+            // if (audioSource.clip && !audioSource.isPlaying)
+            // {
+            //     OnSongEnd();
+            // }
+        }
+
+        private void OnApplicationPause(bool pauseStatus)
+        {
+            backgroundSource.Pause();
+            audioSource.Pause();
+            
+        }
+
+        private void OnApplicationFocus(bool hasFocus)
+        {
+            backgroundSource.UnPause();
+            audioSource.UnPause();
         }
     }
 }

@@ -41,12 +41,11 @@ namespace TrackScripts
 
             TrackHolder trackHolder = playlistControllerStart.GetNextTrackHolderInQueue();
             
+            
             if (!trackHolder)
             {
                 return;
             }
-            
-            
 
             if (playlistControllerStart.TryDequeue(out currentTrack))
             {

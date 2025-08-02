@@ -30,7 +30,7 @@ public class PlaylistController : MonoBehaviour
         get
         {
             if (!HeldTrack)
-                return GetAllTracks().Count + 1;
+                return GetAllTracks().Count;
             
             return HeldTrack.Value ? GetAllTracks().Count + 1 : GetAllTracks().Count;
         }
@@ -44,7 +44,7 @@ public class PlaylistController : MonoBehaviour
         children = new List<Transform>();
         m_rectTransform = GetComponent<RectTransform>();
         
-        int currentCapacity = transform.childCount;
+        int currentCapacity = transform.childCount; 
         
         int capacityToFill = capacityMax - currentCapacity;
 
@@ -81,6 +81,11 @@ public class PlaylistController : MonoBehaviour
         {
             trackBase = null;
             return false;
+        }
+
+        if (HeldTrack && trackHolder.gameObject == HeldTrack.Value)
+        {
+            HeldTrack.Value = null;
         }
         
         trackBase = trackHolder.Track;
@@ -157,11 +162,14 @@ public class PlaylistController : MonoBehaviour
                 return trackHolder;
             }
         }
-
+        
+        Debug.Log(HeldTrack);
+        
         if (HeldTrack && HeldTrack.Value)
         {
+            Debug.Log(HeldTrack.Value.name);
+            
             TrackHolder trackHolder = HeldTrack.Value.GetComponent<TrackHolder>();
-            HeldTrack.Value = null;
             return trackHolder;
         }
 

@@ -38,20 +38,6 @@ namespace DefaultNamespace
     {
         public static Dictionary<TrackAbilityEnum, TrackAbility> EnumToAbility = new() 
         {
-            {TrackAbilityEnum.AudioSpeedBoost1_2x, new TrackAbility()
-            {
-                startAction = (scoreManager, track, playlist) =>
-                {
-                    
-                }, 
-                endAction = (scoreManager, track, playlist) =>
-                {
-                    scoreManager.TrackPlayer.PlayBackSpeed.Value = 1.2f;
-
-                    scoreManager.AddTimedEffect(10f, () => scoreManager.TrackPlayer.PlayBackSpeed.Value = 1f);
-                },
-                timestampActions = new List<TimestampAction>()
-            }},
             {TrackAbilityEnum.ScoreAgainOnEnd, new TrackAbility()
             {
                 startAction = (scoreManager, track, playlist) =>
