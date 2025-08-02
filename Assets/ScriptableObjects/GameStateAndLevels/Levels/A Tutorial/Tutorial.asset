@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Tutorial
   m_EditorClassIdentifier: 
   levelName: Level 1
-  minimumWinScore: 20
-  numberOfBars: 224
+  minimumWinScore: 0
+  numberOfBars: 20
   endOfRoundCredits: 100
   highScore: {fileID: 11400000, guid: 972cea54b744bfa45897acfb2fe18c2b, type: 2}
