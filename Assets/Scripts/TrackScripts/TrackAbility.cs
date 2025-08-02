@@ -13,7 +13,13 @@ namespace DefaultNamespace
         None,
         AudioSpeedBoost1_2x,
         ScoreAgainOnEnd,
-        ScoreModify2xFor4Scores
+        ScoreModify2xFor3Scores,
+        ElectronicStreak,
+        Extra3AfterWind,
+        DecrementModifierLifetimes,
+        IncreaseTrackPointBy2,
+        Gain5Lose5,
+        RepeatNextNonWind
     }
 
     public struct TimestampAction
@@ -46,11 +52,11 @@ namespace DefaultNamespace
                 }, 
                 endAction = (scoreManager, track, playlist) =>
                 {
-                    scoreManager.ScorePoints(track, track.points);
+                    scoreManager.ScorePoints(track, scoreManager.GetUpToDateTrack(track).points, ScoreContextEnum.TrackEnd);
                 },
                 timestampActions = new List<TimestampAction>()
             }},
-            {TrackAbilityEnum.ScoreModify2xFor4Scores, new TrackAbility()
+            {TrackAbilityEnum.ScoreModify2xFor3Scores, new TrackAbility()
             {
                 startAction = (scoreManager, track, playlist) =>
                 {
@@ -60,13 +66,114 @@ namespace DefaultNamespace
                 {
                     scoreManager.AddModifier(new ModifierInstance()
                     {
-                        LifeTime = 4,
+                        LifeTime = 3,
                         Modifier = ScoreModifierEnum.X2
                     });
                 },
                 timestampActions = new List<TimestampAction>()
-            }}
-            
+            }},
+            {TrackAbilityEnum.ElectronicStreak, new TrackAbility() 
+            {
+                startAction = (scoreManager, track, playlist) =>
+                {
+                    ModifierInstance modifier = new ModifierInstance()
+                    {
+                        LifeTime = 1,
+                        Modifier = ScoreModifierEnum.ElectronicStreak,
+                    };
+                    scoreManager.AddModifier(modifier);
+                    Action<TrackSO> callback = (track) => ScoreModifiers.enumToModifier[ScoreModifierEnum.ElectronicStreak](modifier, track, scoreManager, 0, ScoreContextEnum.TrackStart);
+                    modifier.callback = callback;
+                    scoreManager.TrackPlayer.SongEnd += callback;
+                },
+                endAction = (scoreManager, track, playlist) =>
+                {
+
+                },
+                timestampActions = new List<TimestampAction>()
+            }},
+            {TrackAbilityEnum.Extra3AfterWind, new TrackAbility()
+            {
+                startAction = (scoreManager, track, playlist) =>
+                {
+
+                },
+                endAction = (scoreManager, track, playlist) =>
+                {
+                    List<TrackSO> history = scoreManager.TrackPlayer.trackHistory;
+                    if (history.Count-2 >= 0 && history[history.Count-2].tags.Contains(Tag.Wind))
+                    {
+                        scoreManager.ScorePoints(track, 3, ScoreContextEnum.TrackEnd);
+                    }
+                },
+                timestampActions = new List<TimestampAction>()
+            }},
+            {TrackAbilityEnum.DecrementModifierLifetimes, new TrackAbility()
+            {
+                startAction = (scoreManager, track, playlist) =>
+                {
+
+                },
+                endAction = (scoreManager, track, playlist) =>
+                {
+                    scoreManager.AffectModifierLifetime(ScoreModifierEnum.All, (_, lifetime) => lifetime - 1);
+                },
+                timestampActions = new List<TimestampAction>()
+            }},
+            {TrackAbilityEnum.IncreaseTrackPointBy2, new TrackAbility()
+            {
+                startAction = (scoreManager, track, playlist) =>
+                {
+
+                },
+                endAction = (scoreManager, track, playlist) =>
+                {
+                    scoreManager.GetUpToDateTrack(track).points += 2;
+                },
+                timestampActions = new List<TimestampAction>()
+            }},
+            {TrackAbilityEnum.Gain5Lose5, new TrackAbility()
+            {
+                startAction = (scoreManager, track, playlist) =>
+                {
+
+                },
+                endAction = (scoreManager, track, playlist) =>
+                {
+                    scoreManager.ScorePoints(track, 5, ScoreContextEnum.TrackEnd);
+                    ModifierInstance modifier = new ModifierInstance()
+                    {
+                        LifeTime = 1,
+                        Modifier = ScoreModifierEnum.Lose5,
+                    };
+                    scoreManager.AddModifier(modifier);
+                    Action<TrackSO> callback = (track) => ScoreModifiers.enumToModifier[ScoreModifierEnum.Lose5](modifier, track, scoreManager, 0, ScoreContextEnum.TrackStart);
+                    modifier.callback = callback;
+                    scoreManager.TrackPlayer.SongStart += callback;
+                },
+                timestampActions = new List<TimestampAction>()
+            }},
+            {TrackAbilityEnum.RepeatNextNonWind, new TrackAbility()
+            {
+                startAction = (scoreManager, track, playlist) =>
+                {
+
+                },
+                endAction = (scoreManager, track, playlist) =>
+                {
+                    ModifierInstance modifier = new ModifierInstance()
+                    {
+                        LifeTime = 1,
+                        Modifier = ScoreModifierEnum.RepeatNonWind,
+                    };
+                    scoreManager.AddModifier(modifier);
+                    Action<TrackSO> callback = (track) => ScoreModifiers.enumToModifier[ScoreModifierEnum.RepeatNonWind](modifier, track, scoreManager, 0, ScoreContextEnum.TrackStart);
+                    modifier.callback = callback;
+                    scoreManager.TrackPlayer.SongStart += callback;
+                },
+                timestampActions = new List<TimestampAction>()
+            }},
+
         };
     }
 }

@@ -11,7 +11,7 @@ namespace ScoreManager
     {
         public int LifeTime;
         public ScoreModifierEnum Modifier;
-
+        public Action<TrackSO> callback;
         public bool Equals(ModifierInstance other)
         {
             return LifeTime == other.LifeTime && Modifier == other.Modifier;
@@ -45,6 +45,7 @@ namespace ScoreManager
         public IntVariable PreviousScore;
 
         public List<ModifierInstance> modifiers;
+        public List<ModifierInstance> expiredModifiers;
         private Dictionary<TrackSO, TrackSO> trackTypeToModified = new () { };
     
         private List<CountdownTimer> timedEffects = new List<CountdownTimer>();
@@ -54,7 +55,7 @@ namespace ScoreManager
             modifiers = new List<ModifierInstance>();
         }
 
-        public int ScorePoints(TrackSO track, int points, bool useModifier = true) 
+        public int ScorePoints(TrackSO track, int points, ScoreContextEnum context, bool useModifier = true) 
         {
             if (useModifier)
             {
@@ -62,11 +63,12 @@ namespace ScoreManager
                 List<ModifierInstance> toRemove = new List<ModifierInstance>();
                 foreach (ModifierInstance m in modifiers) 
                 {
-                    points = ScoreModifiers.enumToModifier[m.Modifier](actualTrack, this, points);
-                    
-                    m.LifeTime--;
-                    
-                    if (m.LifeTime <= 0) toRemove.Add(m);
+                    points = ScoreModifiers.enumToModifier[m.Modifier](m, actualTrack, this, points, context);
+                    if (m.LifeTime <= 0)
+                    {
+                        toRemove.Add(m);
+                        expiredModifiers.Add(m);
+                    }
                 }
                 foreach (ModifierInstance modifier in toRemove) modifiers.Remove(modifier);
             }
@@ -89,10 +91,14 @@ namespace ScoreManager
             for (int i = 0; i < modifiers.Count; i++) 
             {
                 ModifierInstance m = modifiers[i];
-                if (m.Modifier.Equals(modifierType)) 
+                if (m.Modifier.Equals(modifierType) || m.Modifier.Equals(ScoreModifierEnum.All)) 
                 {
                     m.LifeTime = action(this, m.LifeTime);
-                    if (m.LifeTime <= 0) toRemove.Add(m);
+                    if (m.LifeTime <= 0)
+                    {
+                        toRemove.Add(m);
+                        expiredModifiers.Add(m);
+                    }
                 }
             }
             foreach (ModifierInstance m in toRemove) 

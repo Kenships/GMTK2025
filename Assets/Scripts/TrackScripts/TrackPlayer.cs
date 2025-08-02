@@ -50,6 +50,10 @@ namespace TrackScripts
         
         private bool firstRun = true;
 
+        public List<TrackSO> trackHistory = new();
+        public Action<TrackSO> SongEnd;
+        public Action<TrackSO> SongStart;
+
         private void Awake()
         {
             PlayBackSpeed.Value = 1;
@@ -84,6 +88,7 @@ namespace TrackScripts
                 
                 ability.endAction.Invoke(scoreManager, currentTrack, allTracks);
             }
+            SongEnd?.Invoke(currentTrack);
             Play();
         }
 
@@ -118,9 +123,12 @@ namespace TrackScripts
                 currentTrack = discoBall.GetNextInQueue();
                 firstRun = false;
             }
+            Debug.Log(currentTrack.name + " has been played");
+            trackHistory.Add(currentTrack);
             audioSource.clip = currentTrack.clip;
 
             audioSource.Play();
+            SongStart?.Invoke(currentTrack);
 
             float timeForOneBar = currentTrack.clip.length / 4f / PlayBackSpeed;
             
@@ -129,7 +137,7 @@ namespace TrackScripts
             scoreTimer.OnTimerRaised += () =>
             {
                 OnDownBeat?.Invoke();
-                scoreManager.ScorePoints(currentTrack, currentTrack.points / currentTrack.bars);
+                scoreManager.ScorePoints(currentTrack, scoreManager.GetUpToDateTrack(currentTrack).points / scoreManager.GetUpToDateTrack(currentTrack).bars, ScoreContextEnum.BarStart);
             };
 
             scoreTimer.OnTimerEnd += OnSongEnd;
