@@ -6,6 +6,7 @@ namespace TrackScripts
 {
     public enum Tag
     {
+        Null, //Dummy error value
         PhaseOne,
         PhaseTwo,
         PhaseThree,

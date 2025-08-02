@@ -75,7 +75,6 @@ namespace TrackScripts
 
         private void OnSongEnd()
         {
-            Shuffle();
             if (TrackAbilities.EnumToAbility.TryGetValue(currentTrack.ability, out var ability))
             {
                 List<TrackSO> allTracks = new List<TrackSO>();
@@ -191,7 +190,7 @@ namespace TrackScripts
             audioSource.UnPause();
         }
         
-        private void Shuffle()
+        public void Shuffle()
         {
             List<TrackSO> tracks = new List<TrackSO>();
             tracks.AddRange(discoBall.GetAllTracks());

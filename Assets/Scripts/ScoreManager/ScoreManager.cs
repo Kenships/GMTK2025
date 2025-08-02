@@ -13,6 +13,7 @@ namespace ScoreManager
         public int LifeTime;
         public ScoreModifierEnum Modifier;
         public Action<TrackSO> callback;
+        public int counter;//If modifier needs to count something
         public bool Equals(ModifierInstance other)
         {
             return LifeTime == other.LifeTime && Modifier == other.Modifier;
@@ -67,7 +68,10 @@ namespace ScoreManager
                 List<ModifierInstance> toRemove = new List<ModifierInstance>();
                 foreach (ModifierInstance m in modifiers) 
                 {
-                    cachedScore = ScoreModifiers.enumToModifier[m.Modifier](m, actualTrack, this, cachedScore, context);
+                    if (m.LifeTime > 0) //Incase the lifetime was modified outside of here
+                    {
+                        cachedScore = ScoreModifiers.enumToModifier[m.Modifier](m, actualTrack, this, cachedScore, context, false);
+                    }
                     if (m.LifeTime <= 0)
                     {
                         toRemove.Add(m);
@@ -100,6 +104,8 @@ namespace ScoreManager
                 if (m.Modifier.Equals(modifierType) || m.Modifier.Equals(ScoreModifierEnum.All)) 
                 {
                     m.LifeTime = action(this, m.LifeTime);
+                    //Nothing matters except true since we jsut want to tell it its lifetime was updated, and to cancel callbacks if necessary
+                    ScoreModifiers.enumToModifier[m.Modifier](m, null, this, cachedScore, ScoreContextEnum.TimestampAction, true);
                     if (m.LifeTime <= 0)
                     {
                         toRemove.Add(m);
