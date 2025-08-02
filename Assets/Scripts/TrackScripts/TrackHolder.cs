@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 namespace DefaultNamespace
 {
+    [RequireComponent(typeof(Image))]
     public class TrackHolder : MonoBehaviour
     {
         [SerializeField] private TrackSO track;
@@ -14,7 +15,12 @@ namespace DefaultNamespace
         private void Start()
         {
             Image image = GetComponent<Image>();
-            image.sprite = Track.albumCover;
+
+            if (Track)
+            {
+                image.sprite = Track.albumCover;
+            }
+            
         }
     }
 }

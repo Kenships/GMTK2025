@@ -4,8 +4,6 @@ using ImprovedTimers;
 using Obvious.Soap;
 using TrackScripts;
 using UnityEngine;
-using TrackScripts;
-using System.Collections.Generic;
 
 namespace ScoreManager
 {
