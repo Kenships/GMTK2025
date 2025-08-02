@@ -43,34 +43,30 @@ namespace TrackScripts
         [SerializeField] private FloatVariable progress;
 
         public UnityAction OnDownBeat;
-
-        public FloatVariable PlayBackSpeed;
+        
 
         private TrackSO currentTrack;
         
         private bool firstRun = true;
 
-        private void Awake()
-        {
-            PlayBackSpeed.Value = 1;
-        }
-
         private void Start()
         {
             backgroundSource.clip = backgroundClip;
-            PlayBackSpeed.OnValueChanged += (value) =>
-                                            {
-                                                audioSource.pitch = value; 
-                                                backgroundSource.pitch = value;
-                                            };
-            startGame.OnRaised += () =>
-            {
-                firstRun = true;
-                backgroundSource.Play();
-                Play();
-            };
+            startGame.OnRaised += StartGame;
             
             Debug.Log(audioSource.clip);
+        }
+
+        private void OnDestroy()
+        {
+            startGame.OnRaised -= StartGame;
+        }
+
+        private void StartGame()
+        {
+            firstRun = true;
+            backgroundSource.Play();
+            Play();
         }
 
         private void OnSongEnd()
@@ -122,8 +118,9 @@ namespace TrackScripts
 
             audioSource.Play();
 
-            float timeForOneBar = currentTrack.clip.length / 4f / PlayBackSpeed;
+            float timeForOneBar = currentTrack.clip.length / 4f;
             
+            Debug.Log(timeForOneBar);
             
             CountdownTimerRepeat scoreTimer = new CountdownTimerRepeat(timeForOneBar, currentTrack.bars);
             scoreTimer.OnTimerRaised += () =>
@@ -146,7 +143,7 @@ namespace TrackScripts
                 ability.startAction(scoreManager, currentTrack, allTracks);
                 foreach (TimestampAction ta in ability.timestampActions)
                 {
-                    float adjustedTime = ta.audioTime / PlayBackSpeed.Value;
+                    float adjustedTime = ta.audioTime;
                     
                     var taTimer = new CountdownTimer(adjustedTime);
                     taTimer.Start();
