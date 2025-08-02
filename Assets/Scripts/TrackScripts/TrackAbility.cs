@@ -5,6 +5,7 @@ using ImprovedTimers;
 using ScoreManager;
 using TrackScripts;
 using UnityEngine;
+using Obvious.Soap;
 
 namespace DefaultNamespace
 {
@@ -75,11 +76,13 @@ namespace DefaultNamespace
                 }, 
                 endAction = (scoreManager, track, playlist) =>
                 {
-                    scoreManager.AddModifier(new ModifierInstance()
+                    ModifierInstance mod = new ModifierInstance()
                     {
-                        LifeTime = 4,
+                        LifeTime = ScriptableObject.CreateInstance<IntVariable>(),
                         Modifier = ScoreModifierEnum.X2
-                    });
+                    };
+                    mod.LifeTime.Value = 4;
+                    scoreManager.AddModifier(mod);
                 },
                 timestampActions = new List<TimestampAction>()
             }},
@@ -93,9 +96,10 @@ namespace DefaultNamespace
                 {
                     ModifierInstance modifier = new ModifierInstance()
                     {
-                        LifeTime = 1,
+                        LifeTime = ScriptableObject.CreateInstance<IntVariable>(),
                         Modifier = ScoreModifierEnum.ElectronicStreak,
                     };
+                    modifier.LifeTime.Value = 1;
                     scoreManager.AddModifier(modifier);
                     Action<TrackSO> callback = (track) => ScoreModifiers.enumToModifier[ScoreModifierEnum.ElectronicStreak](modifier, track, scoreManager, 0, ScoreContextEnum.TrackStart, false);
                     modifier.callback = callback;
@@ -157,9 +161,10 @@ namespace DefaultNamespace
                     scoreManager.addPoints(5);
                     ModifierInstance modifier = new ModifierInstance()
                     {
-                        LifeTime = 1,
+                        LifeTime = ScriptableObject.CreateInstance<IntVariable>(),
                         Modifier = ScoreModifierEnum.Lose5,
                     };
+                    modifier.LifeTime.Value = 1;
                     scoreManager.AddModifier(modifier);
                     Action<TrackSO> callback = (track) => ScoreModifiers.enumToModifier[ScoreModifierEnum.Lose5](modifier, track, scoreManager, 0, ScoreContextEnum.TrackStart, false);
                     modifier.callback = callback;
@@ -181,9 +186,10 @@ namespace DefaultNamespace
                 {
                     ModifierInstance modifier = new ModifierInstance()
                     {
-                        LifeTime = 1,
+                        LifeTime = ScriptableObject.CreateInstance<IntVariable>(),
                         Modifier = ScoreModifierEnum.RepeatNonWind,
                     };
+                    modifier.LifeTime.Value = 1;
                     scoreManager.AddModifier(modifier);
                     Action<TrackSO> callback = (track) => ScoreModifiers.enumToModifier[ScoreModifierEnum.RepeatNonWind](modifier, track, scoreManager, 0, ScoreContextEnum.TrackStart, false);
                     modifier.callback = callback;
@@ -260,9 +266,10 @@ namespace DefaultNamespace
                 {
                     ModifierInstance modifier = new ModifierInstance()
                     {
-                        LifeTime = 1,
+                        LifeTime = ScriptableObject.CreateInstance<IntVariable>(),
                         Modifier = ScoreModifierEnum.LastSongPlayed,
                     };
+                    modifier.LifeTime.Value = 1;
                     scoreManager.AddModifier(modifier);
                     Action<TrackSO> callback = (track) => ScoreModifiers.enumToModifier[ScoreModifierEnum.LastSongPlayed](modifier, track, scoreManager, 0, ScoreContextEnum.TrackStart, false);
                     modifier.callback = callback;
@@ -278,12 +285,11 @@ namespace DefaultNamespace
                 },
                 endAction = (scoreManager, track, playlist) =>
                 {
-                    scoreManager.modifiers[0].LifeTime = -1;
                     foreach(ModifierInstance m in scoreManager.modifiers)
                     {
-                        if (m.LifeTime < 999 && m.LifeTime > 0)
+                        if (m.LifeTime.Value < 999 && m.LifeTime.Value > 0)
                         {
-                            m.LifeTime = -1;
+                            m.LifeTime.Value = -1;
                             ScoreModifiers.enumToModifier[m.Modifier](m, null, scoreManager, 0, ScoreContextEnum.TimestampAction, true);
                             break;
                         }
@@ -311,11 +317,13 @@ namespace DefaultNamespace
                 },
                 endAction = (scoreManager, track, playlist) =>
                 {
-                    scoreManager.AddModifier(new ModifierInstance()
+                    ModifierInstance m = new ModifierInstance()
                     {
-                        LifeTime = 4,
+                        LifeTime = ScriptableObject.CreateInstance<IntVariable>(),
                         Modifier = ScoreModifierEnum.SetToThree
-                    });
+                    };
+                    m.LifeTime.Value = 3;
+                    scoreManager.AddModifier(m);
                 },
                 timestampActions = new List<TimestampAction>()
             }},
@@ -330,7 +338,7 @@ namespace DefaultNamespace
                     List<TrackSO> history = scoreManager.TrackPlayer.trackHistory;
                     if(history.Count-2 >= 0)
                     {
-                        if (history[history.Count-2].tags.Contains(Tag.Fear) || history[history.Count-2].tags.Contains(Tag.MusicBox))
+                        if (history[history.Count-2].tags.Contains(Tag.Fear))
                         {
                             scoreManager.addPoints(4);
                         }
@@ -349,9 +357,10 @@ namespace DefaultNamespace
                     scoreManager.addPoints(10);
                     ModifierInstance modifier = new ModifierInstance()
                     {
-                        LifeTime = 3,
+                        LifeTime = ScriptableObject.CreateInstance<IntVariable>(),
                         Modifier = ScoreModifierEnum.GainNowLoseIfNoJoy,
                     };
+                    modifier.LifeTime.Value = 3;
                     scoreManager.AddModifier(modifier);
                     Action<TrackSO> callback = (track) => ScoreModifiers.enumToModifier[ScoreModifierEnum.GainNowLoseIfNoJoy](modifier, track, scoreManager, 0, ScoreContextEnum.TrackStart, false);
                     modifier.callback = callback;
@@ -369,13 +378,11 @@ namespace DefaultNamespace
                 {
                     ModifierInstance modifier = new ModifierInstance()
                     {
-                        LifeTime = 4,
+                        LifeTime = ScriptableObject.CreateInstance<IntVariable>(),
                         Modifier = ScoreModifierEnum.InvertGain,
                     };
+                    modifier.LifeTime.Value = 3;
                     scoreManager.AddModifier(modifier);
-                    Action<TrackSO> callback = (track) => ScoreModifiers.enumToModifier[ScoreModifierEnum.InvertGain](modifier, track, scoreManager, 0, ScoreContextEnum.TrackEnd, false);
-                    modifier.callback = callback;
-                    scoreManager.TrackPlayer.SongEnd += callback;
                 },
                 timestampActions = new List<TimestampAction>()
             }},

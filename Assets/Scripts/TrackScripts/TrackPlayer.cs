@@ -92,7 +92,7 @@ namespace TrackScripts
                 ability.endAction.Invoke(scoreManager, currentTrack, allTracks);
             }
             SongEnd?.Invoke(currentTrack);
-            scoreManager.ConsolidatePoints(currentTrack, ScoreContextEnum.TrackEnd);
+            scoreManager.NotifyTrackEnd(currentTrack);
 
             if (currentBarNumber >= levelData.numberOfBars)
             {
