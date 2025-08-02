@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using DefaultNamespace;
+using TrackScripts;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "InventorySO", menuName = "Scriptable Objects/InventorySO")]

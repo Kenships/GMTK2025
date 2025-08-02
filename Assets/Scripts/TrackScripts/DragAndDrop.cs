@@ -51,6 +51,7 @@ public class DragAndDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler
         Tween.StopAll(m_RectTransform);
         
         heldObject.Value = gameObject;
+        Debug.Log(heldObject.Value.name);
         transform.SetParent(Canvas.transform);
         transform.SetAsLastSibling();
         m_Image.raycastTarget = false;
@@ -59,6 +60,8 @@ public class DragAndDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler
     void IDragHandler.OnDrag(PointerEventData eventData)
     {
         if (lockDragAndDrop.Value) return;
+        
+        heldObject.Value = gameObject;
         
         m_RectTransform.anchoredPosition += new Vector2(0, eventData.delta.y/ Canvas.scaleFactor);
     }

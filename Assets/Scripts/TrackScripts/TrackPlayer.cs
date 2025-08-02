@@ -1,6 +1,8 @@
-﻿using System;
+using System;
+using System.Collections.Generic;
 using DefaultNamespace;
 using ImprovedTimers;
+using Obvious.Soap;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -8,64 +10,176 @@ namespace TrackScripts
 {
     public class TrackPlayer : MonoBehaviour
     {
-        [SerializeField] GameSettingsSO settings;
-        [SerializeField] AudioSource audioSource;
+        [Header("Game Start Trigger")]
+        [SerializeField] private ScriptableEventNoParam startGame;
+
+        [Header("Track References")]
+        [SerializeField] private GameSettingsSO settings;
+
+        [SerializeField] private AudioSource audioSource;
+
+        [SerializeField] private AudioSource backgroundSource;
+
+        [SerializeField] private AudioClip backgroundClip;
+
+        [SerializeField] private ScoreManager.ScoreManager scoreManager;
+
+        [SerializeField] private PlaylistController discoBall;
 
         [SerializeField] private PlaylistController activePlaylist;
+
         [SerializeField] private PlaylistController backupPlaylist;
-        [SerializeField] private ScoreManager scoreManager;
+
+        [Header("Track Bus Events")]
+        [SerializeField] private ScriptableEventNoParam backupToActiveEvent;
+
+        [SerializeField] private ScriptableEventNoParam activeToDiscoEvent;
+
+        [SerializeField] private ScriptableEventNoParam discoToBackup;
+        
+        [SerializeField] private ScriptableEventNoParam discoToActive;
+        
+
+        [SerializeField] private FloatVariable progress;
+
+        public UnityAction OnDownBeat;
+
+        public FloatVariable PlayBackSpeed;
 
         private TrackSO currentTrack;
         
-        public UnityAction onSongEnd;
+        private bool firstRun = true;
+
+        private void Awake()
+        {
+            PlayBackSpeed.Value = 1;
+        }
 
         private void Start()
         {
-            StartSequence();
-            Play();
-            
-            onSongEnd += OnSongEnd;
-        }
-
-        private void StartSequence()
-        {
-            for (int i = 0; i < 2; i++)
+            backgroundSource.clip = backgroundClip;
+            PlayBackSpeed.OnValueChanged += (value) =>
+                                            {
+                                                audioSource.pitch = value; 
+                                                backgroundSource.pitch = value;
+                                            };
+            startGame.OnRaised += () =>
             {
-                activePlaylist.TryEnqueue(backupPlaylist.GetNextInQueue());
-            }
+                firstRun = true;
+                backgroundSource.Play();
+                Play();
+            };
+            
+            Debug.Log(audioSource.clip);
         }
 
         private void OnSongEnd()
         {
-            currentTrack.ability.endAction(scoreManager, currentTrack, backupPlaylist);
-            backupPlaylist.TryEnqueue(currentTrack);
-            
+            if (TrackAbilities.EnumToAbility.TryGetValue(currentTrack.ability, out var ability))
+            {
+                List<TrackSO> allTracks = new List<TrackSO>();
+                allTracks.AddRange(discoBall.GetAllTracks());
+                allTracks.AddRange(activePlaylist.GetAllTracks());
+                allTracks.AddRange(backupPlaylist.GetAllTracks());
+                
+                ability.endAction.Invoke(scoreManager, currentTrack, allTracks);
+            }
             Play();
         }
 
         private void Play()
         {
-            if (activePlaylist.TryDequeue(out TrackSO track))
+            
+            
+            audioSource.Stop();
+        
+            currentTrack = activePlaylist.GetNextInQueue();
+            
+            if (!firstRun)
             {
-                currentTrack = track;
-                
-                CountdownTimer timer = new CountdownTimer(track.clip.length);
-                timer.OnTimerEnd += () => onSongEnd?.Invoke();
-                audioSource.clip = track.clip;
-                audioSource.Play();
-                timer.Start();
-                currentTrack.ability.startAction(scoreManager, currentTrack, backupPlaylist);
-                foreach (TimestampAction ta in currentTrack.ability.timestampActions) 
+                if (backupPlaylist.TrackCount > 0)
                 {
-                    CountdownTimer taTimer = new CountdownTimer(ta.audioTime);
-                    taTimer.OnTimerEnd += () => { ta.Action(scoreManager, currentTrack, backupPlaylist); };
+                    activeToDiscoEvent?.Raise();
+                    backupToActiveEvent?.Raise();
+                    discoToBackup?.Raise();
+                }
+                else if (activePlaylist.TrackCount > 0)
+                {
+                    activeToDiscoEvent?.Raise();
+                    discoToActive?.Raise();
+                }
+                else
+                {
+                    currentTrack = discoBall.GetNextInQueue();
                 }
             }
-            
-            if (backupPlaylist.TryDequeue(out track))
+            else
             {
-                activePlaylist.TryEnqueue(track);
+                currentTrack = discoBall.GetNextInQueue();
+                firstRun = false;
             }
+            audioSource.clip = currentTrack.clip;
+
+            audioSource.Play();
+
+            float timeForOneBar = currentTrack.clip.length / 4f / PlayBackSpeed;
+            
+            
+            CountdownTimerRepeat scoreTimer = new CountdownTimerRepeat(timeForOneBar, currentTrack.bars);
+            scoreTimer.OnTimerRaised += () =>
+            {
+                OnDownBeat?.Invoke();
+                scoreManager.ScorePoints(currentTrack, currentTrack.points / currentTrack.bars);
+            };
+
+            scoreTimer.OnTimerEnd += OnSongEnd;
+            
+            scoreTimer.Start();
+
+            if (TrackAbilities.EnumToAbility.TryGetValue(currentTrack.ability, out var ability))
+            {
+                List<TrackSO> allTracks = new List<TrackSO>();
+                allTracks.AddRange(discoBall.GetAllTracks());
+                allTracks.AddRange(activePlaylist.GetAllTracks());
+                allTracks.AddRange(backupPlaylist.GetAllTracks());
+                
+                ability.startAction(scoreManager, currentTrack, allTracks);
+                foreach (TimestampAction ta in ability.timestampActions)
+                {
+                    float adjustedTime = ta.audioTime / PlayBackSpeed.Value;
+                    
+                    var taTimer = new CountdownTimer(adjustedTime);
+                    taTimer.Start();
+                    taTimer.OnTimerEnd += () => { ta.Action(scoreManager, currentTrack, allTracks); };
+                }   
+            }
+            
+        }
+
+        private void Update()
+        {
+            if (currentTrack != null)
+            {
+                progress.Value = audioSource.time / (audioSource.clip.length * (currentTrack.bars / 4f)) * 100f;
+            }
+
+            // if (audioSource.clip && !audioSource.isPlaying)
+            // {
+            //     OnSongEnd();
+            // }
+        }
+
+        private void OnApplicationPause(bool pauseStatus)
+        {
+            backgroundSource.Pause();
+            audioSource.Pause();
+            
+        }
+
+        private void OnApplicationFocus(bool hasFocus)
+        {
+            backgroundSource.UnPause();
+            audioSource.UnPause();
         }
     }
 }
