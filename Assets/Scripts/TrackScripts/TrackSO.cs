@@ -29,6 +29,5 @@ namespace TrackScripts
         public List<Tag> tags;
         public int bars;
         public bool repeat;
-        public string trackName;
     }
 }
