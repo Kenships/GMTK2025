@@ -49,8 +49,13 @@ public class GameStartSequence : MonoBehaviour
         }
         
         countDownTime.Value = 3;
-        countDownTimer.OnTimerEnd += () => startGame?.Raise();
+        countDownTimer.OnTimerEnd += StartGame;
         countDownTimer.Start();
+    }
+
+    private void StartGame()
+    {
+        startGame?.Raise();
     }
 
     private void Shuffle(List<TrackSO> tracks)
