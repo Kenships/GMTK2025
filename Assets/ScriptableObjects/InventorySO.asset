@@ -13,8 +13,11 @@ MonoBehaviour:
   m_Name: InventorySO
   m_EditorClassIdentifier: 
   tracks:
-  - {fileID: 11400000, guid: 074d22f748c09fc47a809b2837fbbe09, type: 2}
-  - {fileID: 11400000, guid: 074d22f748c09fc47a809b2837fbbe09, type: 2}
   - {fileID: 11400000, guid: 092577e1cc3d80b4ab1f9f34af4d1a2e, type: 2}
+  - {fileID: 11400000, guid: 30e24dac95561fe479206c6bb7172960, type: 2}
+  - {fileID: 11400000, guid: 5fdbe6f8c14c95841be566f05b0bf791, type: 2}
+  - {fileID: 11400000, guid: b2301a56dd0740541959bfc300f4d8ee, type: 2}
+  - {fileID: 11400000, guid: 58bf38a4553e7724e824e47de28c9d43, type: 2}
+  - {fileID: 11400000, guid: 6661266e35a3fbd459003def78684fbe, type: 2}
   - {fileID: 11400000, guid: 074d22f748c09fc47a809b2837fbbe09, type: 2}
   items: []

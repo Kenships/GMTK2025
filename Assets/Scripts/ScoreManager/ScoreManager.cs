@@ -116,12 +116,30 @@ namespace ScoreManager
         {
             trackTypeToModified[track] = modification(trackTypeToModified[track]);
         }
-    
-        public TrackSO GetUpToDateTrack(TrackSO track) 
+
+        public TrackSO GetUpToDateTrack(TrackSO track)
         {
-            trackTypeToModified.TryAdd(track, track);
-        
-            return trackTypeToModified[track];
+            if (trackTypeToModified.TryGetValue(track, out TrackSO existingTrack))
+            {
+                return existingTrack;
+            }
+
+            TrackSO newTrack = ScriptableObject.CreateInstance<TrackSO>();
+
+            newTrack.clip = track.clip;
+            newTrack.albumCover = track.albumCover;
+            newTrack.volumeOverride = track.volumeOverride;
+            newTrack.ability = track.ability;
+            newTrack.defaultPoints = track.defaultPoints;
+            newTrack.points = track.points;
+            newTrack.price = track.price;
+            newTrack.description = track.description;
+            newTrack.trackName = track.trackName;
+            newTrack.tags = new List<Tag>(track.tags);
+            newTrack.bars = track.bars;
+            newTrack.repeat = track.repeat;
+            trackTypeToModified[track] = newTrack;
+            return newTrack;
         }
 
         public void AddTimedEffect(float duration, Action action)

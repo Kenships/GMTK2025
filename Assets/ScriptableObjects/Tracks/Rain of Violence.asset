@@ -10,13 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 69f5cda4b0f3a65448ee36b0c903aa3b, type: 3}
-  m_Name: Track1
+  m_Name: Rain of Violence
   m_EditorClassIdentifier: 
-  clip: {fileID: 0}
-  albumCover: {fileID: 0}
+  clip: {fileID: 8300000, guid: 9f31805cb7f5b264499004d12848c962, type: 3}
+  albumCover: {fileID: -1353320604, guid: 9a962c70aaa3bc645a34c5af80f621f7, type: 3}
   volumeOverride: 0
-  points: 0
-  price: 2
-  description: yea might as well add a tooltip
-  name: Lofi Hip Hop Beats to hang myself to
-  tag: 0
+  ability: 9
+  defaultPoints: 2
+  points: 2
+  price: 0
+  description: 
+  trackName: Elven Forest
+  tags: 040000000b000000
+  bars: 4
+  repeat: 0

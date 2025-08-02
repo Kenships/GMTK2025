@@ -14,7 +14,7 @@ PlayerSettings:
   accelerometerFrequency: 60
   companyName: DefaultCompany
   productName: gmtk
-  defaultCursor: {fileID: 2800000, guid: 2bee30512c68e1042a4aa8d0ac9724ee, type: 3}
+  defaultCursor: {fileID: 2800000, guid: 8a12c7f4692268c4b9e8193ff76af886, type: 3}
   cursorHotspot: {x: 32, y: 32}
   m_SplashScreenBackgroundColor: {r: 0.13725491, g: 0.12156863, b: 0.1254902, a: 1}
   m_ShowUnitySplashScreen: 1

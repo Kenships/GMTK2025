@@ -13,12 +13,12 @@ namespace DefaultNamespace
         None,
         AudioSpeedBoost1_2x,
         ScoreAgainOnEnd,
-        ScoreModify2xFor3Scores,
+        ScoreModify2xFor4Scores,
         ElectronicStreak,
         Extra3AfterWind,
         DecrementModifierLifetimes,
         IncreaseTrackPointBy2,
-        Lose5,
+        Gain5Lose5,
         RepeatNextNonWind
     }
 
@@ -56,7 +56,7 @@ namespace DefaultNamespace
                 },
                 timestampActions = new List<TimestampAction>()
             }},
-            {TrackAbilityEnum.ScoreModify2xFor3Scores, new TrackAbility()
+            {TrackAbilityEnum.ScoreModify2xFor4Scores, new TrackAbility()
             {
                 startAction = (scoreManager, track, playlist) =>
                 {
@@ -66,7 +66,7 @@ namespace DefaultNamespace
                 {
                     scoreManager.AddModifier(new ModifierInstance()
                     {
-                        LifeTime = 3,
+                        LifeTime = 4,
                         Modifier = ScoreModifierEnum.X2
                     });
                 },
@@ -101,10 +101,12 @@ namespace DefaultNamespace
                 endAction = (scoreManager, track, playlist) =>
                 {
                     List<TrackSO> history = scoreManager.TrackPlayer.trackHistory;
-                    TrackSO updatedTrack = scoreManager.GetUpToDateTrack(history[history.Count-2]);
-                    if (history.Count-2 >= 0 && updatedTrack.tags.Contains(Tag.Wind) || updatedTrack.tags.Contains(Tag.MusicBox))
+                    if(history.Count-2 >= 0)
                     {
-                        scoreManager.addPoints(3);
+                        if (history[history.Count-2].tags.Contains(Tag.Wind) || history[history.Count-2].tags.Contains(Tag.MusicBox))
+                        {
+                            scoreManager.addPoints(3);
+                        } 
                     }
                 },
                 timestampActions = new List<TimestampAction>()
@@ -133,13 +135,9 @@ namespace DefaultNamespace
                 },
                 timestampActions = new List<TimestampAction>()
             }},
-            {TrackAbilityEnum.Lose5, new TrackAbility()
+            {TrackAbilityEnum.Gain5Lose5, new TrackAbility()
             {
                 startAction = (scoreManager, track, playlist) =>
-                {
-
-                },
-                endAction = (scoreManager, track, playlist) =>
                 {
                     scoreManager.addPoints(5);
                     ModifierInstance modifier = new ModifierInstance()
@@ -151,6 +149,10 @@ namespace DefaultNamespace
                     Action<TrackSO> callback = (track) => ScoreModifiers.enumToModifier[ScoreModifierEnum.Lose5](modifier, track, scoreManager, 0, ScoreContextEnum.TrackStart);
                     modifier.callback = callback;
                     scoreManager.TrackPlayer.SongStart += callback;
+                },
+                endAction = (scoreManager, track, playlist) =>
+                {
+                    
                 },
                 timestampActions = new List<TimestampAction>()
             }},

@@ -98,10 +98,18 @@ namespace TrackScripts
             
             
             audioSource.Stop();
-        
-            currentTrack = activePlaylist.GetNextInQueue();
-            
-            if (!firstRun)
+            bool repeated = false;
+            if (currentTrack != null && currentTrack.repeat)
+            {
+                currentTrack.repeat = false;
+                repeated = true;
+            }
+            else
+            {
+                currentTrack = activePlaylist.GetNextInQueue();
+            }
+
+            if (!firstRun && !repeated)
             {
                 if (backupPlaylist.TrackCount > 0)
                 {
@@ -124,12 +132,12 @@ namespace TrackScripts
                 currentTrack = discoBall.GetNextInQueue();
                 firstRun = false;
             }
+            SongStart?.Invoke(currentTrack);
             Debug.Log(currentTrack.name + " has been played");
             trackHistory.Add(currentTrack);
             audioSource.clip = currentTrack.clip;
 
             audioSource.Play();
-            SongStart?.Invoke(currentTrack);
 
             float timeForOneBar = currentTrack.clip.length / 4f / PlayBackSpeed;
             

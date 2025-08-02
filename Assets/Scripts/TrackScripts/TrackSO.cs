@@ -13,7 +13,12 @@ namespace TrackScripts
         Wind,
         String,
         Percussion,
-        MusicBox
+        MusicBox,
+        Anger,
+        Joy,
+        Fear,
+        Envy,
+        Sadness
     }
     [CreateAssetMenu(fileName = "TrackSO", menuName = "Scriptable Objects/TrackSO")]
     public class TrackSO : ScriptableObject
