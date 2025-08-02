@@ -1,20 +1,23 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using ImprovedTimers;
+using Level;
 using Obvious.Soap;
 using TrackScripts;
 using UnityEngine;
 
 public class GameStartSequence : MonoBehaviour
 {
+    [SerializeField] GameStateSO gameState;
+    
     [SerializeField] IntVariable countDownTime;
 
-    [SerializeField]
-    private ScriptableEventNoParam startGame;
+    [SerializeField] private ScriptableEventLevelDataSO startGame;
     
     [SerializeField] List<PlaylistController> playlists;
     
-    [SerializeField] private InventorySO inventory;
+    [SerializeField] private ScriptableListTrackSO inventory;
 
     private CountdownTimer countDownTimer;
 
@@ -25,7 +28,7 @@ public class GameStartSequence : MonoBehaviour
 
     private void Start()
     {
-        List<TrackSO> tracks = inventory.tracks;
+        List<TrackSO> tracks = new List<TrackSO>(inventory);
 
         foreach (TrackSO track in tracks)
         {
@@ -49,7 +52,7 @@ public class GameStartSequence : MonoBehaviour
         }
         
         countDownTime.Value = 3;
-        countDownTimer.OnTimerEnd += StartGame;
+        countDownTimer.OnTimerEnd += () => startGame?.Raise(gameState.GetCurrentLevelData());
         countDownTimer.Start();
     }
 

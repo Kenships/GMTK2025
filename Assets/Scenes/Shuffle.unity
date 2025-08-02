@@ -985,6 +985,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startGame: {fileID: 11400000, guid: 897360a55de959444a664b504991aa4a, type: 2}
+  endGame: {fileID: 11400000, guid: 404b6b6b3bf336d4fadb789020308f90, type: 2}
   settings: {fileID: 11400000, guid: 7bd9d722c57bdd545a7bef6550ed1df2, type: 2}
   audioSource: {fileID: 950056264}
   backgroundSource: {fileID: 1044985172}
@@ -998,7 +999,6 @@ MonoBehaviour:
   discoToBackup: {fileID: 11400000, guid: 61ca5870aa0b20a4e9333bda8c604c8c, type: 2}
   discoToActive: {fileID: 11400000, guid: d38f4e4554b29324eb545ca16213f776, type: 2}
   progress: {fileID: 11400000, guid: a7e9ec1dce325544aa7fe1d0e4290dec, type: 2}
-  PlayBackSpeed: {fileID: 11400000, guid: cdd9cb38a59409c45937a417ae1fb10f, type: 2}
   trackHistory: []
 --- !u!1 &1044985171
 GameObject:
@@ -1549,8 +1549,7 @@ PrefabInstance:
       value: CountDownVisual
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects:
-    - {fileID: 2423819321764924409, guid: 35c30918a79c7f346ad30db033443d8a, type: 3}
+    m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 35c30918a79c7f346ad30db033443d8a, type: 3}
@@ -1603,9 +1602,17 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3719706025979049900, guid: c10e70f62272c4649845afd0e1f75bd4, type: 3}
+      propertyPath: gameState
+      value: 
+      objectReference: {fileID: 11400000, guid: 809a66c841cdef54caad57a248c5d1af, type: 2}
+    - target: {fileID: 3719706025979049900, guid: c10e70f62272c4649845afd0e1f75bd4, type: 3}
       propertyPath: inventory
       value: 
-      objectReference: {fileID: 11400000, guid: 932371640b5aa4e4e87602366b202d23, type: 2}
+      objectReference: {fileID: 11400000, guid: cd3340c336f701d46bb85e2604d61bcd, type: 2}
+    - target: {fileID: 3719706025979049900, guid: c10e70f62272c4649845afd0e1f75bd4, type: 3}
+      propertyPath: startGame
+      value: 
+      objectReference: {fileID: 11400000, guid: 897360a55de959444a664b504991aa4a, type: 2}
     - target: {fileID: 3719706025979049900, guid: c10e70f62272c4649845afd0e1f75bd4, type: 3}
       propertyPath: playlists.Array.size
       value: 3

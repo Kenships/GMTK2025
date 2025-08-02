@@ -9,12 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a9978ce9c8bdc724896114c9952c52ea, type: 3}
-  m_Name: PlayBackSpeed
+  m_Script: {fileID: 11500000, guid: 6a11231538da9894d8dce88b47df6a36, type: 3}
+  m_Name: tutorialPlayed
   m_EditorClassIdentifier: 
   TagIndex: 0
   Description: 
-  _guid: cdd9cb38a59409c45937a417ae1fb10f
+  _guid: 
   _saveGuid: 0
   _value: 0
   _debugLogEnabled: 0
@@ -22,12 +22,3 @@ MonoBehaviour:
   _defaultValue: 0
   _resetOn: 0
   _runtimeValue: 0
-  _isClamped: 0
-  _min:
-    UseLocal: 1
-    LocalValue: 0
-    Variable: {fileID: 0}
-  _max:
-    UseLocal: 1
-    LocalValue: 3.4028235e+38
-    Variable: {fileID: 0}

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using DefaultNamespace;
 using ImprovedTimers;
+using Level;
 using Obvious.Soap;
 using UnityEngine;
 using UnityEngine.Events;
@@ -10,8 +11,9 @@ namespace TrackScripts
 {
     public class TrackPlayer : MonoBehaviour
     {
-        [Header("Game Start Trigger")]
-        [SerializeField] private ScriptableEventNoParam startGame;
+        [Header("Game Start/End Trigger")]
+        [SerializeField] private ScriptableEventLevelDataSO startGame;
+        [SerializeField] private ScriptableEventLevelDataSO endGame;
 
         [Header("Track References")]
         [SerializeField] private GameSettingsSO settings;
@@ -38,12 +40,12 @@ namespace TrackScripts
         [SerializeField] private ScriptableEventNoParam discoToBackup;
         
         [SerializeField] private ScriptableEventNoParam discoToActive;
-        
 
         [SerializeField] private FloatVariable progress;
 
-        public UnityAction OnDownBeat;
+        public int currentBarNumber;
         
+        public UnityAction OnDownBeat;
 
         private TrackSO currentTrack;
         
@@ -52,10 +54,14 @@ namespace TrackScripts
         public List<TrackSO> trackHistory = new();
         public Action<TrackSO> SongEnd;
         public Action<TrackSO> SongStart;
+        
+        private LevelDataSO levelData;
+
 
         private void Start()
         {
             backgroundSource.clip = backgroundClip;
+            
             startGame.OnRaised += StartGame;
             
             Debug.Log(audioSource.clip);
@@ -66,8 +72,9 @@ namespace TrackScripts
             startGame.OnRaised -= StartGame;
         }
 
-        private void StartGame()
+        private void StartGame(LevelDataSO levelData)
         {
+            this.levelData = levelData;
             firstRun = true;
             backgroundSource.Play();
             Play();
@@ -86,7 +93,15 @@ namespace TrackScripts
             }
             SongEnd?.Invoke(currentTrack);
             scoreManager.ConsolidatePoints(currentTrack, ScoreContextEnum.TrackEnd);
-            Play();
+
+            if (currentBarNumber >= levelData.numberOfBars)
+            {
+                endGame.Raise(levelData);
+            }
+            else
+            {
+                Play();
+            }
         }
 
         private void Play()
@@ -141,6 +156,7 @@ namespace TrackScripts
             CountdownTimerRepeat scoreTimer = new CountdownTimerRepeat(timeForOneBar, currentTrack.bars);
             scoreTimer.OnTimerRaised += () =>
             {
+                currentBarNumber++;
                 OnDownBeat?.Invoke();
                 scoreManager.addPoints(scoreManager.GetUpToDateTrack(currentTrack).points / scoreManager.GetUpToDateTrack(currentTrack).bars);
                 scoreManager.ConsolidatePoints(currentTrack, ScoreContextEnum.BarStart);
@@ -240,10 +256,6 @@ namespace TrackScripts
             }
 
             firstRun = true;
-            
-            
         }
-        
-        
     }
 }
