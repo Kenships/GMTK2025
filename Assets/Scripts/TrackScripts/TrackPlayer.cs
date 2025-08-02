@@ -43,8 +43,9 @@ namespace TrackScripts
 
         [SerializeField] private FloatVariable progress;
 
-        public UnityAction OnDownBeat;
+        public int currentBarNumber;
         
+        public UnityAction OnDownBeat;
 
         private TrackSO currentTrack;
         
@@ -94,7 +95,7 @@ namespace TrackScripts
             SongEnd?.Invoke(currentTrack);
             scoreManager.ConsolidatePoints(currentTrack, ScoreContextEnum.TrackEnd);
 
-            if (trackHistory.Count >= levelData.numberOfBars)
+            if (currentBarNumber >= levelData.numberOfBars)
             {
                 endGame.Raise(levelData);
             }
@@ -155,6 +156,7 @@ namespace TrackScripts
             CountdownTimerRepeat scoreTimer = new CountdownTimerRepeat(timeForOneBar, currentTrack.bars);
             scoreTimer.OnTimerRaised += () =>
             {
+                currentBarNumber++;
                 OnDownBeat?.Invoke();
                 scoreManager.addPoints(scoreManager.GetUpToDateTrack(currentTrack).points / scoreManager.GetUpToDateTrack(currentTrack).bars);
                 scoreManager.ConsolidatePoints(currentTrack, ScoreContextEnum.BarStart);
