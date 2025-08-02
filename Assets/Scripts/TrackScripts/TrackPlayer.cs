@@ -89,6 +89,7 @@ namespace TrackScripts
                 ability.endAction.Invoke(scoreManager, currentTrack, allTracks);
             }
             SongEnd?.Invoke(currentTrack);
+            scoreManager.ConsolidatePoints(currentTrack, ScoreContextEnum.TrackEnd);
             Play();
         }
 
@@ -137,12 +138,11 @@ namespace TrackScripts
             scoreTimer.OnTimerRaised += () =>
             {
                 OnDownBeat?.Invoke();
-                scoreManager.ScorePoints(currentTrack, scoreManager.GetUpToDateTrack(currentTrack).points / scoreManager.GetUpToDateTrack(currentTrack).bars, ScoreContextEnum.BarStart);
+                scoreManager.addPoints(scoreManager.GetUpToDateTrack(currentTrack).points / scoreManager.GetUpToDateTrack(currentTrack).bars);
+                scoreManager.ConsolidatePoints(currentTrack, ScoreContextEnum.BarStart);
             };
 
             scoreTimer.OnTimerEnd += OnSongEnd;
-            
-            scoreTimer.Start();
 
             if (TrackAbilities.EnumToAbility.TryGetValue(currentTrack.ability, out var ability))
             {
@@ -161,7 +161,8 @@ namespace TrackScripts
                     taTimer.OnTimerEnd += () => { ta.Action(scoreManager, currentTrack, allTracks); };
                 }   
             }
-            
+            scoreTimer.Start();
+
         }
 
         private void Update()

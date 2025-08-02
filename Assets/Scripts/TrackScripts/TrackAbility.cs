@@ -18,7 +18,7 @@ namespace DefaultNamespace
         Extra3AfterWind,
         DecrementModifierLifetimes,
         IncreaseTrackPointBy2,
-        Gain5Lose5,
+        Lose5,
         RepeatNextNonWind
     }
 
@@ -52,7 +52,7 @@ namespace DefaultNamespace
                 }, 
                 endAction = (scoreManager, track, playlist) =>
                 {
-                    scoreManager.ScorePoints(track, scoreManager.GetUpToDateTrack(track).points, ScoreContextEnum.TrackEnd);
+                    scoreManager.addPoints(scoreManager.GetUpToDateTrack(track).points);
                 },
                 timestampActions = new List<TimestampAction>()
             }},
@@ -76,6 +76,10 @@ namespace DefaultNamespace
             {
                 startAction = (scoreManager, track, playlist) =>
                 {
+                    
+                },
+                endAction = (scoreManager, track, playlist) =>
+                {
                     ModifierInstance modifier = new ModifierInstance()
                     {
                         LifeTime = 1,
@@ -84,11 +88,7 @@ namespace DefaultNamespace
                     scoreManager.AddModifier(modifier);
                     Action<TrackSO> callback = (track) => ScoreModifiers.enumToModifier[ScoreModifierEnum.ElectronicStreak](modifier, track, scoreManager, 0, ScoreContextEnum.TrackStart);
                     modifier.callback = callback;
-                    scoreManager.TrackPlayer.SongEnd += callback;
-                },
-                endAction = (scoreManager, track, playlist) =>
-                {
-
+                    scoreManager.TrackPlayer.SongStart += callback;
                 },
                 timestampActions = new List<TimestampAction>()
             }},
@@ -101,9 +101,10 @@ namespace DefaultNamespace
                 endAction = (scoreManager, track, playlist) =>
                 {
                     List<TrackSO> history = scoreManager.TrackPlayer.trackHistory;
-                    if (history.Count-2 >= 0 && history[history.Count-2].tags.Contains(Tag.Wind))
+                    TrackSO updatedTrack = scoreManager.GetUpToDateTrack(history[history.Count-2]);
+                    if (history.Count-2 >= 0 && updatedTrack.tags.Contains(Tag.Wind) || updatedTrack.tags.Contains(Tag.MusicBox))
                     {
-                        scoreManager.ScorePoints(track, 3, ScoreContextEnum.TrackEnd);
+                        scoreManager.addPoints(3);
                     }
                 },
                 timestampActions = new List<TimestampAction>()
@@ -132,7 +133,7 @@ namespace DefaultNamespace
                 },
                 timestampActions = new List<TimestampAction>()
             }},
-            {TrackAbilityEnum.Gain5Lose5, new TrackAbility()
+            {TrackAbilityEnum.Lose5, new TrackAbility()
             {
                 startAction = (scoreManager, track, playlist) =>
                 {
@@ -140,7 +141,7 @@ namespace DefaultNamespace
                 },
                 endAction = (scoreManager, track, playlist) =>
                 {
-                    scoreManager.ScorePoints(track, 5, ScoreContextEnum.TrackEnd);
+                    scoreManager.addPoints(5);
                     ModifierInstance modifier = new ModifierInstance()
                     {
                         LifeTime = 1,

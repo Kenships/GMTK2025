@@ -12,7 +12,8 @@ namespace TrackScripts
         Electronic,
         Wind,
         String,
-        Percussion
+        Percussion,
+        MusicBox
     }
     [CreateAssetMenu(fileName = "TrackSO", menuName = "Scriptable Objects/TrackSO")]
     public class TrackSO : ScriptableObject

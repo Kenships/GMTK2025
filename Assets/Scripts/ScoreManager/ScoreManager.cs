@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using ImprovedTimers;
 using Obvious.Soap;
 using TrackScripts;
+using Unity.Hierarchy;
 using UnityEngine;
 
 namespace ScoreManager
@@ -43,6 +44,7 @@ namespace ScoreManager
         public TrackPlayer TrackPlayer;
         public IntVariable Score;
         public IntVariable PreviousScore;
+        private int cachedScore;
 
         public List<ModifierInstance> modifiers;
         public List<ModifierInstance> expiredModifiers;
@@ -53,17 +55,19 @@ namespace ScoreManager
         private void Awake()
         {
             modifiers = new List<ModifierInstance>();
+            expiredModifiers = new List<ModifierInstance>();
         }
 
-        public int ScorePoints(TrackSO track, int points, ScoreContextEnum context, bool useModifier = true) 
+        public int ConsolidatePoints(TrackSO track, ScoreContextEnum context, bool useModifier = true) 
         {
+            if (cachedScore == 0) return 0;
             if (useModifier)
             {
                 TrackSO actualTrack = GetUpToDateTrack(track);
                 List<ModifierInstance> toRemove = new List<ModifierInstance>();
                 foreach (ModifierInstance m in modifiers) 
                 {
-                    points = ScoreModifiers.enumToModifier[m.Modifier](m, actualTrack, this, points, context);
+                    cachedScore = ScoreModifiers.enumToModifier[m.Modifier](m, actualTrack, this, cachedScore, context);
                     if (m.LifeTime <= 0)
                     {
                         toRemove.Add(m);
@@ -74,9 +78,11 @@ namespace ScoreManager
             }
 
             PreviousScore.Value = Score;
-            Score.Value += points;
-            
-            return points;
+            Score.Value += cachedScore;
+
+            cachedScore = 0;
+
+            return Score.Value;
         }
 
         public bool AddModifier(ModifierInstance modifier) 
@@ -130,6 +136,10 @@ namespace ScoreManager
             };
             countdownTimer.Start();
             Debug.Log("Start");
+        }
+        public void addPoints(int points) 
+        {
+            cachedScore += points;
         }
     }
 }
