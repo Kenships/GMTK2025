@@ -92,14 +92,13 @@ public class TooltipManager : MonoBehaviour
     private Vector2 getTooltipPosition()
     {
         Vector2 mousePos;
-        if (Mouse.current.position.value.x > cam.pixelWidth / 2.0f)
-        {
-            mousePos = new Vector2(Mouse.current.position.value.x - (rect.rect.width / canvasScaler.referenceResolution.x) * cam.pixelWidth * 0.55f, Mouse.current.position.value.y + (rect.rect.height / canvasScaler.referenceResolution.y) * cam.pixelHeight * 0.55f);
-        }
-        else 
-        {
-            mousePos = new Vector2(Mouse.current.position.value.x + (rect.rect.width / canvasScaler.referenceResolution.x) * cam.pixelWidth * 0.55f, Mouse.current.position.value.y + (rect.rect.height / canvasScaler.referenceResolution.y) * cam.pixelHeight * 0.55f);
-        }
+
+        float xSign = (Mouse.current.position.value.x > cam.pixelWidth / 2.0f) ? -1f : 1f;
+        float ySign = (Mouse.current.position.value.y > cam.pixelHeight / 2.0f) ? -1f : 1f;
+
+        float xVal = Mouse.current.position.value.x + xSign * (rect.rect.width / canvasScaler.referenceResolution.x) * cam.pixelWidth * 0.5f + xSign * cam.pixelHeight * 0.04f;
+        float yVal = Mouse.current.position.value.y + ySign * (rect.rect.height / canvasScaler.referenceResolution.y) * cam.pixelHeight * 0.5f + ySign * cam.pixelHeight * 0.04f;
+        mousePos = new Vector2(xVal, yVal);
         return mousePos;
     }
 }
