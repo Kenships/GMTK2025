@@ -75,7 +75,6 @@ namespace ImprovedTimers {
             Reset();
             //Questionable reset that may cause overhead when there are a lot of Timers active
             TimerManager.DeregisterTimer(this);
-            Start();
         }
 
         bool disposed;

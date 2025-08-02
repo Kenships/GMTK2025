@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using Obvious.Soap;
 using DefaultNamespace;
+using TrackScripts;
 
 public class ShopController : MonoBehaviour
 {
@@ -57,13 +58,13 @@ public class ShopController : MonoBehaviour
             count++;
 
             var e = Instantiate(BItem, buyItemsUI);
-            e.GetComponentInChildren<TextMeshProUGUI>().text = $"{item.name} - ${item.price}";
+            e.GetComponentInChildren<TextMeshProUGUI>().text = $"{item.itemName} - ${item.price}";
 
             var holder = e.GetComponent<ItemHolder>();
             holder.Item = item;
 
             var tooltip = e.AddComponent<Tooltip>();
-            tooltip.Message = $"{item.name}\nBuy: ${item.price}\n{item.description}";
+            tooltip.Message = $"{item.itemName}\nBuy: ${item.price}\n{item.description}";
             //tooltip.sprite = track.icon;
 
             e.GetComponentInChildren<Button>().onClick.AddListener(() => BuyItem(item, e));
@@ -77,13 +78,13 @@ public class ShopController : MonoBehaviour
             count++;
 
             var e = Instantiate(BTrack, buyTracksUI);
-            e.GetComponentInChildren<TextMeshProUGUI>().text = $"{track.name} - ${track.price}";
+            e.GetComponentInChildren<TextMeshProUGUI>().text = $"{track.trackName} - ${track.price}";
 
             var holder = e.GetComponent<TrackHolder>();
             holder.Track = track;
 
             var tooltip = e.AddComponent<Tooltip>();
-            tooltip.Message = $"{track.name}\nBuy: ${track.price}\n{track.description}";
+            tooltip.Message = $"{track.trackName}\nBuy: ${track.price}\n{track.description}";
             //tooltip.sprite = track.icon;
 
             e.GetComponentInChildren<Button>().onClick.AddListener(() => BuyTrack(track, e));
@@ -98,26 +99,26 @@ public class ShopController : MonoBehaviour
         foreach (var item in playerInventory.items)
         {
             var e = Instantiate(BItem, ownedItemsUI);
-            e.GetComponentInChildren<TextMeshProUGUI>().text = item.name;
+            e.GetComponentInChildren<TextMeshProUGUI>().text = item.itemName;
 
             var holder = e.GetComponent<ItemHolder>();
             holder.Item = item;
             
             var tooltip = e.AddComponent<Tooltip>();
-            tooltip.Message = $"{item.name}\n{item.description}";
+            tooltip.Message = $"{item.itemName}\n{item.description}";
             //tooltip.sprite = track.icon;
 
         }
         foreach (var track in playerInventory.tracks)
         {
             var e = Instantiate(BTrack, ownedTracksUI);
-            e.GetComponentInChildren<TextMeshProUGUI>().text = track.name;
+            e.GetComponentInChildren<TextMeshProUGUI>().text = track.trackName;
 
             var holder = e.GetComponent<TrackHolder>();
             holder.Track = track;
 
             var tooltip = e.AddComponent<Tooltip>();
-            tooltip.Message = $"{track.name}\nSell: ${track.price}\n{track.description}";
+            tooltip.Message = $"{track.trackName}\nSell: ${track.price}\n{track.description}";
             //tooltip.sprite = track.icon;
             
             e.GetComponentInChildren<Button>().onClick.AddListener(() => SelectTrack(e));

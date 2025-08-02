@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using DefaultNamespace;
 using Obvious.Soap;
 using TrackScripts;
@@ -19,6 +20,22 @@ public class PlaylistController : MonoBehaviour
     [SerializeField]
     private int capacityMax;
 
+    [SerializeField]
+    private GameObjectVariable HeldTrack;
+    
+    public int Capacity => capacityMax;
+    
+    public int TrackCount
+    {
+        get
+        {
+            if (!HeldTrack)
+                return GetAllTracks().Count;
+            
+            return HeldTrack.Value ? GetAllTracks().Count + 1 : GetAllTracks().Count;
+        }
+    }
+
     private RectTransform m_rectTransform;
     private List<Transform> children;
     
@@ -27,7 +44,7 @@ public class PlaylistController : MonoBehaviour
         children = new List<Transform>();
         m_rectTransform = GetComponent<RectTransform>();
         
-        int currentCapacity = transform.childCount;
+        int currentCapacity = transform.childCount; 
         
         int capacityToFill = capacityMax - currentCapacity;
 
@@ -65,6 +82,11 @@ public class PlaylistController : MonoBehaviour
             trackBase = null;
             return false;
         }
+
+        if (HeldTrack && trackHolder.gameObject == HeldTrack.Value)
+        {
+            HeldTrack.Value = null;
+        }
         
         trackBase = trackHolder.Track;
         
@@ -89,12 +111,10 @@ public class PlaylistController : MonoBehaviour
     public bool TryEnqueue(TrackSO track)
     {
         Transform nextSlot = GetNextEmptySlot();
-        
-        Debug.Log(nextSlot);
             
         if (!nextSlot) return false;
         
-        GameObject prefab = Instantiate(trackHolderPrefab, nextSlot.position, Quaternion.identity, nextSlot);
+        GameObject prefab = Instantiate(trackHolderPrefab, children[^1].position, Quaternion.identity);
         
         TrackHolder trackHolder = prefab.GetComponent<TrackHolder>();
         trackHolder.Track = track;
@@ -131,7 +151,7 @@ public class PlaylistController : MonoBehaviour
         return null;
     }
 
-    private TrackHolder GetNextTrackHolderInQueue()
+    public TrackHolder GetNextTrackHolderInQueue()
     {
         foreach (Transform child in children)
         {
@@ -141,6 +161,16 @@ public class PlaylistController : MonoBehaviour
 
                 return trackHolder;
             }
+        }
+        
+        Debug.Log(HeldTrack);
+        
+        if (HeldTrack && HeldTrack.Value)
+        {
+            Debug.Log(HeldTrack.Value.name);
+            
+            TrackHolder trackHolder = HeldTrack.Value.GetComponent<TrackHolder>();
+            return trackHolder;
         }
 
         return null;
@@ -159,14 +189,26 @@ public class PlaylistController : MonoBehaviour
     
     public Transform GetNextEmptySlot()
     {
+        return children.FirstOrDefault(child => child.childCount == 0);
+    }
+
+    public List<TrackSO> GetAllTracks()
+    {
+        List<TrackSO> tracks = new List<TrackSO>();
+        
         foreach (Transform child in children)
         {
-            if (child.childCount == 0)
+            if (child.childCount > 0)
             {
-                return child;
+                tracks.Add(child.GetChild(0).GetComponent<TrackHolder>().Track);
             }
         }
+        
+        return tracks;
+    }
 
-        return null;
+    public Transform GetLastChild()
+    {
+        return children[^1];
     }
 }

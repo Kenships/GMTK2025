@@ -1,20 +1,29 @@
-﻿using UnityEngine;
 using DefaultNamespace;
+using UnityEngine;
 
-namespace DefaultNamespace
+namespace TrackScripts
 {
-    public enum Tag { }
+    public enum Tag
+    {
+        PhaseOne,
+        PhaseTwo,
+        PhaseThree
+    }
     [CreateAssetMenu(fileName = "TrackSO", menuName = "Scriptable Objects/TrackSO")]
     public class TrackSO : ScriptableObject
     {
         public AudioClip clip;
         public Sprite albumCover;
         public float volumeOverride;
-        public TrackAbility ability;
+        public TrackAbilityEnum ability;
+        public int defaultPoints;
         public int points;
         public int price;
         public string description;
-        public string name;
+        public string trackName;
         public Tag tag;
+        public int bars;
+
+        
     }
 }
