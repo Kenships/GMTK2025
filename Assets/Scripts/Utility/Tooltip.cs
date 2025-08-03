@@ -15,7 +15,6 @@ public class Tooltip : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         {
             TooltipManager.instance.DisplayShopTooltip(track);
         }
-        else TooltipManager.instance.DisplayTooltip(Message);
     }
 
     void IPointerExitHandler.OnPointerExit(PointerEventData eventData)

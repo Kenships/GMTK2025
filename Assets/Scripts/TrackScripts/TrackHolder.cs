@@ -13,6 +13,7 @@ namespace DefaultNamespace
         [SerializeField] private Image albumCover;
         [SerializeField] private TextMeshProUGUI text;
         [SerializeField] private TrackSO track;
+        [SerializeField] private bool shop;
         
         public TrackSO Track {get => track; set => track = value;}
 
@@ -28,7 +29,7 @@ namespace DefaultNamespace
                     text.text = Track.name;
                 }
             }
-            GetComponent<Tooltip>().shopTooltip = true;
+            GetComponent<Tooltip>().shopTooltip = shop;
             GetComponent<Tooltip>().track = track;
         }
     }

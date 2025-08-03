@@ -94,6 +94,7 @@ MonoBehaviour:
   albumCover: {fileID: 0}
   text: {fileID: 0}
   track: {fileID: 0}
+  shop: 1
 --- !u!225 &-6998254238859500379
 CanvasGroup:
   m_ObjectHideFlags: 0
