@@ -10,7 +10,8 @@ namespace UIAnimation
     {
         None,
         Repeat,
-        Boomerang
+        Boomerang,
+        DestroyOnEnd
     }
     
     public class FrameAnimator : MonoBehaviour
@@ -24,7 +25,7 @@ namespace UIAnimation
         [Header("Animation Settings")]
         [SerializeField] private int framesPerSecond;
         [SerializeField] private LoopMode loopMode;
-        
+
         private WaitForSeconds _waitObject;
         
         private float FrameDelay => 1f/framesPerSecond;
@@ -47,6 +48,12 @@ namespace UIAnimation
                 yield return PlayOnce();
                 yield break;
             }
+            if (loopMode == LoopMode.DestroyOnEnd)
+            {
+                yield return PlayOnce();
+                Destroy(gameObject);
+                yield break;
+            }
 
             while (true)
             {
@@ -60,11 +67,11 @@ namespace UIAnimation
                     case LoopMode.Boomerang:
                         _currentFrame += _frameDirection;
                         _currentFrame = Mathf.Clamp(_currentFrame, 0, frames.Count - 1);
-                        _frameDirection = _currentFrame == 0 || _currentFrame == frames.Count-1 
+                        _frameDirection = _currentFrame == 0 || _currentFrame == frames.Count - 1
                             ? -_frameDirection : _frameDirection;
                         break;
                 }
-                
+
                 yield return _waitObject;
             }
         }
@@ -76,6 +83,7 @@ namespace UIAnimation
                 target.sprite = frames[i];
                 yield return _waitObject;
             }
+
         }
     }
 }

@@ -14,8 +14,9 @@ namespace DefaultNamespace
         [SerializeField] private TextMeshProUGUI text;
         [SerializeField] private TrackSO track;
         [SerializeField] private bool shop;
+        [SerializeField] private bool trackCover;
         
-        public TrackSO Track {get => track; set => track = value;}
+        public TrackSO Track { get => track; set => track = value; }
 
         private void Start()
         {
@@ -23,7 +24,11 @@ namespace DefaultNamespace
 
             if (Track)
             {
-                albumCover.sprite = Track.albumCover;
+                if (!trackCover)
+                {
+                    albumCover.sprite = Track.albumCover;
+                }
+                
                 if (text)
                 {
                     text.text = Track.name;

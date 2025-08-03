@@ -19,7 +19,7 @@ MonoBehaviour:
   defaultPoints: -4
   points: -4
   price: 6
-  description: Stores 1 point for every consecutive Electronic, Redeem points on
+  description: Stores 1 point for every consecutive Electronic, \nRedeem points on
     streak break
   trackName: Artificial sparkle
   tags: 0400000009000000
