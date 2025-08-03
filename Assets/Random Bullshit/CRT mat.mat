@@ -61,6 +61,6 @@ Material:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
     - _Scalines: {r: 1, g: 100, b: 0, a: 0}
-    - _Scan_Col: {r: 0.8490566, g: 0.8490566, b: 0.8490566, a: 1}
+    - _Scan_Col: {r: 0.9150943, g: 0.9150943, b: 0.9150943, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

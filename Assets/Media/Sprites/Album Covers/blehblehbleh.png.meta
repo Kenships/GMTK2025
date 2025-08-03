@@ -1,10 +1,14 @@
 fileFormatVersion: 2
-guid: 73f1610d15f11c040afd8c9b2cc72db7
+<<<<<<< HEAD
+guid: 1f11d51f630cff34c800f10daff1d1b9
+=======
+guid: f9c42be72d233974b9928886052f9439
+>>>>>>> origin/develop
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 5036947908425090386
-    second: leftui_0
+      213: 5949239749187410575
+    second: blehblehbleh_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -37,7 +41,11 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
+<<<<<<< HEAD
+    filterMode: 1
+=======
     filterMode: 0
+>>>>>>> origin/develop
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -74,8 +82,12 @@ TextureImporter:
     buildTarget: DefaultTexturePlatform
     maxTextureSize: 2048
     resizeAlgorithm: 0
+<<<<<<< HEAD
+    textureFormat: -1
+=======
     textureFormat: 4
-    textureCompression: 0
+>>>>>>> origin/develop
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -96,17 +108,46 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+<<<<<<< HEAD
+=======
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WindowsStoreApps
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+>>>>>>> origin/develop
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: leftui_0
+      name: blehblehbleh_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 232
-        height: 216
+        width: 24
+        height: 23
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +156,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 25503d19f65d6e540800000000000000
-      internalID: 5036947908425090386
+      spriteID: f8a13fd0802ff8250800000000000000
+      internalID: 5949239749187410575
       vertices: []
       indices: 
       edges: []
@@ -135,7 +176,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      leftui_0: 5036947908425090386
+      blehblehbleh_0: 5949239749187410575
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

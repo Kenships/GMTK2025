@@ -131,7 +131,7 @@ GameObject:
   - component: {fileID: 96356781}
   - component: {fileID: 96356780}
   - component: {fileID: 96356782}
-  m_Layer: 6
+  m_Layer: 5
   m_Name: Money
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -154,8 +154,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 147.69, y: -855}
-  m_SizeDelta: {x: 96.82, y: 77.94}
+  m_AnchoredPosition: {x: 124.79001, y: -34.635}
+  m_SizeDelta: {x: 80.92, y: 69.27}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &96356780
 MonoBehaviour:
@@ -212,7 +212,7 @@ MonoBehaviour:
   m_fontSizeMax: 72
   m_fontStyle: 0
   m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -577,7 +577,7 @@ GameObject:
   - component: {fileID: 261403002}
   - component: {fileID: 261403005}
   - component: {fileID: 261403004}
-  m_Layer: 6
+  m_Layer: 5
   m_Name: RightEdge
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -731,7 +731,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -3113465008123177544, guid: f15f7e0f1a5d0394c87bdaa4ed232e3e, type: 3}
+  m_Sprite: {fileID: -3113465008123177544, guid: fb5584c0d74a17044a29a0f150610acc, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1030,7 +1030,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 5036947908425090386, guid: ffe591d133dca8645a922166773e1d61, type: 3}
+  m_Sprite: {fileID: 5036947908425090386, guid: 73f1610d15f11c040afd8c9b2cc72db7, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1059,7 +1059,7 @@ GameObject:
   - component: {fileID: 754655974}
   - component: {fileID: 754655976}
   - component: {fileID: 754655975}
-  m_Layer: 6
+  m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1589,7 +1589,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -96652515078810796, guid: 3e20bba08282dc841957a42b65e5dec1, type: 3}
+  m_Sprite: {fileID: -96652515078810796, guid: ba36269dd02133d4c84449b1eeba3657, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1618,7 +1618,7 @@ GameObject:
   - component: {fileID: 893634641}
   - component: {fileID: 893634643}
   - component: {fileID: 893634642}
-  m_Layer: 6
+  m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1758,7 +1758,8 @@ GameObject:
   - component: {fileID: 981454871}
   - component: {fileID: 981454873}
   - component: {fileID: 981454872}
-  m_Layer: 6
+  - component: {fileID: 981454874}
+  m_Layer: 5
   m_Name: MoneyHolder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1777,14 +1778,14 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 96356779}
   - {fileID: 1906800334}
+  - {fileID: 96356779}
   m_Father: {fileID: 261403002}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -9.039993, y: -297}
+  m_SizeDelta: {x: -72.65, y: -1010.55}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &981454872
 MonoBehaviour:
@@ -1824,6 +1825,32 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 981454870}
   m_CullTransparentMesh: 1
+--- !u!114 &981454874
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 981454870}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30649d3a9faa99c48a7b1166b86bf2a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: 0
+    m_Right: 0
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 0
+  m_Spacing: 0
+  m_ChildForceExpandWidth: 1
+  m_ChildForceExpandHeight: 1
+  m_ChildControlWidth: 0
+  m_ChildControlHeight: 0
+  m_ChildScaleWidth: 0
+  m_ChildScaleHeight: 0
+  m_ReverseArrangement: 0
 --- !u!1 &1094896440
 GameObject:
   m_ObjectHideFlags: 0
@@ -1836,7 +1863,7 @@ GameObject:
   - component: {fileID: 1094896444}
   - component: {fileID: 1094896443}
   - component: {fileID: 1094896445}
-  m_Layer: 6
+  m_Layer: 5
   m_Name: OwnedItems
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1882,7 +1909,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -6394299044566821725, guid: ae9c6a35f699cdf448396a09b36fecca, type: 3}
+  m_Sprite: {fileID: -6394299044566821725, guid: e9405465b494ee24384562ac4118c75e, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1936,7 +1963,7 @@ GameObject:
   - component: {fileID: 1141102073}
   - component: {fileID: 1141102072}
   - component: {fileID: 1141102071}
-  m_Layer: 6
+  m_Layer: 5
   m_Name: Next
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2102,7 +2129,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 1409767701698785944, guid: 0e72742ed353cc04b9a3819b1e56bb3f, type: 3}
+  m_Sprite: {fileID: 1409767701698785944, guid: 7b4a513de23730c41902ef7129d497d5, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2853,7 +2880,7 @@ GameObject:
   - component: {fileID: 1906800334}
   - component: {fileID: 1906800336}
   - component: {fileID: 1906800335}
-  m_Layer: 6
+  m_Layer: 5
   m_Name: Coin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2874,10 +2901,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 981454871}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -55.800003, y: -298}
-  m_SizeDelta: {x: -169.84, y: -1021.56}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 41.115, y: -34.725}
+  m_SizeDelta: {x: 82.23, y: 69.45}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1906800335
 MonoBehaviour:
@@ -3067,7 +3094,7 @@ GameObject:
   - component: {fileID: 2047695067}
   - component: {fileID: 2047695066}
   - component: {fileID: 2047695065}
-  m_Layer: 6
+  m_Layer: 5
   m_Name: Reroll
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3302,6 +3329,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb2f1e421fb24f7cada8ca8f4d849115, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  albumCover: {fileID: 0}
+  text: {fileID: 0}
   track: {fileID: 0}
 --- !u!1001 &3847863861411056399
 PrefabInstance:
