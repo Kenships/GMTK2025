@@ -163,7 +163,6 @@ public class ShopController : MonoBehaviour
 
     void SelectTrack(GameObject e)
     {
-        Debug.Log(selectedTrackGO);
         if (selectedTrackGO == e) return;
         if (selectedTrackGO != null)
         {
@@ -177,7 +176,6 @@ public class ShopController : MonoBehaviour
 
     public void SellTrack()
     {
-        Debug.Log(selectedTrackGO);
         if (selectedTrackGO == null) return;
 
         if (playerInventory.tracks.Contains(selectedTrackSO))
@@ -187,7 +185,6 @@ public class ShopController : MonoBehaviour
             dollars.Value += selectedTrackSO.price;
         }
 
-        Destroy(selectedTrackGO);
         selectedTrackGO = null;
         selectedTrackSO = null;
 
