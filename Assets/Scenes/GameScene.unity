@@ -814,8 +814,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4deb5ee146a6f8f43bc87e0920a434a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IconTooltip: {fileID: 6099752000140320841, guid: c08af33a158fa7e4cbc7d24673b40233, type: 3}
-  NoIconTooltip: {fileID: 6099752000140320841, guid: 345a71161b0b95e41974fd190166768f, type: 3}
+  ModifierTooltip: {fileID: 0}
+  ShopTooltip: {fileID: 0}
   toolTipPadding: 0
   iconHeight: 0
   Electronic: {r: 0, g: 0, b: 0, a: 0}
@@ -4121,7 +4121,7 @@ PrefabInstance:
     - target: {fileID: 3719706025979049900, guid: c10e70f62272c4649845afd0e1f75bd4, type: 3}
       propertyPath: inventory
       value: 
-      objectReference: {fileID: 11400000, guid: cd3340c336f701d46bb85e2604d61bcd, type: 2}
+      objectReference: {fileID: 11400000, guid: 932371640b5aa4e4e87602366b202d23, type: 2}
     - target: {fileID: 3719706025979049900, guid: c10e70f62272c4649845afd0e1f75bd4, type: 3}
       propertyPath: startGame
       value: 
