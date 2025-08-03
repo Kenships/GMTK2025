@@ -16,11 +16,11 @@ MonoBehaviour:
   albumCover: {fileID: -1250019611, guid: 9a962c70aaa3bc645a34c5af80f621f7, type: 3}
   volumeOverride: 0
   ability: 9
-  defaultPoints: 0
-  points: 0
-  price: 0
-  description: 
-  trackName: Rain of Violence
-  tags: 0600000009000000
+  defaultPoints: 8
+  points: 8
+  price: 4
+  description: Play the next Non-Wind song\n one more time
+  trackName: ElvenForest
+  tags: 050000000c000000
   bars: 2
   repeat: 0

@@ -19,8 +19,8 @@ MonoBehaviour:
   defaultPoints: 2
   points: 2
   price: 0
-  description: 
+  description: +4 points if after a Wind
   trackName: Morning Call
-  tags: 0400000009000000
+  tags: 050000000a000000
   bars: 2
   repeat: 0

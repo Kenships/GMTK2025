@@ -5,6 +5,7 @@ using ImprovedTimers;
 using ScoreManager;
 using TrackScripts;
 using UnityEngine;
+using Obvious.Soap;
 
 namespace DefaultNamespace
 {
@@ -15,7 +16,7 @@ namespace DefaultNamespace
         ScoreAgainOnEnd,
         ScoreModify2xFor4Scores,
         ElectronicStreak,
-        Extra3AfterWind,
+        ExtraAfterWind,
         DecrementModifierLifetimes,
         IncreaseTrackPointBy2,
         Gain5Lose5,
@@ -27,10 +28,16 @@ namespace DefaultNamespace
         LastSongPlayed,
         RemoveModifier,
         Shuffle,
-        SetToThree,
+        AddThree,
         GainAfterFear,
         GainNowLoseIfNoJoy,
         InvertGain,
+        AngelicTouch,
+        CrowdSync,
+        SignalJam,
+        NapTime,
+        EchoOfDesperation,
+        ExtraAfterPercussion
     }
 
     public struct TimestampAction
@@ -53,14 +60,14 @@ namespace DefaultNamespace
 
     public class TrackAbilities
     {
-        public static Dictionary<TrackAbilityEnum, TrackAbility> EnumToAbility = new() 
+        public static Dictionary<TrackAbilityEnum, TrackAbility> EnumToAbility = new()
         {
             {TrackAbilityEnum.ScoreAgainOnEnd, new TrackAbility()
             {
                 startAction = (scoreManager, track, playlist) =>
                 {
-                    
-                }, 
+
+                },
                 endAction = (scoreManager, track, playlist) =>
                 {
                     scoreManager.addPoints(scoreManager.GetUpToDateTrack(track).points);
@@ -71,31 +78,34 @@ namespace DefaultNamespace
             {
                 startAction = (scoreManager, track, playlist) =>
                 {
-                    
-                }, 
-                endAction = (scoreManager, track, playlist) =>
-                {
-                    scoreManager.AddModifier(new ModifierInstance()
-                    {
-                        LifeTime = 4,
-                        Modifier = ScoreModifierEnum.X2
-                    });
-                },
-                timestampActions = new List<TimestampAction>()
-            }},
-            {TrackAbilityEnum.ElectronicStreak, new TrackAbility() 
-            {
-                startAction = (scoreManager, track, playlist) =>
-                {
-                    
+
                 },
                 endAction = (scoreManager, track, playlist) =>
                 {
                     ModifierInstance modifier = new ModifierInstance()
                     {
-                        LifeTime = 1,
+                        LifeTime = ScriptableObject.CreateInstance<IntVariable>(),
+                        Modifier = ScoreModifierEnum.X2,
+                    };
+                    modifier.LifeTime.Value = 3;
+                    scoreManager.AddModifier(modifier);
+                },
+                timestampActions = new List<TimestampAction>()
+            }},
+            {TrackAbilityEnum.ElectronicStreak, new TrackAbility()
+            {
+                startAction = (scoreManager, track, playlist) =>
+                {
+
+                },
+                endAction = (scoreManager, track, playlist) =>
+                {
+                    ModifierInstance modifier = new ModifierInstance()
+                    {
+                        LifeTime = ScriptableObject.CreateInstance<IntVariable>(),
                         Modifier = ScoreModifierEnum.ElectronicStreak,
                     };
+                    modifier.LifeTime.Value = 1;
                     scoreManager.AddModifier(modifier);
                     Action<TrackSO> callback = (track) => ScoreModifiers.enumToModifier[ScoreModifierEnum.ElectronicStreak](modifier, track, scoreManager, 0, ScoreContextEnum.TrackStart, false);
                     modifier.callback = callback;
@@ -103,7 +113,7 @@ namespace DefaultNamespace
                 },
                 timestampActions = new List<TimestampAction>()
             }},
-            {TrackAbilityEnum.Extra3AfterWind, new TrackAbility()
+            {TrackAbilityEnum.ExtraAfterWind, new TrackAbility()
             {
                 startAction = (scoreManager, track, playlist) =>
                 {
@@ -116,8 +126,8 @@ namespace DefaultNamespace
                     {
                         if (history[history.Count-2].tags.Contains(Tag.Wind) || history[history.Count-2].tags.Contains(Tag.MusicBox))
                         {
-                            scoreManager.addPoints(3);
-                        } 
+                            scoreManager.addPoints(4);
+                        }
                     }
                 },
                 timestampActions = new List<TimestampAction>()
@@ -157,9 +167,10 @@ namespace DefaultNamespace
                     scoreManager.addPoints(5);
                     ModifierInstance modifier = new ModifierInstance()
                     {
-                        LifeTime = 1,
+                        LifeTime = ScriptableObject.CreateInstance<IntVariable>(),
                         Modifier = ScoreModifierEnum.Lose5,
                     };
+                    modifier.LifeTime.Value = 1;
                     scoreManager.AddModifier(modifier);
                     Action<TrackSO> callback = (track) => ScoreModifiers.enumToModifier[ScoreModifierEnum.Lose5](modifier, track, scoreManager, 0, ScoreContextEnum.TrackStart, false);
                     modifier.callback = callback;
@@ -167,7 +178,7 @@ namespace DefaultNamespace
                 },
                 endAction = (scoreManager, track, playlist) =>
                 {
-                    
+
                 },
                 timestampActions = new List<TimestampAction>()
             }},
@@ -181,9 +192,10 @@ namespace DefaultNamespace
                 {
                     ModifierInstance modifier = new ModifierInstance()
                     {
-                        LifeTime = 1,
+                        LifeTime = ScriptableObject.CreateInstance<IntVariable>(),
                         Modifier = ScoreModifierEnum.RepeatNonWind,
                     };
+                    modifier.LifeTime.Value = 1;
                     scoreManager.AddModifier(modifier);
                     Action<TrackSO> callback = (track) => ScoreModifiers.enumToModifier[ScoreModifierEnum.RepeatNonWind](modifier, track, scoreManager, 0, ScoreContextEnum.TrackStart, false);
                     modifier.callback = callback;
@@ -205,10 +217,12 @@ namespace DefaultNamespace
                         if (history[history.Count-2].tags.Contains(Tag.String) || history[history.Count-2].tags.Contains(Tag.MusicBox))
                         {
                             track.points += 1;
+                            scoreManager.GetUpToDateTrack(track).points += 1;
                         }
                         if (history[history.Count-2].tags.Contains(Tag.Percussion) || history[history.Count-2].tags.Contains(Tag.MusicBox))
                         {
                             track.points -= 2;
+                            scoreManager.GetUpToDateTrack(track).points -= 2;
                         }
                     }
                 },
@@ -234,7 +248,7 @@ namespace DefaultNamespace
                 },
                 endAction = (scoreManager, track, playlist) =>
                 {
-                    scoreManager.addPoints(10 - 2 * scoreManager.TrackPlayer.trackHistory.Count);
+                    scoreManager.addPoints(- 2 * (scoreManager.TrackPlayer.trackHistory.Count - 1));
                 },
                 timestampActions = new List<TimestampAction>()
             }},
@@ -260,9 +274,10 @@ namespace DefaultNamespace
                 {
                     ModifierInstance modifier = new ModifierInstance()
                     {
-                        LifeTime = 1,
+                        LifeTime = ScriptableObject.CreateInstance<IntVariable>(),
                         Modifier = ScoreModifierEnum.LastSongPlayed,
                     };
+                    modifier.LifeTime.Value = 1;
                     scoreManager.AddModifier(modifier);
                     Action<TrackSO> callback = (track) => ScoreModifiers.enumToModifier[ScoreModifierEnum.LastSongPlayed](modifier, track, scoreManager, 0, ScoreContextEnum.TrackStart, false);
                     modifier.callback = callback;
@@ -278,12 +293,11 @@ namespace DefaultNamespace
                 },
                 endAction = (scoreManager, track, playlist) =>
                 {
-                    scoreManager.modifiers[0].LifeTime = -1;
                     foreach(ModifierInstance m in scoreManager.modifiers)
                     {
-                        if (m.LifeTime < 999 && m.LifeTime > 0)
+                        if (m.LifeTime.Value < 999 && m.LifeTime.Value > 0)
                         {
-                            m.LifeTime = -1;
+                            m.LifeTime.Value = -1;
                             ScoreModifiers.enumToModifier[m.Modifier](m, null, scoreManager, 0, ScoreContextEnum.TimestampAction, true);
                             break;
                         }
@@ -303,7 +317,7 @@ namespace DefaultNamespace
                 },
                 timestampActions = new List<TimestampAction>()
             }},
-            {TrackAbilityEnum.SetToThree, new TrackAbility()
+            {TrackAbilityEnum.AddThree, new TrackAbility()
             {
                 startAction = (scoreManager, track, playlist) =>
                 {
@@ -311,11 +325,13 @@ namespace DefaultNamespace
                 },
                 endAction = (scoreManager, track, playlist) =>
                 {
-                    scoreManager.AddModifier(new ModifierInstance()
+                    ModifierInstance m = new ModifierInstance()
                     {
-                        LifeTime = 4,
-                        Modifier = ScoreModifierEnum.SetToThree
-                    });
+                        LifeTime = ScriptableObject.CreateInstance<IntVariable>(),
+                        Modifier = ScoreModifierEnum.AddThree
+                    };
+                    m.LifeTime.Value = 3;
+                    scoreManager.AddModifier(m);
                 },
                 timestampActions = new List<TimestampAction>()
             }},
@@ -330,7 +346,7 @@ namespace DefaultNamespace
                     List<TrackSO> history = scoreManager.TrackPlayer.trackHistory;
                     if(history.Count-2 >= 0)
                     {
-                        if (history[history.Count-2].tags.Contains(Tag.Fear) || history[history.Count-2].tags.Contains(Tag.MusicBox))
+                        if (history[history.Count-2].tags.Contains(Tag.Fear))
                         {
                             scoreManager.addPoints(4);
                         }
@@ -349,9 +365,10 @@ namespace DefaultNamespace
                     scoreManager.addPoints(10);
                     ModifierInstance modifier = new ModifierInstance()
                     {
-                        LifeTime = 3,
+                        LifeTime = ScriptableObject.CreateInstance<IntVariable>(),
                         Modifier = ScoreModifierEnum.GainNowLoseIfNoJoy,
                     };
+                    modifier.LifeTime.Value = 3;
                     scoreManager.AddModifier(modifier);
                     Action<TrackSO> callback = (track) => ScoreModifiers.enumToModifier[ScoreModifierEnum.GainNowLoseIfNoJoy](modifier, track, scoreManager, 0, ScoreContextEnum.TrackStart, false);
                     modifier.callback = callback;
@@ -369,13 +386,114 @@ namespace DefaultNamespace
                 {
                     ModifierInstance modifier = new ModifierInstance()
                     {
-                        LifeTime = 4,
+                        LifeTime = ScriptableObject.CreateInstance<IntVariable>(),
                         Modifier = ScoreModifierEnum.InvertGain,
                     };
+                    modifier.LifeTime.Value = 3;
                     scoreManager.AddModifier(modifier);
-                    Action<TrackSO> callback = (track) => ScoreModifiers.enumToModifier[ScoreModifierEnum.InvertGain](modifier, track, scoreManager, 0, ScoreContextEnum.TrackEnd, false);
+                },
+                timestampActions = new List<TimestampAction>()
+            }},
+            {TrackAbilityEnum.AngelicTouch, new TrackAbility()
+            {
+                startAction = (scoreManager, track, playlist) =>
+                {
+
+                },
+                endAction = (scoreManager, track, playlist) =>
+                { 
+                    ModifierInstance modifier = new ModifierInstance()
+                    {
+                        LifeTime = ScriptableObject.CreateInstance<IntVariable>(),
+                        Modifier = ScoreModifierEnum.AngelicTouch,
+                    };
+                    modifier.LifeTime.Value = 1;
+                    scoreManager.AddModifier(modifier);
+                },
+                timestampActions = new List<TimestampAction>()
+            }},
+            {TrackAbilityEnum.CrowdSync, new TrackAbility()
+            {
+                startAction = (scoreManager, track, playlist) =>
+                {
+
+                },
+                endAction = (scoreManager, track, playlist) =>
+                {
+                    int sadCount = 0;
+                    int happyCount = 0;
+                    foreach(TrackSO t in scoreManager.TrackPlayer.activePlaylist.GetAllTracks())
+                    {
+                        if (t.tags.Contains(Tag.Joy)) happyCount++;
+                        if (t.tags.Contains(Tag.Sadness)) sadCount++;
+                    }
+                    scoreManager.addPoints(happyCount * 3 + sadCount * -3);
+                },
+                timestampActions = new List<TimestampAction>()
+            }},
+            {TrackAbilityEnum.SignalJam, new TrackAbility()
+            {
+                startAction = (scoreManager, track, playlist) =>
+                {
+
+                },
+                endAction = (scoreManager, track, playlist) =>
+                {
+                    scoreManager.TrackPlayer.SwitchActiveQueue();
+                },
+                timestampActions = new List<TimestampAction>()
+            }},
+            {TrackAbilityEnum.NapTime, new TrackAbility()
+            {
+                startAction = (scoreManager, track, playlist) =>
+                {
+
+                },
+                endAction = (scoreManager, track, playlist) =>
+                {
+                    scoreManager.TrackPlayer.abilityBlocked = true;
+                    scoreManager.addPoints(6);
+                },
+                timestampActions = new List<TimestampAction>()
+            }},
+            {TrackAbilityEnum.EchoOfDesperation, new TrackAbility()
+            {
+                startAction = (scoreManager, track, playlist) =>
+                {
+
+                },
+                endAction = (scoreManager, track, playlist) =>
+                {
+                    ModifierInstance modifier = new ModifierInstance()
+                    {
+                        LifeTime = ScriptableObject.CreateInstance<IntVariable>(),
+                        Modifier = ScoreModifierEnum.EchoOfDesperation,
+                    };
+                    modifier.LifeTime.Value = 1;
+                    scoreManager.addPoints(6);
+                    scoreManager.AddModifier(modifier);
+                    Action<TrackSO> callback = (track) => ScoreModifiers.enumToModifier[ScoreModifierEnum.EchoOfDesperation](modifier, track, scoreManager, 0, ScoreContextEnum.TrackStart, false);
                     modifier.callback = callback;
-                    scoreManager.TrackPlayer.SongEnd += callback;
+                    scoreManager.TrackPlayer.SongStart += callback;
+                },
+                timestampActions = new List<TimestampAction>()
+            }},
+            {TrackAbilityEnum.ExtraAfterPercussion, new TrackAbility()
+            {
+                startAction = (scoreManager, track, playlist) =>
+                {
+
+                },
+                endAction = (scoreManager, track, playlist) =>
+                {
+                    List<TrackSO> history = scoreManager.TrackPlayer.trackHistory;
+                    if(history.Count-2 >= 0)
+                    {
+                        if (history[history.Count-2].tags.Contains(Tag.Percussion) || history[history.Count-2].tags.Contains(Tag.MusicBox))
+                        {
+                            scoreManager.addPoints(4);
+                        }
+                    }
                 },
                 timestampActions = new List<TimestampAction>()
             }},

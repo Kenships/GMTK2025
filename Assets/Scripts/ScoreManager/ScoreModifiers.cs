@@ -5,11 +5,13 @@ using System;
 using TrackScripts;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem.Android;
 
 public enum ScoreModifierEnum
 {
     All, // For affecting ALL modifiers
-    X2, ElectronicStreak, Lose5, RepeatNonWind, LastSongPlayed, SetToThree, IntstrumentType, GainNowLoseIfNoJoy, InvertGain
+    X2, ElectronicStreak, Lose5, RepeatNonWind, LastSongPlayed, InstrumentType, GainNowLoseIfNoJoy, InvertGain, AngelicTouch, EchoOfDesperation, AddThree,
+    MoodTuner, EncoreToken, AmpStack, RubiksCube, BandTogether, Relief, AngelicLuck
 }
 public enum ScoreContextEnum 
 {
@@ -20,70 +22,95 @@ public class ScoreModifiers
     public static Dictionary<ScoreModifierEnum, Func<ModifierInstance, TrackSO, ScoreManager.ScoreManager, int, ScoreContextEnum, bool, int>> enumToModifier = new()
     {
         { ScoreModifierEnum.X2, (self, track, scoreManager, scoredPoints, context, lifetimeNotification) => {
-            self.LifeTime--;
-            return scoredPoints * 2; 
-        }}, //Example modifier
-        { ScoreModifierEnum.SetToThree, (self, track, scoreManager, scoredPoints, context, lifetimeNotification) => {
-            self.LifeTime--;
-            return 3;
+            if (lifetimeNotification && self.LifeTime.Value <= 0) return scoredPoints;
+            if(self.counter == 0)
+            {
+                if(context.Equals(ScoreContextEnum.TrackEnd)) self.counter++;
+                return scoredPoints;
+            }
+            if(context.Equals(ScoreContextEnum.TrackEnd))
+            {
+                self.LifeTime.Value--;
+            }
+            if (self.LifeTime.Value <= 0)
+            {
+                return scoredPoints;
+            }
+            return scoredPoints * 2;
+        }},
+        { ScoreModifierEnum.AddThree, (self, track, scoreManager, scoredPoints, context, lifetimeNotification) => {
+            if (lifetimeNotification && self.LifeTime.Value <= 0) return scoredPoints;
+            if(self.counter == 0)
+            {
+                if(context.Equals(ScoreContextEnum.TrackEnd)) self.counter++;
+                return scoredPoints;
+            }
+            if(context.Equals(ScoreContextEnum.TrackEnd))
+            {
+                self.LifeTime.Value--;
+            }
+            if (self.LifeTime.Value <= 0)
+            {
+                return scoredPoints;
+            }
+            return scoredPoints + 3;
         }},
         { ScoreModifierEnum.ElectronicStreak, (self, track, scoreManager, scoredPoints, context, lifetimeNotification) => {
-            if (lifetimeNotification && self.LifeTime <= 0) { scoreManager.TrackPlayer.SongEnd -= self.callback; return 0; }
+            if (lifetimeNotification && self.LifeTime.Value <= 0) { scoreManager.TrackPlayer.SongEnd -= self.callback; return 0; }
             if(!context.Equals(ScoreContextEnum.TrackStart)) return scoredPoints;
             if (track.tags.Contains(Tag.Electronic) || track.tags.Contains(Tag.MusicBox))
             {
-                self.LifeTime++;
+                self.LifeTime.Value++;
                 return scoredPoints;
             }
-            scoredPoints += self.LifeTime;
+            scoredPoints += self.LifeTime.Value;
 
             scoreManager.addPoints(scoredPoints);
-            self.LifeTime = 0;
-            if (self.LifeTime <= 0) scoreManager.TrackPlayer.SongEnd -= self.callback;
+            self.LifeTime.Value = 0;
+            if (self.LifeTime.Value <= 0) scoreManager.TrackPlayer.SongEnd -= self.callback;
             return scoredPoints;
         }},
         { ScoreModifierEnum.Lose5, (self, track, scoreManager, scoredPoints, context, lifetimeNotification) => {
-            if (lifetimeNotification && self.LifeTime <= 0) { scoreManager.TrackPlayer.SongStart -= self.callback; return 0; }
+            if (lifetimeNotification && self.LifeTime.Value <= 0) { scoreManager.TrackPlayer.SongStart -= self.callback; return 0; }
             if(!context.Equals(ScoreContextEnum.TrackStart)) return scoredPoints;
             scoredPoints -= 5;
 
-            self.LifeTime--;
-            if (self.LifeTime <= 0) scoreManager.TrackPlayer.SongStart -= self.callback;
+            self.LifeTime.Value--;
+            if (self.LifeTime.Value <= 0) scoreManager.TrackPlayer.SongStart -= self.callback;
             scoreManager.addPoints(scoredPoints);
             return scoredPoints;
         }},
         { ScoreModifierEnum.RepeatNonWind, (self, track, scoreManager, scoredPoints, context, lifetimeNotification) => {
-            if (lifetimeNotification && self.LifeTime <= 0) { scoreManager.TrackPlayer.SongStart -= self.callback; return 0; }
+            if (lifetimeNotification && self.LifeTime.Value <= 0) { scoreManager.TrackPlayer.SongStart -= self.callback; return 0; }
+            if(self.counter == 0)
+            {
+                if(context.Equals(ScoreContextEnum.TrackEnd)) self.counter++;
+                return scoredPoints;
+            }
             if(!context.Equals(ScoreContextEnum.TrackStart)) return scoredPoints;
-
             if( !track.repeat) {
                 if (!track.tags.Contains(Tag.Wind) && !track.tags.Contains(Tag.MusicBox))
                 {
-                    Debug.Log("setting repeat to true");
-
-                    Debug.Log(track.name);
-                    Debug.Log(track.tags[0]);
-
-                    Debug.Log(track.tags[1]);
                     track.repeat = true;
-                    self.LifeTime -= 1;
+                    self.LifeTime.Value -= 1;
                 }
             }
 
-            if (self.LifeTime <= 0) scoreManager.TrackPlayer.SongStart -= self.callback;
+            if (self.LifeTime.Value <= 0) scoreManager.TrackPlayer.SongStart -= self.callback;
 
             return scoredPoints;
         }},
         { ScoreModifierEnum.LastSongPlayed, (self, track, scoreManager, scoredPoints, context, lifetimeNotification) => {
-            if (lifetimeNotification && self.LifeTime <= 0) { scoreManager.TrackPlayer.SongStart -= self.callback; return 0; }
+            if (lifetimeNotification && self.LifeTime.Value <= 0) { scoreManager.TrackPlayer.SongStart -= self.callback; return 0; }
             if(!context.Equals(ScoreContextEnum.TrackStart)) return scoredPoints;
 
-            self.LifeTime = 0;
+            self.LifeTime.Value = 0;
             scoreManager.TrackPlayer.SongStart -= self.callback;
 
             return scoredPoints;
         }},
-        { ScoreModifierEnum.IntstrumentType, (self, track, scoreManager, scoredPoints, context, lifetimeNotification) => {
+        { ScoreModifierEnum.InstrumentType, (self, track, scoreManager, scoredPoints, context, lifetimeNotification) => {
+            if (lifetimeNotification && self.LifeTime.Value <= 0) return scoredPoints;
             List<Tag> instrumentTags = new List<Tag> { Tag.String, Tag.Wind, Tag.Percussion, Tag.Electronic };
             Tag myInstrumentTag = Tag.Null;
             foreach(Tag t in track.tags)
@@ -109,22 +136,18 @@ public class ScoreModifiers
             return scoredPoints;
         }},
         { ScoreModifierEnum.GainNowLoseIfNoJoy, (self, track, scoreManager, scoredPoints, context, lifetimeNotification) => {
-            if (lifetimeNotification && self.LifeTime <= 0) 
+            if (lifetimeNotification && self.LifeTime.Value <= 0)
             {
                 scoreManager.TrackPlayer.SongStart -= self.callback;
-                if(self.counter < 2)
-                {
-                    scoreManager.addPoints(-20);
-                }
-                return 0;
             }
             if(!context.Equals(ScoreContextEnum.TrackStart)) return scoredPoints;
-            if (scoreManager.GetUpToDateTrack(track).tags.Contains(Tag.Joy) || scoreManager.GetUpToDateTrack(track).tags.Contains(Tag.MusicBox))
+            self.LifeTime.Value--;
+            if (track.tags.Contains(Tag.Joy))
             {
                 self.counter++;
             }
-            if(self.counter >= 2) self.LifeTime = 0;
-            if (self.LifeTime <= 0)
+            if(self.counter >= 2) self.LifeTime.Value = 0;
+            if (self.LifeTime.Value <= 0)
             {
                 scoreManager.TrackPlayer.SongStart -= self.callback;
                 if(self.counter < 2)
@@ -136,13 +159,141 @@ public class ScoreModifiers
             return scoredPoints;
         }},
         { ScoreModifierEnum.InvertGain, (self, track, scoreManager, scoredPoints, context, lifetimeNotification) => {
-            if(context.Equals(ScoreContextEnum.TrackEnd)) self.LifeTime--;
-            if (self.LifeTime <= 0)
+            if (lifetimeNotification && self.LifeTime.Value <= 0) return scoredPoints;
+            if(self.counter == 0)
             {
-                scoreManager.TrackPlayer.SongStart -= self.callback;
+                if(context.Equals(ScoreContextEnum.TrackEnd)) self.counter++;
+                return scoredPoints;
+            }
+            if(context.Equals(ScoreContextEnum.TrackEnd))
+            {
+                self.LifeTime.Value--;
+            }
+            if (self.LifeTime.Value <= 0)
+            {
                 return scoredPoints;
             }
             return scoredPoints * -1;
         }},
+        { ScoreModifierEnum.AngelicTouch, (self, track, scoreManager, scoredPoints, context, lifetimeNotification) => {
+            if (lifetimeNotification && self.LifeTime.Value <= 0) { scoreManager.TrackPlayer.SongStart -= self.callback; return scoredPoints; }
+            if(!context.Equals(ScoreContextEnum.TrackEnd)) return scoredPoints;
+            if (self.counter == 0) { self.counter++; return scoredPoints; }
+            self.LifeTime.Value--;
+            if (track.tags.Contains(Tag.Joy))
+            {
+                int roll = UnityEngine.Random.Range(0, 10);
+                if(roll == 5)
+                {
+                    scoreManager.addPoints(9000 * scoreManager.GetUpToDateTrack(track).points);
+                }
+                return scoredPoints;
+            }
+            if (self.LifeTime.Value <= 0)
+            {
+                scoreManager.TrackPlayer.SongStart -= self.callback;
+                return 0;
+            }
+            return scoredPoints;
+        }},
+        { ScoreModifierEnum.EchoOfDesperation, (self, track, scoreManager, scoredPoints, context, lifetimeNotification) => {
+            if (lifetimeNotification && self.LifeTime.Value <= 0) { scoreManager.TrackPlayer.SongStart -= self.callback; return scoredPoints; }
+            if(self.counter == 0 && context.Equals(ScoreContextEnum.TrackStart))
+            {
+                self.counter++;
+                return scoredPoints;
+            }
+            else if(self.counter == 0) return scoredPoints;
+            if(!context.Equals(ScoreContextEnum.TrackStart)) return scoredPoints/2;
+            self.LifeTime.Value--;
+            if (self.LifeTime.Value <= 0)
+            {
+                scoreManager.TrackPlayer.SongStart -= self.callback;
+                return scoredPoints;
+            }
+            return scoredPoints;
+        }},
+        { ScoreModifierEnum.MoodTuner, (self, track, scoreManager, scoredPoints, context, lifetimeNotification) => {
+            self.LifeTime.Value = 9999;
+            if(context.Equals(ScoreContextEnum.TrackEnd))
+            {
+                List<Tag> emotionTags = new List<Tag> { Tag.Joy, Tag.Sadness, Tag.Anger, Tag.Fear, Tag.Envy };
+                Tag myEmotionTag = Tag.Null;
+                foreach(Tag t in track.tags)
+                {
+                    if (emotionTags.Contains(t))
+                    {
+                        myEmotionTag = t;
+                        break;
+                    }
+                }
+
+                List<TrackSO> history = scoreManager.TrackPlayer.trackHistory;
+                if(history.Count-2 >= 0)
+                {
+                    if (history[history.Count-2].tags.Contains(myEmotionTag))
+                    {
+                        scoreManager.addPoints(2);
+                    }
+                }
+            }
+            return scoredPoints;
+        }},
+        { ScoreModifierEnum.AmpStack, (self, track, scoreManager, scoredPoints, context, lifetimeNotification) => {
+            self.LifeTime.Value = 9999;
+            if(context.Equals(ScoreContextEnum.TrackEnd))
+            {
+                List<TrackSO> history = scoreManager.TrackPlayer.trackHistory;
+                if(history.Count-2 >= 0)
+                {
+                    if (history[history.Count-2].tags.Contains(Tag.Percussion))
+                    {
+                        scoreManager.addPoints(1);
+                    }
+                }
+            }
+            return scoredPoints;
+        }},
+        { ScoreModifierEnum.RubiksCube, (self, track, scoreManager, scoredPoints, context, lifetimeNotification) => {
+            self.LifeTime.Value = 9999;
+            if (context.Equals(ScoreContextEnum.TrackEnd))
+            {
+                List<Tag> emotionTags = new List<Tag> { Tag.Joy, Tag.Sadness, Tag.Anger, Tag.Fear, Tag.Envy };
+                HashSet<Tag> foundEmotions = new HashSet<Tag>();
+
+                List<TrackSO> history = scoreManager.TrackPlayer.trackHistory;
+
+                foreach (TrackSO pastTrack in history)
+                {
+                    foreach (Tag tag in pastTrack.tags)
+                    {
+                        if (emotionTags.Contains(tag))
+                        {
+                            foundEmotions.Add(tag);
+                        }
+                    }
+                }
+
+                if (foundEmotions.Count == emotionTags.Count)
+                {
+                    scoreManager.addPoints(10);
+                }
+            }
+            return scoredPoints;
+        }},
+    };
+    public static Dictionary<ScoreModifierEnum, string> enumToDescription = new Dictionary<ScoreModifierEnum, string>() 
+    {
+        { ScoreModifierEnum.X2, "Doubled points!" },
+        { ScoreModifierEnum.ElectronicStreak, "Break the streak to Cash in!" },
+        { ScoreModifierEnum.Lose5, "You're about to lose 5 points" },
+        { ScoreModifierEnum.RepeatNonWind, "Repeat track if not a Wind track" },
+        { ScoreModifierEnum.LastSongPlayed, "Multiply final score by 3!" },
+        { ScoreModifierEnum.InstrumentType, "Chain same instrument families\n to double points for the third \n and onwards" },
+        { ScoreModifierEnum.GainNowLoseIfNoJoy, "Play 2 Joys to avoid losing 20 points" },
+        { ScoreModifierEnum.InvertGain, "Multiply points by -1!" },
+        { ScoreModifierEnum.AngelicTouch, "99% of gamblers quit before \n they make it BIG" },
+        { ScoreModifierEnum.EchoOfDesperation, "Points are halved" },
+        { ScoreModifierEnum.AddThree, "Gain 3 extra points on scoring!" }
     };
 }

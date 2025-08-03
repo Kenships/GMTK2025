@@ -46,11 +46,11 @@ namespace ImprovedTimers {
                     
                     OnTimerRaised.Invoke();
                     _repeat--;
-                    Debug.Log("Repeat: " + _repeat);
+                    //Debug.Log("Repeat: " + _repeat);
                 }
                 else
                 {
-                    Debug.Log("CountdownTimer Stop");
+                    //Debug.Log("CountdownTimer Stop");
                     Stop();
                 }
             }

@@ -16,11 +16,12 @@ MonoBehaviour:
   albumCover: {fileID: -5355658132565943540, guid: 9a962c70aaa3bc645a34c5af80f621f7, type: 3}
   volumeOverride: 0
   ability: 4
-  defaultPoints: 2
-  points: 2
-  price: 0
-  description: 
+  defaultPoints: -4
+  points: -4
+  price: 6
+  description: Stores 1 point for every consecutive Electronic, Redeem points on
+    streak break
   trackName: Artificial sparkle
-  tags: 0300000008000000
+  tags: 0400000009000000
   bars: 2
   repeat: 0

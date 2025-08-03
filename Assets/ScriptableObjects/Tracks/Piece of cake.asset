@@ -15,12 +15,12 @@ MonoBehaviour:
   clip: {fileID: 8300000, guid: 95618d2d4f62beb4786544b357658fca, type: 3}
   albumCover: {fileID: 188288607, guid: 9a962c70aaa3bc645a34c5af80f621f7, type: 3}
   volumeOverride: 0
-  ability: 0
-  defaultPoints: 4
-  points: 4
-  price: 0
-  description: 
+  ability: 26
+  defaultPoints: 6
+  points: 6
+  price: 4
+  description: +4 points if after a Percussion
   trackName: Piece of cake
-  tags: 0600000009000000
+  tags: 070000000a000000
   bars: 2
   repeat: 0

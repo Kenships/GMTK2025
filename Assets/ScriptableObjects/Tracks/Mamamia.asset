@@ -16,11 +16,11 @@ MonoBehaviour:
   albumCover: {fileID: -1250019611, guid: 9a962c70aaa3bc645a34c5af80f621f7, type: 3}
   volumeOverride: 0
   ability: 8
-  defaultPoints: 0
-  points: 0
-  price: 0
-  description: 
+  defaultPoints: 16
+  points: 16
+  price: 4
+  description: +5 points on end,\n -5 points on next start
   trackName: 
-  tags: 0600000009000000
-  bars: 2
+  tags: 070000000a000000
+  bars: 4
   repeat: 0

@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69f5cda4b0f3a65448ee36b0c903aa3b, type: 3}
+  m_Name: Lost History
+  m_EditorClassIdentifier: 
+  clip: {fileID: 8300000, guid: 212eeade02676b04ba321aca2a197e0a, type: 3}
+  albumCover: {fileID: -1663920655, guid: 9a962c70aaa3bc645a34c5af80f621f7, type: 3}
+  volumeOverride: 0
+  ability: 19
+  defaultPoints: 4
+  points: 4
+  price: 2
+  description: +10 points on end,\n -20 points if you don't play 2 Joy \n in next
+    3 songs
+  trackName: Lost History
+  tags: 060000000a000000
+  bars: 2
+  repeat: 0

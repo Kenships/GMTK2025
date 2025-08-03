@@ -2,6 +2,7 @@ using System;
 using ImprovedTimers;
 using Obvious.Soap;
 using PrimeTween;
+using ScoreManager;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -71,7 +72,13 @@ namespace Level
 
         private void ApplyFinalModifiers()
         {
-            
+            foreach (ModifierInstance modifier in scoreManager.modifiers) 
+            {
+                if (modifier.Modifier.Equals(ScoreModifierEnum.LastSongPlayed) && modifier.LifeTime > 0) 
+                {
+                    scoreManager.Score.Value *= 3;
+                }
+            }
         }
     }
 }
