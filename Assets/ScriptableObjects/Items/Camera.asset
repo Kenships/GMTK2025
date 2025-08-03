@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Camera
   m_EditorClassIdentifier: 
   itemCover: {fileID: -4566190091907096745, guid: 9d82d32cc8532004dae97159d12e1a97, type: 3}
-  description: Capture the light of an Angle. Angelic luck percent Increased!
+  description: Capture the light of an Angle. \nAngelic luck percent Increased!
   price: 5
   itemName: Camera
   scoreModifier: 18

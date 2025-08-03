@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Headphones
   m_EditorClassIdentifier: 
   itemCover: {fileID: 1570060266375725793, guid: 39aa72265dfb7624a92daa5edb06585f, type: 3}
-  description: Listen to the beat of the drums. Any track after percussion is +1
+  description: Listen to the beat of the drums. \nAny track after percussion is +1
     points
   price: 5
   itemName: 

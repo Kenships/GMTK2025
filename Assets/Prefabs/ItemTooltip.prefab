@@ -382,17 +382,17 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: a
+  m_text: asdasdasdasdasdasdasd
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 973db1e70683a52419b96baf7d35570e, type: 2}
-  m_sharedMaterial: {fileID: -2378078378024870890, guid: 973db1e70683a52419b96baf7d35570e, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 3ec511e2d6edd374c98a37eda057d7c3, type: 2}
+  m_sharedMaterial: {fileID: 3874329945940533504, guid: 3ec511e2d6edd374c98a37eda057d7c3, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4284026949
-  m_fontColor: {r: 0.27191147, g: 0.06421325, b: 0.3490566, a: 1}
+    rgba: 4285620266
+  m_fontColor: {r: 0.16522783, g: 0.37716565, b: 0.4433962, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -409,8 +409,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 20
+  m_fontSizeBase: 20
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -421,7 +421,7 @@ MonoBehaviour:
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
-  m_lineSpacing: 0
+  m_lineSpacing: 40
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
@@ -520,15 +520,15 @@ MonoBehaviour:
       m_Calls: []
   m_text: 2$
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 973db1e70683a52419b96baf7d35570e, type: 2}
-  m_sharedMaterial: {fileID: -2378078378024870890, guid: 973db1e70683a52419b96baf7d35570e, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 3ec511e2d6edd374c98a37eda057d7c3, type: 2}
+  m_sharedMaterial: {fileID: 3874329945940533504, guid: 3ec511e2d6edd374c98a37eda057d7c3, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4284340526
-  m_fontColor: {r: 0.1802243, g: 0.8490566, b: 0.36523965, a: 1}
+    rgba: 4280317952
+  m_fontColor: {r: 0, g: 0.4716981, b: 0.12733543, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -545,8 +545,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 16
+  m_fontSizeBase: 16
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -700,7 +700,7 @@ MonoBehaviour:
   m_Padding:
     m_Left: 40
     m_Right: 40
-    m_Top: 20
+    m_Top: 30
     m_Bottom: 40
   m_ChildAlignment: 0
   m_Spacing: 0
@@ -778,15 +778,15 @@ MonoBehaviour:
       m_Calls: []
   m_text: Stairway to Purgatory
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 973db1e70683a52419b96baf7d35570e, type: 2}
-  m_sharedMaterial: {fileID: -2378078378024870890, guid: 973db1e70683a52419b96baf7d35570e, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 3ec511e2d6edd374c98a37eda057d7c3, type: 2}
+  m_sharedMaterial: {fileID: 3874329945940533504, guid: 3ec511e2d6edd374c98a37eda057d7c3, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4284026949
-  m_fontColor: {r: 0.27191147, g: 0.06421325, b: 0.3490566, a: 1}
+    rgba: 4290344472
+  m_fontColor: {r: 0.09251513, g: 0.46466574, b: 0.7264151, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -803,8 +803,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 30
+  m_fontSizeBase: 30
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18

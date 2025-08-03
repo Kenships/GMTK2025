@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Rubix
   m_EditorClassIdentifier: 
   itemCover: {fileID: 2358074665136869816, guid: 046e27d02ad742f409f7fbd25750db27, type: 3}
-  description: Lets mix and match these emotions. Gives 10 points for playing all
+  description: Lets mix and match these emotions. \nGives 10 points for playing all
     emotions.
   price: 5
   itemName: 
