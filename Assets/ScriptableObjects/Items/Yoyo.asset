@@ -10,9 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d8923498840861e46945f19f79da8f40, type: 3}
-  m_Name: ItemSO 6
+  m_Name: Yoyo
   m_EditorClassIdentifier: 
-  itemCover: {fileID: 0}
-  description: its -$12 dollars
-  price: 2
-  name: 66666
+  itemCover: {fileID: 8629085071164893314, guid: db2103ac9e352e445b194cebcc5092a7, type: 3}
+  description: Gives +2 when tracks with the same emotion is played back-to-back.
+  price: 5
+  itemName: Yoyo
+  scoreModifier: 13

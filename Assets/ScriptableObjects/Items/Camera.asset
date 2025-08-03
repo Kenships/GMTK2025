@@ -10,9 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d8923498840861e46945f19f79da8f40, type: 3}
-  m_Name: ItemSO
+  m_Name: Camera
   m_EditorClassIdentifier: 
-  itemCover: {fileID: 0}
-  description: in the loop tho
-  price: 13
-  name: drugs
+  itemCover: {fileID: -4566190091907096745, guid: 9d82d32cc8532004dae97159d12e1a97, type: 3}
+  description: Capture the light of an Angle. Angelic luck percent Increased!
+  price: 5
+  itemName: Camera
+  scoreModifier: 18

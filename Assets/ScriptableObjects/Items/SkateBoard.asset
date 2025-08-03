@@ -10,9 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d8923498840861e46945f19f79da8f40, type: 3}
-  m_Name: ItemSO 5
+  m_Name: SkateBoard
   m_EditorClassIdentifier: 
-  itemCover: {fileID: 0}
-  description: its -$12 dollars
-  price: 2
-  name: 5555
+  itemCover: {fileID: 5370473749554967267, guid: ead84edf1c51d284ca375b2e122485af, type: 3}
+  description: Skating the same track has never been funner. Playing 4 or more of
+    any instrument type gives 20% boost to score.
+  price: 5
+  itemName: Skateboard
+  scoreModifier: 16

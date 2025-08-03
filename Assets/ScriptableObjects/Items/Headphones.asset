@@ -10,9 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d8923498840861e46945f19f79da8f40, type: 3}
-  m_Name: ItemSO 4
+  m_Name: Headphones
   m_EditorClassIdentifier: 
-  itemCover: {fileID: 0}
-  description: its -$12 dollars
-  price: 2
-  name: 4444
+  itemCover: {fileID: 1570060266375725793, guid: 39aa72265dfb7624a92daa5edb06585f, type: 3}
+  description: Listen to the beat of the drums. Any track after percussion is +1
+    points
+  price: 5
+  itemName: 
+  scoreModifier: 14
