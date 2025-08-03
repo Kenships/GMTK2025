@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: Level2
   m_EditorClassIdentifier: 
   levelName: Level 1
-  minimumWinScore: 20
-  numberOfBars: 224
+  minimumWinScore: 150
+  numberOfBars: 112
   endOfRoundCredits: 10
+  debuffs: 
   highScore: {fileID: 11400000, guid: 972cea54b744bfa45897acfb2fe18c2b, type: 2}
