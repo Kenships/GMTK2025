@@ -60,6 +60,10 @@ namespace ScoreManager
         private Dictionary<TrackSO, TrackSO> trackTypeToModified = new () { };
     
         private List<CountdownTimer> timedEffects = new List<CountdownTimer>();
+        private bool hasCurrentDebuff;
+        private Sprite nextDebuffsprite;
+        private ModifierInstance nextDebuffInstance;
+        private DebuffApplier debuffApplier;
 
         private void Awake()
         {
@@ -116,7 +120,7 @@ namespace ScoreManager
                 {
                     if (m.Modifier.Equals(modifier.Modifier)) count++;
                 }
-                modIcon.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = "x" + count;
+                modIcon.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = count != 0 ? "x" + count : "";
                 modIcon.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "";
                 modIcon.transform.GetChild(0).gameObject.SetActive(false);
             }
@@ -139,6 +143,60 @@ namespace ScoreManager
                     LoseModifierAnim(modifier, () => RemoveModifier(modifier));
                 }
                 else if(modIcon != null)
+                {
+                    modIcon.GetComponentInChildren<TextMeshProUGUI>().text = "" + v;
+                }
+            };
+            return true;//Incase we want to reject modifiers for some reason (player has 100) and notify some function
+        }
+        public bool AddDebuffModifier(ModifierInstance modifier, Sprite display, DebuffApplier dbA)
+        {
+            debuffApplier = dbA;
+            if (hasCurrentDebuff)
+            {
+                nextDebuffInstance = modifier;
+                nextDebuffsprite = display;
+                return true;
+            }
+            else { hasCurrentDebuff = true; }
+            GameObject prefab = modifier.LifeTime >= 999 ? itemModIconPrefab : modIconPrefab;
+            modifiers.Add(modifier);
+            if (modifier.Modifier.Equals(ScoreModifierEnum.Relief)) return true;
+            GameObject modIcon = Instantiate(prefab, modifierGrid.transform, false);
+
+            modIcon.GetComponent<Image>().sprite = display;
+            if (modifier.LifeTime >= 999)
+            {
+                int count = 0;
+                foreach (ModifierInstance m in modifiers)
+                {
+                    if (m.Modifier.Equals(modifier.Modifier)) count++;
+                }
+                modIcon.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = count != 0 ? "x" + count : "";
+                modIcon.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "";
+                modIcon.transform.GetChild(0).gameObject.SetActive(false);
+            }
+            else
+            {
+                modIcon.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "" + modifier.LifeTime.Value;
+            }
+            Debug.Log("Displaying modifier" + modifier);
+            modIcon.GetComponent<Tooltip>().Message = ScoreModifiers.enumToDescription[modifier.Modifier];
+            modToIcon.Add(modifier, modIcon);
+            modifier.LifeTime.OnValueChanged += (v) =>
+            {
+                if (v <= 0 && modIcon != null)
+                {
+                    modIcon.transform.GetChild(1).gameObject.SetActive(false);
+                    modIcon.transform.GetChild(0).gameObject.SetActive(false);
+                    //Nothing matters except true since we jsut want to tell it its lifetime was updated, and to cancel callbacks if necessary
+                    ScoreModifiers.enumToModifier[modifier.Modifier](modifier, null, this, cachedScore, ScoreContextEnum.TimestampAction, true);
+
+                    LoseModifierAnim(modifier, () => RemoveModifier(modifier));
+                    hasCurrentDebuff = false;
+                    AddDebuffModifier(nextDebuffInstance, nextDebuffsprite, dbA);
+                }
+                else if (modIcon != null)
                 {
                     modIcon.GetComponentInChildren<TextMeshProUGUI>().text = "" + v;
                 }
