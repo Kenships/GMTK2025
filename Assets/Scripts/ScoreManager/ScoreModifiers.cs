@@ -26,6 +26,7 @@ public class ScoreModifiers
     {
         { ScoreModifierEnum.X2, (self, track, scoreManager, scoredPoints, context, lifetimeNotification) => {
             if (lifetimeNotification && self.LifeTime.Value <= 0) return scoredPoints;
+            else if(lifetimeNotification) return scoredPoints;
             if(self.counter == 0)
             {
                 if(context.Equals(ScoreContextEnum.TrackEnd)) self.counter++;
@@ -43,6 +44,7 @@ public class ScoreModifiers
         }},
         { ScoreModifierEnum.AddThree, (self, track, scoreManager, scoredPoints, context, lifetimeNotification) => {
             if (lifetimeNotification && self.LifeTime.Value <= 0) return scoredPoints;
+            else if(lifetimeNotification) return scoredPoints;
             if(self.counter == 0)
             {
                 if(context.Equals(ScoreContextEnum.TrackEnd)) self.counter++;
@@ -60,6 +62,7 @@ public class ScoreModifiers
         }},
         { ScoreModifierEnum.ElectronicStreak, (self, track, scoreManager, scoredPoints, context, lifetimeNotification) => {
             if (lifetimeNotification && self.LifeTime.Value <= 0) { scoreManager.TrackPlayer.SongEnd -= self.callback; return 0; }
+            if(lifetimeNotification) return scoredPoints;
             if(!context.Equals(ScoreContextEnum.TrackStart)) return scoredPoints;
             if (track.tags.Contains(Tag.Electronic) || track.tags.Contains(Tag.MusicBox))
             {
@@ -75,6 +78,7 @@ public class ScoreModifiers
         }},
         { ScoreModifierEnum.Lose5, (self, track, scoreManager, scoredPoints, context, lifetimeNotification) => {
             if (lifetimeNotification && self.LifeTime.Value <= 0) { scoreManager.TrackPlayer.SongStart -= self.callback; return 0; }
+            if(lifetimeNotification) return scoredPoints;
             if(!context.Equals(ScoreContextEnum.TrackStart)) return scoredPoints;
             scoredPoints -= 5;
 
@@ -85,6 +89,7 @@ public class ScoreModifiers
         }},
         { ScoreModifierEnum.RepeatNonWind, (self, track, scoreManager, scoredPoints, context, lifetimeNotification) => {
             if (lifetimeNotification && self.LifeTime.Value <= 0) { scoreManager.TrackPlayer.SongStart -= self.callback; return 0; }
+            if(lifetimeNotification) return scoredPoints;
             if(self.counter == 0)
             {
                 if(context.Equals(ScoreContextEnum.TrackEnd)) self.counter++;
@@ -105,6 +110,7 @@ public class ScoreModifiers
         }},
         { ScoreModifierEnum.LastSongPlayed, (self, track, scoreManager, scoredPoints, context, lifetimeNotification) => {
             if (lifetimeNotification && self.LifeTime.Value <= 0) { scoreManager.TrackPlayer.SongStart -= self.callback; return 0; }
+            if(lifetimeNotification) return scoredPoints;
             if(!context.Equals(ScoreContextEnum.TrackStart)) return scoredPoints;
 
             self.LifeTime.Value = 0;
@@ -113,6 +119,7 @@ public class ScoreModifiers
             return scoredPoints;
         }},
         { ScoreModifierEnum.InstrumentType, (self, track, scoreManager, scoredPoints, context, lifetimeNotification) => {
+            if(lifetimeNotification) return scoredPoints;
             self.LifeTime.Value = 999;
             List<Tag> instrumentTags = new List<Tag> { Tag.String, Tag.Wind, Tag.Percussion, Tag.Electronic };
             Tag myInstrumentTag = Tag.Null;
@@ -139,6 +146,7 @@ public class ScoreModifiers
             return scoredPoints;
         }},
         { ScoreModifierEnum.GainNowLoseIfNoJoy, (self, track, scoreManager, scoredPoints, context, lifetimeNotification) => {
+            if(lifetimeNotification) return scoredPoints;
             if (lifetimeNotification && self.LifeTime.Value <= 0)
             {
                 scoreManager.TrackPlayer.SongStart -= self.callback;
@@ -162,6 +170,7 @@ public class ScoreModifiers
             return scoredPoints;
         }},
         { ScoreModifierEnum.InvertGain, (self, track, scoreManager, scoredPoints, context, lifetimeNotification) => {
+            if(lifetimeNotification) return scoredPoints;
             if (lifetimeNotification && self.LifeTime.Value <= 0) return scoredPoints;
             if(self.counter == 0)
             {
@@ -179,6 +188,7 @@ public class ScoreModifiers
             return scoredPoints * -1;
         }},
         { ScoreModifierEnum.AngelicTouch, (self, track, scoreManager, scoredPoints, context, lifetimeNotification) => {
+            if(lifetimeNotification) return scoredPoints;
             if (lifetimeNotification && self.LifeTime.Value <= 0) { scoreManager.TrackPlayer.SongStart -= self.callback; return scoredPoints; }
             if(!context.Equals(ScoreContextEnum.TrackEnd)) return scoredPoints;
             if (self.counter == 0) { self.counter++; return scoredPoints; }
@@ -208,6 +218,7 @@ public class ScoreModifiers
             return scoredPoints;
         }},
         { ScoreModifierEnum.EchoOfDesperation, (self, track, scoreManager, scoredPoints, context, lifetimeNotification) => {
+            if(lifetimeNotification) return scoredPoints;
             if (lifetimeNotification && self.LifeTime.Value <= 0) { scoreManager.TrackPlayer.SongStart -= self.callback; return scoredPoints; }
             if(self.counter == 0 && context.Equals(ScoreContextEnum.TrackStart))
             {
@@ -225,6 +236,7 @@ public class ScoreModifiers
             return scoredPoints;
         }},
         { ScoreModifierEnum.MoodTuner, (self, track, scoreManager, scoredPoints, context, lifetimeNotification) => {
+            if(lifetimeNotification) return scoredPoints;
             self.LifeTime.Value = 9999;
             if(context.Equals(ScoreContextEnum.TrackEnd))
             {
@@ -251,6 +263,7 @@ public class ScoreModifiers
             return scoredPoints;
         }},
         { ScoreModifierEnum.AmpStack, (self, track, scoreManager, scoredPoints, context, lifetimeNotification) => {
+            if(lifetimeNotification) return scoredPoints;
             self.LifeTime.Value = 9999;
             if(context.Equals(ScoreContextEnum.TrackEnd))
             {
@@ -266,6 +279,7 @@ public class ScoreModifiers
             return scoredPoints;
         }},
         { ScoreModifierEnum.RubiksCube, (self, track, scoreManager, scoredPoints, context, lifetimeNotification) => {
+            if(lifetimeNotification) return scoredPoints;
             self.LifeTime.Value = 9999;
             if (context.Equals(ScoreContextEnum.TrackEnd))
             {
@@ -293,6 +307,7 @@ public class ScoreModifiers
             return scoredPoints;
         }},
         { ScoreModifierEnum.BandTogether, (self, track, scoreManager, scoredPoints, context, lifetimeNotification) => {
+            if(lifetimeNotification) return scoredPoints;
             if(self.LifeTime.Value < 2000) self.LifeTime.Value = 2000;
             if(!context.Equals(ScoreContextEnum.TrackEnd)) return scoredPoints;
             List<Tag> instrumentTags = new List<Tag> { Tag.String, Tag.Wind, Tag.Percussion, Tag.Electronic };
@@ -332,6 +347,7 @@ public class ScoreModifiers
             return scoredPoints;
         }},
         { ScoreModifierEnum.Relief, (self, track, scoreManager, scoredPoints, context, lifetimeNotification) => {
+            if(lifetimeNotification) return scoredPoints;
             if(self.LifeTime.Value < 2000) self.LifeTime.Value = 2000;
             if (!context.Equals(ScoreContextEnum.AbilityActivated)) return scoredPoints;
             if (self.LifeTime.Value <= 2000) 
@@ -354,10 +370,12 @@ public class ScoreModifiers
             return scoredPoints;
         }},
         { ScoreModifierEnum.AngelicLuck, (self, track, scoreManager, scoredPoints, context, lifetimeNotification) => {
+            if(lifetimeNotification) return scoredPoints;
             if(self.LifeTime.Value < 2000) self.LifeTime.Value = 2000;
             return scoredPoints;
         }},
         { ScoreModifierEnum.ShuffleIn, (self, track, scoreManager, scoredPoints, context, lifetimeNotification) => {
+            if(lifetimeNotification) return scoredPoints;
             if (lifetimeNotification && self.LifeTime.Value <= 0) return scoredPoints;
             if(!context.Equals(ScoreContextEnum.TrackEnd)) return scoredPoints;
             self.LifeTime.Value--;
@@ -368,6 +386,7 @@ public class ScoreModifiers
             return scoredPoints;
         }},
         { ScoreModifierEnum.HardCut, (self, track, scoreManager, scoredPoints, context, lifetimeNotification) => {
+            if(lifetimeNotification) return scoredPoints;
             if (lifetimeNotification && self.LifeTime.Value <= 0) return scoredPoints;
             if(!context.Equals(ScoreContextEnum.TrackEnd)) return scoredPoints;
             self.LifeTime.Value--;
@@ -375,6 +394,7 @@ public class ScoreModifiers
             return scoredPoints;
         }},
         { ScoreModifierEnum.NegativeBeat, (self, track, scoreManager, scoredPoints, context, lifetimeNotification) => {
+            if(lifetimeNotification) return scoredPoints;
             if (lifetimeNotification && self.LifeTime.Value <= 0) return scoredPoints;
             if(!context.Equals(ScoreContextEnum.TrackEnd)) return scoredPoints;
             self.LifeTime.Value--;
@@ -391,19 +411,23 @@ public class ScoreModifiers
             return scoredPoints;
         }},
         { ScoreModifierEnum.Euphoria, (self, track, scoreManager, scoredPoints, context, lifetimeNotification) => {
+            if(lifetimeNotification) return scoredPoints;
             if (context.Equals(ScoreContextEnum.TrackEnd)) self.LifeTime.Value -= 1;
             if (self.LifeTime.Value > 100) self.LifeTime.Value = 999;
+            if (!track) return scoredPoints;
             if(track.tags.Contains(Tag.Joy)) return (int)Mathf.Ceil(scoredPoints * 1.5f);
             if(track.tags.Contains(Tag.Sadness)) return (int)Mathf.Ceil(scoredPoints * 0.5f);
             return scoredPoints;
         }},
         { ScoreModifierEnum.Classical, (self, track, scoreManager, scoredPoints, context, lifetimeNotification) => {
+            if(lifetimeNotification) return scoredPoints;
             if (context.Equals(ScoreContextEnum.TrackEnd)) self.LifeTime.Value -= 1;
             if (self.LifeTime.Value > 100) self.LifeTime.Value = 999;
             if(track.tags.Contains(Tag.Electronic) || track.tags.Contains(Tag.MusicBox)) return (int)Mathf.Ceil(scoredPoints * 0.5f);
             return (int)Mathf.Ceil(scoredPoints * 1.5f);
         }},
         { ScoreModifierEnum.Encore, (self, track, scoreManager, scoredPoints, context, lifetimeNotification) => {
+            if(lifetimeNotification) return scoredPoints;
             if (context.Equals(ScoreContextEnum.TrackEnd)) self.LifeTime.Value -= 1;
             if (self.LifeTime.Value > 100) self.LifeTime.Value = 999;
             List<Tag> instrumentTags = new List<Tag> { Tag.String, Tag.Wind, Tag.Percussion, Tag.Electronic };
@@ -432,6 +456,7 @@ public class ScoreModifiers
             return scoredPoints;
         }},
         { ScoreModifierEnum.FeelingLucky, (self, track, scoreManager, scoredPoints, context, lifetimeNotification) => {
+            if(lifetimeNotification) return scoredPoints;
             if (context.Equals(ScoreContextEnum.TrackEnd)) self.LifeTime.Value -= 1;
             if (self.LifeTime.Value > 100) self.LifeTime.Value = 999;
             float chance = 0.5f;
