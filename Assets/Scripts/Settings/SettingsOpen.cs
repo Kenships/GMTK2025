@@ -48,6 +48,12 @@ public class SettingsOpen : MonoBehaviour
     private void Open(InputAction.CallbackContext callbackContext)
     {
         if (!tutorial.Value) return;
+
+        if (gameObject.activeInHierarchy)
+        {
+            Close();
+            return;
+        }
         
         gameObject.SetActive(true);
     }

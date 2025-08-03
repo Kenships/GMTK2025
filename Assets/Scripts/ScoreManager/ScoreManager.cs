@@ -96,7 +96,9 @@ namespace ScoreManager
         }
         public void NotifyTrackEnd(TrackSO track) 
         {
-            foreach (ModifierInstance m in modifiers)
+            List<ModifierInstance> temp = new List<ModifierInstance>(modifiers);
+            
+            foreach (ModifierInstance m in temp)
             {
                 if (m.LifeTime.Value > 0) //Incase the lifetime was modified outside of here
                 {
