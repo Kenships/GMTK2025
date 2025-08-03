@@ -1756,7 +1756,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ModifierTooltip: {fileID: 6099752000140320841, guid: 7457fa15e486e2b4ab5ba3c7afb269b7, type: 3}
   ShopTooltip: {fileID: 6099752000140320841, guid: 345a71161b0b95e41974fd190166768f, type: 3}
-  ItemTooltip: {fileID: 0}
+  ItemTooltip: {fileID: 4494120281856294742, guid: 9b26e9fe9a9f8eb42875912f0af9ed2e, type: 3}
   toolTipPadding: 0
   iconHeight: 0
   Electronic: {r: 0, g: 0, b: 0, a: 0}
