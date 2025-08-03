@@ -9,6 +9,8 @@ using UnityEngine;
 
 public class GameStartSequence : MonoBehaviour
 {
+    [SerializeField] private ScriptableEventNoParam startCountDownEvent;
+    
     [SerializeField] GameStateSO gameState;
     
     [SerializeField] IntVariable countDownTime;
@@ -20,10 +22,12 @@ public class GameStartSequence : MonoBehaviour
     [SerializeField] private ScriptableListTrackSO inventory;
 
     private CountdownTimer countDownTimer;
+    private AudioSource audioSource;
 
     private void Awake()
     {
-        countDownTimer = new CountdownTimer(5f);
+        countDownTimer = new CountdownTimer(1.8f);
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void Start()
@@ -51,9 +55,25 @@ public class GameStartSequence : MonoBehaviour
             }
         }
         
-        countDownTime.Value = 3;
-        countDownTimer.OnTimerEnd += () => startGame?.Raise(gameState.GetCurrentLevelData());
+        countDownTimer.OnTimerEnd += () =>
+        {
+            startGame?.Raise(gameState.GetCurrentLevelData());
+            audioSource.Stop();
+        };
+
+        startCountDownEvent.OnRaised += StartTimer;
+        
+    }
+
+    private void OnDestroy()
+    {
+        startCountDownEvent.OnRaised -= StartTimer;
+    }
+
+    private void StartTimer()
+    {
         countDownTimer.Start();
+        audioSource.Play();
     }
 
     private void Shuffle(List<TrackSO> tracks)
@@ -65,14 +85,6 @@ public class GameStartSequence : MonoBehaviour
             n--;
             int k = random.Next(n + 1);
             (tracks[k], tracks[n]) = (tracks[n], tracks[k]);
-        }
-    }
-
-    private void Update()
-    {
-        if (countDownTimer.CurrentTime <= 3f)
-        {
-            countDownTime.Value = Mathf.RoundToInt(countDownTimer.CurrentTime);
         }
     }
 }

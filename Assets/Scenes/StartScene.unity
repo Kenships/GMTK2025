@@ -1462,7 +1462,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   trigger: {fileID: 11400000, guid: 3c6bba17af3526d4ab5d082dd48842f8, type: 2}
   loadingProgress: {fileID: 11400000, guid: 1fd8c9b66fd96914eaf8b79bdca7dcb4, type: 2}
-  sceneName: ShopScene
+  sceneName: GameScene
 --- !u!4 &1440446172
 Transform:
   m_ObjectHideFlags: 0
@@ -2338,6 +2338,10 @@ PrefabInstance:
     - target: {fileID: 60407595053547182, guid: 8f4d7683fe3f7b648bddd7b3bd644655, type: 3}
       propertyPath: m_Name
       value: SettingsCanvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 60407595053547182, guid: 8f4d7683fe3f7b648bddd7b3bd644655, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1592391742243589324, guid: 8f4d7683fe3f7b648bddd7b3bd644655, type: 3}
       propertyPath: m_AnchorMax.x
