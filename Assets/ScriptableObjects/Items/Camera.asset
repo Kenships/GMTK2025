@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8923498840861e46945f19f79da8f40, type: 3}
+  m_Name: Camera
+  m_EditorClassIdentifier: 
+  itemCover: {fileID: -4566190091907096745, guid: 9d82d32cc8532004dae97159d12e1a97, type: 3}
+  description: Capture the light of an Angle. Angelic luck percent Increased!
+  price: 5
+  itemName: Camera
+  scoreModifier: 18

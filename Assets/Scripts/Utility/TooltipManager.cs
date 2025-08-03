@@ -1,3 +1,4 @@
+using DefaultNamespace;
 using System.Collections.Generic;
 using TMPro;
 using TrackScripts;
@@ -10,6 +11,7 @@ public class TooltipManager : MonoBehaviour
     public static TooltipManager instance;
     [SerializeField] private GameObject ModifierTooltip;
     [SerializeField] private GameObject ShopTooltip;
+    [SerializeField] private GameObject ItemTooltip;
     private GameObject curTooltip;
     private TextMeshProUGUI toolTipText;
     [SerializeField] private float toolTipPadding;
@@ -103,6 +105,27 @@ public class TooltipManager : MonoBehaviour
             rect.anchoredPosition = getTooltipPositionCamera();
         }
         else 
+        {
+            rect.transform.position = getTooltipPosition();
+        }
+    }
+    public void DisplayItemTooltip(ItemSO item)
+    {
+        if (curTooltip != null) HideTooltip();
+
+        curTooltip = Instantiate(ItemTooltip, Vector2.zero, Quaternion.identity, transform);
+        curTooltip.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = item.name;
+        curTooltip.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = "" + item.description;
+        curTooltip.transform.GetChild(4).GetChild(0).GetComponent<TextMeshProUGUI>().text = "" + item.price + "$";
+        rect = curTooltip.GetComponent<RectTransform>();
+        curTooltip.SetActive(true);
+        Canvas.ForceUpdateCanvases();
+
+        if (canvas.renderMode == RenderMode.ScreenSpaceCamera)
+        {
+            rect.anchoredPosition = getTooltipPositionCamera();
+        }
+        else
         {
             rect.transform.position = getTooltipPosition();
         }

@@ -68,7 +68,7 @@ MonoBehaviour:
   m_text: Sadness
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 973db1e70683a52419b96baf7d35570e, type: 2}
-  m_sharedMaterial: {fileID: -7319289178166071694, guid: 973db1e70683a52419b96baf7d35570e, type: 2}
+  m_sharedMaterial: {fileID: -2378078378024870890, guid: 973db1e70683a52419b96baf7d35570e, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -204,7 +204,7 @@ MonoBehaviour:
   m_text: Percussion
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 973db1e70683a52419b96baf7d35570e, type: 2}
-  m_sharedMaterial: {fileID: -7319289178166071694, guid: 973db1e70683a52419b96baf7d35570e, type: 2}
+  m_sharedMaterial: {fileID: -2378078378024870890, guid: 973db1e70683a52419b96baf7d35570e, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -308,7 +308,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 64}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1905468578520647146
 CanvasRenderer:
@@ -341,7 +341,7 @@ MonoBehaviour:
   m_text: Stairway to Purgatory
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 973db1e70683a52419b96baf7d35570e, type: 2}
-  m_sharedMaterial: {fileID: -7319289178166071694, guid: 973db1e70683a52419b96baf7d35570e, type: 2}
+  m_sharedMaterial: {fileID: -2378078378024870890, guid: 973db1e70683a52419b96baf7d35570e, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -520,7 +520,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 64}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &9021169015416170026
 CanvasRenderer:
@@ -553,7 +553,7 @@ MonoBehaviour:
   m_text: a
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 973db1e70683a52419b96baf7d35570e, type: 2}
-  m_sharedMaterial: {fileID: -7319289178166071694, guid: 973db1e70683a52419b96baf7d35570e, type: 2}
+  m_sharedMaterial: {fileID: -2378078378024870890, guid: 973db1e70683a52419b96baf7d35570e, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -656,7 +656,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 10}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7441664704475673657
 CanvasRenderer:
@@ -825,7 +825,7 @@ MonoBehaviour:
   m_text: 2$
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 973db1e70683a52419b96baf7d35570e, type: 2}
-  m_sharedMaterial: {fileID: -7319289178166071694, guid: 973db1e70683a52419b96baf7d35570e, type: 2}
+  m_sharedMaterial: {fileID: -2378078378024870890, guid: 973db1e70683a52419b96baf7d35570e, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -965,8 +965,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -4775062671573869477, guid: fd1b32f6369d7db4ab27b310a9bfff21, type: 3}
-  m_Type: 0
+  m_Sprite: {fileID: -2132956935838155565, guid: a5467f04e31c77c41a19262d54799873, type: 3}
+  m_Type: 2
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -1011,9 +1011,9 @@ MonoBehaviour:
   m_ChildForceExpandWidth: 0
   m_ChildForceExpandHeight: 0
   m_ChildControlWidth: 1
-  m_ChildControlHeight: 0
-  m_ChildScaleWidth: 1
-  m_ChildScaleHeight: 1
+  m_ChildControlHeight: 1
+  m_ChildScaleWidth: 0
+  m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
 --- !u!1 &6485042839768952827
 GameObject:
@@ -1050,7 +1050,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 3.274}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5711406077707472609
 CanvasRenderer:
@@ -1324,7 +1324,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 51.5752}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7996447364446071923
 CanvasRenderer:

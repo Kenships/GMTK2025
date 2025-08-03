@@ -18,6 +18,8 @@ public class ShopController : MonoBehaviour
     public Transform ownedItemsUI;
     public GameObject BItem;
     public GameObject BTrack;
+    public GameObject OTrack;
+    public GameObject BuyEffect;
     public int maxBuyTrack;
     public int maxBuyItem;
     public int maxOwnedTrack;
@@ -27,18 +29,18 @@ public class ShopController : MonoBehaviour
     private TrackSO selectedTrackSO;
 
     [SerializeField] private IntVariable dollars;
+    [SerializeField] private TMP_Text buttonText;
+    private int rerollPrice;
 
     void Start()
     {
-        var tempInventory = Instantiate(playerInventory);
         // tempInventory.tracks = new List<TrackSO>(playerInventory.tracks);
         // tempInventory.items = new List<ItemSO>(playerInventory.items);
-        playerInventory = tempInventory;
-
-        var tempBank = Instantiate(shopBank);
+        
         // tempBank.tracks = new List<TrackSO>(playerInventory.tracks);
         // tempBank.items = new List<ItemSO>(playerInventory.items);
-        shopBank = tempBank;
+        rerollPrice = 1;
+        buttonText.text = "REROLL: $"+rerollPrice;
         UpdateShop();
         UpdateInventory();
     }
@@ -58,14 +60,10 @@ public class ShopController : MonoBehaviour
             count++;
 
             var e = Instantiate(BItem, buyItemsUI);
-            e.GetComponentInChildren<TextMeshProUGUI>().text = $"{item.itemName} - ${item.price}";
+            e.GetComponentInChildren<TextMeshProUGUI>().text =  $"${item.price}";
 
             var holder = e.GetComponent<ItemHolder>();
             holder.Item = item;
-
-            var tooltip = e.AddComponent<Tooltip>();
-            tooltip.Message = $"{item.itemName}\nBuy: ${item.price}\n{item.description}";
-            //tooltip.sprite = track.icon;
 
             e.GetComponentInChildren<Button>().onClick.AddListener(() => BuyItem(item, e));
         }
@@ -78,19 +76,12 @@ public class ShopController : MonoBehaviour
             count++;
 
             var e = Instantiate(BTrack, buyTracksUI);
-            e.GetComponentInChildren<TextMeshProUGUI>().text = $"{track.trackName} - ${track.price}";
+            e.GetComponentInChildren<TextMeshProUGUI>().text = $"${track.price}";
 
-            Debug.Log(track);
-            var albumImage = e.GetComponent<Image>();
-            albumImage.sprite = track.albumCover;
 
             var holder = e.GetComponent<TrackHolder>();
             holder.Track = track;
 
-            var tooltip = e.AddComponent<Tooltip>();
-            tooltip.Message = $"{track.trackName}\nBuy: ${track.price}\n{track.description}";
-            //tooltip.sprite = track.icon;
-            
 
             e.GetComponentInChildren<Button>().onClick.AddListener(() => BuyTrack(track, e));
         }
@@ -108,23 +99,21 @@ public class ShopController : MonoBehaviour
 
             var holder = e.GetComponent<ItemHolder>();
             holder.Item = item;
-            
-            var tooltip = e.AddComponent<Tooltip>();
-            tooltip.Message = $"{item.itemName}\n{item.description}";
-            //tooltip.sprite = track.icon;
+    
 
         }
         foreach (var track in playerInventory.tracks)
         {
-            var e = Instantiate(BTrack, ownedTracksUI);
+            var e = Instantiate(OTrack, ownedTracksUI);
             e.GetComponentInChildren<TextMeshProUGUI>().text = track.trackName;
 
             var holder = e.GetComponent<TrackHolder>();
             holder.Track = track;
 
-            var tooltip = e.AddComponent<Tooltip>();
-            tooltip.Message = $"{track.trackName}\nSell: ${track.price}\n{track.description}";
-            //tooltip.sprite = track.icon;
+            Debug.Log(track.albumCover);
+            var albumImage = e.transform.Find("Image").GetComponent<Image>();
+            albumImage.sprite = track.albumCover;
+
             
             e.GetComponentInChildren<Button>().onClick.AddListener(() => SelectTrack(e));
         }
@@ -136,6 +125,20 @@ public class ShopController : MonoBehaviour
         //MAKE SURE TO ADD A VISUAL TO SHOW U CANT BUY IT
         if (dollars.Value < track.price) return;
         if (playerInventory.tracks.Count >= maxOwnedTrack) return;
+
+        Canvas mainCanvas = FindObjectOfType<Canvas>();
+
+        var effect = Instantiate(BuyEffect, e.transform.position, Quaternion.identity);
+
+        RectTransform effectRect = effect.GetComponent<RectTransform>();
+        Vector2 originalSize = effectRect.sizeDelta;
+        Vector3 originalScale = effectRect.localScale;
+
+        effect.transform.SetParent(mainCanvas.transform, worldPositionStays: true);
+
+        effectRect.sizeDelta = originalSize;
+        effectRect.localScale = originalScale;
+
 
         playerInventory.tracks.Add(track);
         dollars.Value -= track.price;
@@ -155,6 +158,19 @@ public class ShopController : MonoBehaviour
     {
         if (dollars.Value < item.price) return;
         if (playerInventory.items.Count >= maxOwnedItem) return;
+
+        Canvas mainCanvas = FindObjectOfType<Canvas>();
+
+        var effect = Instantiate(BuyEffect, e.transform.position, Quaternion.identity);
+
+        RectTransform effectRect = effect.GetComponent<RectTransform>();
+        Vector2 originalSize = effectRect.sizeDelta;
+        Vector3 originalScale = effectRect.localScale;
+
+        effect.transform.SetParent(mainCanvas.transform, worldPositionStays: true);
+
+        effectRect.sizeDelta = originalSize;
+        effectRect.localScale = originalScale;
 
         playerInventory.items.Add(item);
         dollars.Value -= item.price;
@@ -187,11 +203,13 @@ public class ShopController : MonoBehaviour
     {
         if (selectedTrackGO == null) return;
 
+        if (playerInventory.tracks.Count <= 5) return;
+        
         if (playerInventory.tracks.Contains(selectedTrackSO))
         {
             playerInventory.tracks.Remove(selectedTrackSO);
             shopBank.availableTracks.Add(selectedTrackSO);
-            dollars.Value += selectedTrackSO.price;
+            dollars.Value += selectedTrackSO.price / 2;
         }
 
         selectedTrackGO = null;
@@ -202,6 +220,10 @@ public class ShopController : MonoBehaviour
 
     public void Reroll()
     {
+        if (dollars.Value < rerollPrice) return;
+        dollars.Value -= rerollPrice;
+        rerollPrice = rerollPrice + 1;
+        buttonText.text = "REROLL: $"+rerollPrice;
         Shuffle(shopBank.availableTracks);
         UpdateShop();
     }
