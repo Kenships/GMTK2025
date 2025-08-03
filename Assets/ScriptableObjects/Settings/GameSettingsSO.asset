@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e10a5e161c219445bb721fccea508f4, type: 3}
+  m_Name: GameSettingsSO
+  m_EditorClassIdentifier: 
+  VolumeVar: {fileID: 11400000, guid: 5910c083d276494409bf4a3387b40025, type: 2}
+  QualityIndexVar: {fileID: 11400000, guid: c2f04f76e1f942741872a7db744dc68e, type: 2}
+  ResolutionVar: {fileID: 11400000, guid: e2b135bb7cc5fe74a8ca701e3bd092ba, type: 2}
+  FullScreenVar: {fileID: 11400000, guid: 18d60c6e0e599334bb49af96cf3ed553, type: 2}

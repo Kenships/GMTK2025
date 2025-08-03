@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8923498840861e46945f19f79da8f40, type: 3}
+  m_Name: Headphones
+  m_EditorClassIdentifier: 
+  itemCover: {fileID: 1570060266375725793, guid: 39aa72265dfb7624a92daa5edb06585f, type: 3}
+  description: Listen to the beat of the drums. \nAny track after percussion is +1
+    points
+  price: 5
+  itemName: HeadPhones
+  scoreModifier: 14
+  count: 0

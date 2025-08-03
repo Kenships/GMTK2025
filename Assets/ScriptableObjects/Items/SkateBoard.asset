@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8923498840861e46945f19f79da8f40, type: 3}
+  m_Name: SkateBoard
+  m_EditorClassIdentifier: 
+  itemCover: {fileID: 5370473749554967267, guid: ead84edf1c51d284ca375b2e122485af, type: 3}
+  description: Skating the same track\n has never been funner. \nPlaying 4 or more
+    of the same instrument\n type gives 20% boost to score.
+  price: 5
+  itemName: Skateboard
+  scoreModifier: 16
+  count: 0
