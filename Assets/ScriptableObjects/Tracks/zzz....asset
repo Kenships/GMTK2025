@@ -16,10 +16,10 @@ MonoBehaviour:
   albumCover: {fileID: -754499157, guid: 9a962c70aaa3bc645a34c5af80f621f7, type: 3}
   volumeOverride: 0
   ability: 24
-  defaultPoints: 0
-  points: 0
-  price: 0
-  description: 
+  defaultPoints: 12
+  points: 12
+  price: 4
+  description: Disable the next Song's ability
   trackName: zzz...
   tags: 040000000d000000
   bars: 4

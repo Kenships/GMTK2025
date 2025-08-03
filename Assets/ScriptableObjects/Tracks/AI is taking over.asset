@@ -16,11 +16,11 @@ MonoBehaviour:
   albumCover: {fileID: -1663920655, guid: 9a962c70aaa3bc645a34c5af80f621f7, type: 3}
   volumeOverride: 0
   ability: 17
-  defaultPoints: 0
-  points: 0
-  price: 0
-  description: 
+  defaultPoints: 2
+  points: 2
+  price: 4
+  description: +3 points every Score Instance \n for the next 3 Songs
   trackName: AI is taking over
   tags: 040000000c000000
-  bars: 4
+  bars: 2
   repeat: 0

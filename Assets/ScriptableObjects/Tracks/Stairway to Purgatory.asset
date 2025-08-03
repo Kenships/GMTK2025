@@ -22,5 +22,5 @@ MonoBehaviour:
   description: +3 for every expired modifier
   trackName: Stairway to Purgatory
   tags: 060000000b000000
-  bars: 4
+  bars: 2
   repeat: 0

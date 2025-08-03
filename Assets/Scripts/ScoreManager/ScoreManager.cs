@@ -112,6 +112,7 @@ namespace ScoreManager
             modIconPrefab.GetComponent<Image>().sprite = sprite;
             modIcon.GetComponentInChildren<TextMeshProUGUI>().text = "" + modifier.LifeTime.Value;
             Debug.Log("Displaying modifier" + modifier.ToString());
+            modIcon.GetComponent<Tooltip>().Message = ScoreModifiers.enumToDescription[modifier.Modifier];
             modToIcon.Add(modifier, modIcon);
             modifier.LifeTime.OnValueChanged += (v) => 
             {

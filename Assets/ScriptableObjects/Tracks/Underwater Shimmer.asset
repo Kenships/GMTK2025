@@ -22,5 +22,5 @@ MonoBehaviour:
   description: Permanent +1 if after String,\n Permanent -2 if after Percussion
   trackName: Underwater Shimmer
   tags: 040000000c000000
-  bars: 4
+  bars: 2
   repeat: 0

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8479005732444618315}
   - component: {fileID: 7971195289803395094}
   - component: {fileID: 3291224822991620753}
+  - component: {fileID: 198498664370733399}
   m_Layer: 5
   m_Name: ModifierIconPrefab
   m_TagString: Untagged
@@ -76,6 +77,20 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &198498664370733399
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3125472869697621992}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a10bfe96ea0cc9843b7e707f614c985a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Message: 
+  sprite: {fileID: 0}
 --- !u!1 &7397509247789525140
 GameObject:
   m_ObjectHideFlags: 0

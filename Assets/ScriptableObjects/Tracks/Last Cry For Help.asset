@@ -12,15 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69f5cda4b0f3a65448ee36b0c903aa3b, type: 3}
   m_Name: Last Cry For Help
   m_EditorClassIdentifier: 
-  clip: {fileID: 8300000, guid: e287b40d8293946498b7c3a5483c7fe3, type: 3}
+  clip: {fileID: 8300000, guid: ca04e346c91c56347886123ae7823e38, type: 3}
   albumCover: {fileID: 1735306896, guid: 9a962c70aaa3bc645a34c5af80f621f7, type: 3}
   volumeOverride: 0
   ability: 25
-  defaultPoints: 0
-  points: 0
-  price: 0
+  defaultPoints: 6
+  points: 6
+  price: 4
   description: 
   trackName: Last Cry For Help
   tags: 070000000b000000
-  bars: 4
+  bars: 2
   repeat: 0

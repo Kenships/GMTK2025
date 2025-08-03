@@ -16,10 +16,10 @@ MonoBehaviour:
   albumCover: {fileID: 951105033, guid: 9a962c70aaa3bc645a34c5af80f621f7, type: 3}
   volumeOverride: 0
   ability: 13
-  defaultPoints: 0
-  points: 0
-  price: 0
-  description: 
+  defaultPoints: 8
+  points: 8
+  price: 6
+  description: +1 for every track played
   trackName: Thunder!!!
   tags: 0600000009000000
   bars: 4

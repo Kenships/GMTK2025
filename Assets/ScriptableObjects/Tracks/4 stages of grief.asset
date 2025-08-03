@@ -16,10 +16,10 @@ MonoBehaviour:
   albumCover: {fileID: 764542282, guid: 9a962c70aaa3bc645a34c5af80f621f7, type: 3}
   volumeOverride: 0
   ability: 0
-  defaultPoints: 0
-  points: 0
-  price: 0
-  description: 
+  defaultPoints: 16
+  points: 16
+  price: 4
+  description: Counts as EVERY instrument
   trackName: 4 stages of grief
   tags: 080000000d000000
   bars: 4

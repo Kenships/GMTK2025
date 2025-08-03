@@ -16,11 +16,11 @@ MonoBehaviour:
   albumCover: {fileID: -1353320604, guid: 9a962c70aaa3bc645a34c5af80f621f7, type: 3}
   volumeOverride: 0
   ability: 15
-  defaultPoints: 0
-  points: 0
-  price: 0
-  description: 
+  defaultPoints: 2
+  points: 2
+  price: 2
+  description: Expire the newest modifier
   trackName: Crystal Cave
   tags: 070000000d000000
-  bars: 4
+  bars: 2
   repeat: 0

@@ -10,7 +10,7 @@ using UnityEngine.InputSystem.Android;
 public enum ScoreModifierEnum
 {
     All, // For affecting ALL modifiers
-    X2, ElectronicStreak, Lose5, RepeatNonWind, LastSongPlayed, SetToThree, InstrumentType, GainNowLoseIfNoJoy, InvertGain, AngelicTouch, EchoOfDesperation, AddThree
+    X2, ElectronicStreak, Lose5, RepeatNonWind, LastSongPlayed, InstrumentType, GainNowLoseIfNoJoy, InvertGain, AngelicTouch, EchoOfDesperation, AddThree
 }
 public enum ScoreContextEnum 
 {
@@ -135,7 +135,7 @@ public class ScoreModifiers
             return scoredPoints;
         }},
         { ScoreModifierEnum.GainNowLoseIfNoJoy, (self, track, scoreManager, scoredPoints, context, lifetimeNotification) => {
-            if (lifetimeNotification && self.LifeTime.Value <= 0) 
+            if (lifetimeNotification && self.LifeTime.Value <= 0)
             {
                 scoreManager.TrackPlayer.SongStart -= self.callback;
             }
@@ -164,7 +164,7 @@ public class ScoreModifiers
                 if(context.Equals(ScoreContextEnum.TrackEnd)) self.counter++;
                 return scoredPoints;
             }
-            if(context.Equals(ScoreContextEnum.TrackEnd)) 
+            if(context.Equals(ScoreContextEnum.TrackEnd))
             {
                 self.LifeTime.Value--;
             }
@@ -177,12 +177,12 @@ public class ScoreModifiers
         { ScoreModifierEnum.AngelicTouch, (self, track, scoreManager, scoredPoints, context, lifetimeNotification) => {
             if (lifetimeNotification && self.LifeTime.Value <= 0) { scoreManager.TrackPlayer.SongStart -= self.callback; return scoredPoints; }
             if(!context.Equals(ScoreContextEnum.TrackEnd)) return scoredPoints;
-            if (self.counter == 0) { self.counter++; return scoredPoints; }                 
+            if (self.counter == 0) { self.counter++; return scoredPoints; }
             self.LifeTime.Value--;
             if (track.tags.Contains(Tag.Joy))
             {
                 int roll = UnityEngine.Random.Range(0, 10);
-                if(roll == 5) 
+                if(roll == 5)
                 {
                     scoreManager.addPoints(9000 * scoreManager.GetUpToDateTrack(track).points);
                 }
@@ -212,5 +212,19 @@ public class ScoreModifiers
             }
             return scoredPoints;
         }},
+    };
+    public static Dictionary<ScoreModifierEnum, string> enumToDescription = new Dictionary<ScoreModifierEnum, string>() 
+    {
+        { ScoreModifierEnum.X2, "Doubled points!" },
+        { ScoreModifierEnum.ElectronicStreak, "Break the streak to Cash in!" },
+        { ScoreModifierEnum.Lose5, "You're about to lose 5 points" },
+        { ScoreModifierEnum.RepeatNonWind, "Repeat track if not a Wind track" },
+        { ScoreModifierEnum.LastSongPlayed, "Multiply final score by 3!" },
+        { ScoreModifierEnum.InstrumentType, "Chain same instrument families\n to double points for the third \n and onwards" },
+        { ScoreModifierEnum.GainNowLoseIfNoJoy, "Play 2 Joys to avoid losing 20 points" },
+        { ScoreModifierEnum.InvertGain, "Multiply points by -1!" },
+        { ScoreModifierEnum.AngelicTouch, "99% of gamblers quit before \n they make it BIG" },
+        { ScoreModifierEnum.EchoOfDesperation, "Points are halved" },
+        { ScoreModifierEnum.AddThree, "Gain 3 extra points on scoring!" }
     };
 }
