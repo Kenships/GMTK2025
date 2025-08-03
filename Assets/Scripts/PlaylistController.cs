@@ -117,6 +117,7 @@ public class PlaylistController : MonoBehaviour
         GameObject prefab = Instantiate(trackHolderPrefab, children[^1].position, Quaternion.identity);
         
         TrackHolder trackHolder = prefab.GetComponent<TrackHolder>();
+        
         trackHolder.Track = track;
 
         if (prefab.TryGetComponent(out DragAndDrop dragAndDrop))
@@ -127,6 +128,7 @@ public class PlaylistController : MonoBehaviour
         SnapToParentObject snapToParentObject = prefab.GetComponent<SnapToParentObject>();
         snapToParentObject.Initialize(canvas, this);
         snapToParentObject.SnapToParent();
+        trackHolder.transform.localScale = Vector3.one;
 
         return true;
     }
