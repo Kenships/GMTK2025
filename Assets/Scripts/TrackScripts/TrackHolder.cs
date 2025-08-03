@@ -28,7 +28,8 @@ namespace DefaultNamespace
                     text.text = Track.name;
                 }
             }
-            GetComponent<Tooltip>().Message = "Points: " + track.points + "\n" +
+            GetComponent<Tooltip>().Message = "Name: " + track.trackName + "\n" +
+                                              "Points: " + track.points + "\n" +
                                               "Bar Count: " + track.bars + "\n" + 
                                               "Price: " + track.price + "\n" +
                                               "Resell Price: " + track.price/2 + "\n" +
