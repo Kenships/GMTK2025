@@ -7,14 +7,14 @@ using System;
 using System.Collections.Generic;
 using TrackScripts;
 using UnityEngine;
-using UnityEngine.InputSystem.Android;
 
 public enum ScoreModifierEnum
 {
+    Null,//Error value
     All, // For affecting ALL modifiers
     X2, ElectronicStreak, Lose5, RepeatNonWind, LastSongPlayed, InstrumentType, GainNowLoseIfNoJoy, InvertGain, AngelicTouch, EchoOfDesperation, AddThree,
-    MoodTuner, EncoreToken, AmpStack, RubiksCube, BandTogether, Relief, AngelicLuck,
-    ShuffleIn, HardCut, NegativeBeat
+    MoodTuner, AmpStack, RubiksCube, BandTogether, Relief, AngelicLuck,
+    ShuffleIn, HardCut, NegativeBeat, Euphoria, Classical, Encore, FeelingLucky
 }
 public enum ScoreContextEnum 
 {
@@ -113,7 +113,7 @@ public class ScoreModifiers
             return scoredPoints;
         }},
         { ScoreModifierEnum.InstrumentType, (self, track, scoreManager, scoredPoints, context, lifetimeNotification) => {
-            if (lifetimeNotification && self.LifeTime.Value <= 0) return scoredPoints;
+            self.LifeTime.Value = 999;
             List<Tag> instrumentTags = new List<Tag> { Tag.String, Tag.Wind, Tag.Percussion, Tag.Electronic };
             Tag myInstrumentTag = Tag.Null;
             foreach(Tag t in track.tags)
@@ -389,7 +389,51 @@ public class ScoreModifiers
                 scoreManager.AddModifier(modifier, track.albumCover);
             }
             return scoredPoints;
-        }}
+        }},
+        { ScoreModifierEnum.Euphoria, (self, track, scoreManager, scoredPoints, context, lifetimeNotification) => {
+            self.LifeTime.Value = 999;
+            if(track.tags.Contains(Tag.Joy)) return (int)Mathf.Ceil(scoredPoints * 1.5f);
+            if(track.tags.Contains(Tag.Sadness)) return (int)Mathf.Ceil(scoredPoints * 0.5f);
+            return scoredPoints;
+        }},
+        { ScoreModifierEnum.Classical, (self, track, scoreManager, scoredPoints, context, lifetimeNotification) => {
+            self.LifeTime.Value = 999;
+            if(track.tags.Contains(Tag.Electronic) || track.tags.Contains(Tag.MusicBox)) return (int)Mathf.Ceil(scoredPoints * 0.5f);
+            return (int)Mathf.Ceil(scoredPoints * 1.5f);
+        }},
+        { ScoreModifierEnum.Encore, (self, track, scoreManager, scoredPoints, context, lifetimeNotification) => {
+            self.LifeTime.Value = 999;
+            List<Tag> instrumentTags = new List<Tag> { Tag.String, Tag.Wind, Tag.Percussion, Tag.Electronic };
+            Tag myInstrumentTag = Tag.Null;
+            foreach(Tag t in track.tags)
+            {
+                if (instrumentTags.Contains(t))
+                {
+                    myInstrumentTag = t;
+                    break;
+                }
+            }
+
+            List<TrackSO> history = scoreManager.TrackPlayer.trackHistory;
+            if(history.Count-2 >= 0)
+            {
+                if (history[history.Count-2].tags.Contains(myInstrumentTag) || history[history.Count-2].tags.Contains(Tag.MusicBox))
+                {
+                    scoreManager.addPoints(5);
+                }
+                else
+                {
+                    scoreManager.addPoints(-5);
+                }
+            }
+            return scoredPoints;
+        }},
+        { ScoreModifierEnum.FeelingLucky, (self, track, scoreManager, scoredPoints, context, lifetimeNotification) => {
+            self.LifeTime.Value = 999;
+            float chance = 0.5f;
+            if(UnityEngine.Random.value < chance) return 2* scoredPoints;
+            else return (int) Mathf.Ceil(0.5f * scoredPoints);
+        }},
     };
     public static Dictionary<ScoreModifierEnum, string> enumToDescription = new Dictionary<ScoreModifierEnum, string>() 
     {
@@ -403,6 +447,19 @@ public class ScoreModifiers
         { ScoreModifierEnum.InvertGain, "Multiply points by -1!" },
         { ScoreModifierEnum.AngelicTouch, "99% of gamblers quit before \n they make it BIG" },
         { ScoreModifierEnum.EchoOfDesperation, "Points are halved" },
-        { ScoreModifierEnum.AddThree, "Gain 3 extra points on scoring!" }
+        { ScoreModifierEnum.AddThree, "Gain 3 extra points on scoring!" },
+        { ScoreModifierEnum.MoodTuner, "+2 points when repeating an emotion" },
+        { ScoreModifierEnum.AmpStack, "+1 points on song end after Percussion" },
+        { ScoreModifierEnum.RubiksCube, "+10 points after 5 emotions in a row" },
+        { ScoreModifierEnum.BandTogether, "1.2× final score for \n4 same-instrument tracks in a row" },
+        { ScoreModifierEnum.Relief, "Removes newest modifier" },
+        { ScoreModifierEnum.AngelicLuck, "Angelic touch chance increases by 1%" },
+        { ScoreModifierEnum.ShuffleIn, "About to shuffle the deck" },
+        { ScoreModifierEnum.HardCut, "Abilities have been deactivated" },
+        { ScoreModifierEnum.NegativeBeat, "Multiply scores by -1" },
+        { ScoreModifierEnum.Euphoria, "Euphoric crowd! Joy scores double \nand Sadness scores are halved!" },
+        { ScoreModifierEnum.Classical, "Traditional, Electronic and Music Box \nscores are halved, and the rest are doubled." },
+        { ScoreModifierEnum.Encore, "Encore! Instrument repeat grant 5 points!\n Instrument changes lose 5 points." },
+        { ScoreModifierEnum.FeelingLucky, "50% chance to double each score\n 50% chance to halve each score" }
     };
 }

@@ -66,7 +66,14 @@ public class TooltipManager : MonoBehaviour
         if (curTooltip != null)
         {
             rect = curTooltip.GetComponent<RectTransform>();
-            rect.anchoredPosition = canvas.renderMode == RenderMode.ScreenSpaceCamera ? getTooltipPositionCamera() : getTooltipPosition();
+            if (canvas.renderMode == RenderMode.ScreenSpaceCamera)
+            {
+                rect.anchoredPosition = getTooltipPositionCamera();
+            }
+            else
+            {
+                rect.transform.position = getTooltipPosition();
+            }
         }
     }
     public void DisplayTrackTooltip(TrackSO track, bool shop)
@@ -91,8 +98,14 @@ public class TooltipManager : MonoBehaviour
         rect = curTooltip.GetComponent<RectTransform>();
         curTooltip.SetActive(true);
         Canvas.ForceUpdateCanvases();
-
-        rect.anchoredPosition = canvas.renderMode == RenderMode.ScreenSpaceCamera ? getTooltipPositionCamera() : getTooltipPosition();
+        if (canvas.renderMode == RenderMode.ScreenSpaceCamera)
+        {
+            rect.anchoredPosition = getTooltipPositionCamera();
+        }
+        else 
+        {
+            rect.transform.position = getTooltipPosition();
+        }
     }
     public void DisplayModifierTooltip(string message)
     {
@@ -104,7 +117,14 @@ public class TooltipManager : MonoBehaviour
         curTooltip.SetActive(true);
         Canvas.ForceUpdateCanvases();
 
-        rect.anchoredPosition = canvas.renderMode == RenderMode.ScreenSpaceCamera ? getTooltipPositionCamera() : getTooltipPosition();
+        if (canvas.renderMode == RenderMode.ScreenSpaceCamera)
+        {
+            rect.anchoredPosition = getTooltipPositionCamera();
+        }
+        else
+        {
+            rect.transform.position = getTooltipPosition();
+        }
     }
     public void HideTooltip() 
     {

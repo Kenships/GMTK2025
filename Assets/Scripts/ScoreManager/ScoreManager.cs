@@ -5,7 +5,6 @@ using Obvious.Soap;
 using PrimeTween;
 using TMPro;
 using TrackScripts;
-using Unity.Hierarchy;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -53,6 +52,7 @@ namespace ScoreManager
         public List<ModifierInstance> modifiers;
         [SerializeField] private GameObject modifierGrid;
         [SerializeField] private GameObject modIconPrefab;
+        [SerializeField] private GameObject itemModIconPrefab;
         [SerializeField] private Sprite defaultIconSprite;
         [SerializeField] List<Sprite> modIconSprites;
         public Dictionary<ModifierInstance, GameObject> modToIcon = new Dictionary<ModifierInstance, GameObject>() {};
@@ -103,11 +103,27 @@ namespace ScoreManager
 
         public bool AddModifier(ModifierInstance modifier, Sprite display)
         {
+            GameObject prefab = modifier.LifeTime >= 999 ? itemModIconPrefab : modIconPrefab;
             modifiers.Add(modifier);
-            GameObject modIcon = Instantiate(modIconPrefab, modifierGrid.transform, false);
+            if(modifier.Modifier.Equals(ScoreModifierEnum.Relief)) return true;
+            GameObject modIcon = Instantiate(prefab, modifierGrid.transform, false);
 
             modIcon.GetComponent<Image>().sprite = display;
-            modIcon.GetComponentInChildren<TextMeshProUGUI>().text = "" + modifier.LifeTime.Value;
+            if (modifier.LifeTime >= 999)
+            {
+                int count = 0;
+                foreach (ModifierInstance m in modifiers)
+                {
+                    if (m.Modifier.Equals(modifier.Modifier)) count++;
+                }
+                modIcon.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = "x" + count;
+                modIcon.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "";
+                modIcon.transform.GetChild(0).gameObject.SetActive(false);
+            }
+            else 
+            {
+                modIcon.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "" + modifier.LifeTime.Value;
+            }
             Debug.Log("Displaying modifier" + modifier);
             modIcon.GetComponent<Tooltip>().Message = ScoreModifiers.enumToDescription[modifier.Modifier];
             modToIcon.Add(modifier, modIcon);
@@ -115,6 +131,7 @@ namespace ScoreManager
             {
                 if (v <= 0 && modIcon != null)
                 {
+                    modIcon.transform.GetChild(1).gameObject.SetActive(false);
                     modIcon.transform.GetChild(0).gameObject.SetActive(false);
                     //Nothing matters except true since we jsut want to tell it its lifetime was updated, and to cancel callbacks if necessary
                     ScoreModifiers.enumToModifier[modifier.Modifier](modifier, null, this, cachedScore, ScoreContextEnum.TimestampAction, true);

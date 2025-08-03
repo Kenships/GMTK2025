@@ -3044,6 +3044,7 @@ MonoBehaviour:
   PreviousScore: {fileID: 11400000, guid: 58528e1e458b8a84b837963365e5981e, type: 2}
   modifierGrid: {fileID: 175931974}
   modIconPrefab: {fileID: 3125472869697621992, guid: 6d9768cc200ad214a947168d4f419f4e, type: 3}
+  itemModIconPrefab: {fileID: 0}
   defaultIconSprite: {fileID: 2868101353237766674, guid: c2498da77ce7e364aa77dd1be1516bed, type: 3}
   modIconSprites: []
 --- !u!4 &698750219
@@ -3420,6 +3421,7 @@ MonoBehaviour:
   discoToBackup: {fileID: 11400000, guid: 61ca5870aa0b20a4e9333bda8c604c8c, type: 2}
   discoToActive: {fileID: 11400000, guid: d38f4e4554b29324eb545ca16213f776, type: 2}
   progress: {fileID: 11400000, guid: a7e9ec1dce325544aa7fe1d0e4290dec, type: 2}
+  inventory: {fileID: 11400000, guid: 932371640b5aa4e4e87602366b202d23, type: 2}
   currentBarNumber: 0
   trackHistory: []
   abilityBlocked: 0
