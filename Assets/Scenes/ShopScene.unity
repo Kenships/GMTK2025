@@ -1300,10 +1300,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4deb5ee146a6f8f43bc87e0920a434a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IconTooltip: {fileID: 8645629221669667667, guid: 344b324ef1e9b1a48acef29d59814fc3, type: 3}
-  NoIconTooltip: {fileID: 8645629221669667667, guid: 344b324ef1e9b1a48acef29d59814fc3, type: 3}
+  IconTooltip: {fileID: 6099752000140320841, guid: 345a71161b0b95e41974fd190166768f, type: 3}
+  NoIconTooltip: {fileID: 6099752000140320841, guid: 345a71161b0b95e41974fd190166768f, type: 3}
   toolTipPadding: 0
   iconHeight: 0
+  Electronic: {r: 0, g: 0, b: 0, a: 0}
+  Wind: {r: 0, g: 0, b: 0, a: 0}
+  String: {r: 0, g: 0, b: 0, a: 0}
+  Percussion: {r: 0, g: 0, b: 0, a: 0}
+  MusicBox: {r: 0, g: 0, b: 0, a: 0}
+  Anger: {r: 0, g: 0, b: 0, a: 0}
+  Joy: {r: 0, g: 0, b: 0, a: 0}
+  Fear: {r: 0, g: 0, b: 0, a: 0}
+  Envy: {r: 0, g: 0, b: 0, a: 0}
+  Sadness: {r: 0, g: 0, b: 0, a: 0}
 --- !u!114 &759002357
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2388,6 +2398,26 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1369816560}
   m_CullTransparentMesh: 1
+--- !u!1 &1426209159 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 536095408354253229, guid: 7a6aa98ce9600a044a7e890d60aecb46, type: 3}
+  m_PrefabInstance: {fileID: 3847863861411056399}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1426209165
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1426209159}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a10bfe96ea0cc9843b7e707f614c985a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Message: 
+  track: {fileID: 0}
+  shopTooltip: 0
 --- !u!1001 &1462673215
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3407,7 +3437,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 536095408354253229, guid: 7a6aa98ce9600a044a7e890d60aecb46, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1426209165}
   m_SourcePrefab: {fileID: 100100000, guid: 7a6aa98ce9600a044a7e890d60aecb46, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
