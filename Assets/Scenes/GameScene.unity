@@ -7431,6 +7431,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 897360a55de959444a664b504991aa4a, type: 2}
     - target: {fileID: 3719706025979049900, guid: c10e70f62272c4649845afd0e1f75bd4, type: 3}
+      propertyPath: abilitySlots
+      value: 
+      objectReference: {fileID: 418924252}
+    - target: {fileID: 3719706025979049900, guid: c10e70f62272c4649845afd0e1f75bd4, type: 3}
       propertyPath: startCountDownEvent
       value: 
       objectReference: {fileID: 11400000, guid: 0616ce1513739a74c8a13971c011c9de, type: 2}
