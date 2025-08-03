@@ -34,7 +34,8 @@ namespace TrackScripts
                 endValue: new Vector2(0, 0),
                 duration: 0.5f,
                 ease: Ease.InOutExpo,
-                cycles:1
+                cycles:1,
+                useUnscaledTime:true
             );
         }
     }

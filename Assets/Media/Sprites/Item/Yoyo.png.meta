@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 88ee2cb06ff82e94fb1ff03089397afa
+guid: db2103ac9e352e445b194cebcc5092a7
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 8486031539342236817
-    second: Untitled_Artwork-7_0
+      213: 8629085071164893314
+    second: Yoyo_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,23 +100,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Untitled_Artwork-7_0
+      name: Yoyo_0
       rect:
         serializedVersion: 2
-        x: 66
-        y: 2
-        width: 28
-        height: 28
+        x: 64
+        y: 0
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 19c514f59b074c570800000000000000
-      internalID: 8486031539342236817
+      spriteID: 288e863472ba0c770800000000000000
+      internalID: 8629085071164893314
       vertices: []
       indices: 
       edges: []
@@ -125,7 +125,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 857ae00976884df4494ef3974d4aca00
     internalID: 0
     vertices: []
     indices: 
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Untitled_Artwork-7_0: 8486031539342236817
+      Yoyo_0: 8629085071164893314
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

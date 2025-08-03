@@ -9,10 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d8923498840861e46945f19f79da8f40, type: 3}
-  m_Name: ItemSO
+  m_Script: {fileID: 11500000, guid: a49b7e678b3ebb7418adb84806d24646, type: 3}
+  m_Name: tutorialModifier
   m_EditorClassIdentifier: 
-  itemCover: {fileID: 0}
-  description: in the loop tho
-  price: 13
-  name: drugs
+  TagIndex: 0
+  Description: 
+  _debugLogEnabled: 0

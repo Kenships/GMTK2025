@@ -20,6 +20,8 @@ public class GameStartSequence : MonoBehaviour
     [SerializeField] List<PlaylistController> playlists;
     
     [SerializeField] private InventorySO inventory;
+    
+    [SerializeField] private Transform abilitySlots;
 
     private CountdownTimer countDownTimer;
     private AudioSource audioSource;

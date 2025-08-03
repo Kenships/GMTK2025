@@ -10,9 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d8923498840861e46945f19f79da8f40, type: 3}
-  m_Name: ItemSO 3
+  m_Name: Rubix
   m_EditorClassIdentifier: 
-  itemCover: {fileID: 0}
-  description: its -$12 dollars
-  price: 12
-  name: money
+  itemCover: {fileID: 2358074665136869816, guid: 046e27d02ad742f409f7fbd25750db27, type: 3}
+  description: Lets mix and match these emotions. Gives 10 points for playing all
+    emotions.
+  price: 5
+  itemName: 
+  scoreModifier: 15
