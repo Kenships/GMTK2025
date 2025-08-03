@@ -391,18 +391,21 @@ public class ScoreModifiers
             return scoredPoints;
         }},
         { ScoreModifierEnum.Euphoria, (self, track, scoreManager, scoredPoints, context, lifetimeNotification) => {
-            self.LifeTime.Value = 999;
+            if (context.Equals(ScoreContextEnum.TrackEnd)) self.LifeTime.Value -= 1;
+            if (self.LifeTime.Value > 100) self.LifeTime.Value = 999;
             if(track.tags.Contains(Tag.Joy)) return (int)Mathf.Ceil(scoredPoints * 1.5f);
             if(track.tags.Contains(Tag.Sadness)) return (int)Mathf.Ceil(scoredPoints * 0.5f);
             return scoredPoints;
         }},
         { ScoreModifierEnum.Classical, (self, track, scoreManager, scoredPoints, context, lifetimeNotification) => {
-            self.LifeTime.Value = 999;
+            if (context.Equals(ScoreContextEnum.TrackEnd)) self.LifeTime.Value -= 1;
+            if (self.LifeTime.Value > 100) self.LifeTime.Value = 999;
             if(track.tags.Contains(Tag.Electronic) || track.tags.Contains(Tag.MusicBox)) return (int)Mathf.Ceil(scoredPoints * 0.5f);
             return (int)Mathf.Ceil(scoredPoints * 1.5f);
         }},
         { ScoreModifierEnum.Encore, (self, track, scoreManager, scoredPoints, context, lifetimeNotification) => {
-            self.LifeTime.Value = 999;
+            if (context.Equals(ScoreContextEnum.TrackEnd)) self.LifeTime.Value -= 1;
+            if (self.LifeTime.Value > 100) self.LifeTime.Value = 999;
             List<Tag> instrumentTags = new List<Tag> { Tag.String, Tag.Wind, Tag.Percussion, Tag.Electronic };
             Tag myInstrumentTag = Tag.Null;
             foreach(Tag t in track.tags)
@@ -429,7 +432,8 @@ public class ScoreModifiers
             return scoredPoints;
         }},
         { ScoreModifierEnum.FeelingLucky, (self, track, scoreManager, scoredPoints, context, lifetimeNotification) => {
-            self.LifeTime.Value = 999;
+            if (context.Equals(ScoreContextEnum.TrackEnd)) self.LifeTime.Value -= 1;
+            if (self.LifeTime.Value > 100) self.LifeTime.Value = 999;
             float chance = 0.5f;
             if(UnityEngine.Random.value < chance) return 2* scoredPoints;
             else return (int) Mathf.Ceil(0.5f * scoredPoints);

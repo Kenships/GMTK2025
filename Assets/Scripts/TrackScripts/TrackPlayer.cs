@@ -46,6 +46,8 @@ namespace TrackScripts
         
         [SerializeField] private InventorySO inventory;
 
+        [SerializeField] private DebuffApplier dbApplier;
+
         public int currentBarNumber;
         
         public UnityAction OnDownBeat;
