@@ -1,18 +1,20 @@
 
 using DefaultNamespace;
+using ImprovedTimers;
+using Obvious.Soap;
 using ScoreManager;
 using System;
-using TrackScripts;
 using System.Collections.Generic;
+using TrackScripts;
 using UnityEngine;
 using UnityEngine.InputSystem.Android;
-using ImprovedTimers;
 
 public enum ScoreModifierEnum
 {
     All, // For affecting ALL modifiers
     X2, ElectronicStreak, Lose5, RepeatNonWind, LastSongPlayed, InstrumentType, GainNowLoseIfNoJoy, InvertGain, AngelicTouch, EchoOfDesperation, AddThree,
-    MoodTuner, EncoreToken, AmpStack, RubiksCube, BandTogether, Relief, AngelicLuck
+    MoodTuner, EncoreToken, AmpStack, RubiksCube, BandTogether, Relief, AngelicLuck,
+    ShuffleIn, HardCut, NegativeBeat
 }
 public enum ScoreContextEnum 
 {
@@ -355,6 +357,39 @@ public class ScoreModifiers
             if(self.LifeTime.Value < 2000) self.LifeTime.Value = 2000;
             return scoredPoints;
         }},
+        { ScoreModifierEnum.ShuffleIn, (self, track, scoreManager, scoredPoints, context, lifetimeNotification) => {
+            if (lifetimeNotification && self.LifeTime.Value <= 0) return scoredPoints;
+            if(!context.Equals(ScoreContextEnum.TrackEnd)) return scoredPoints;
+            self.LifeTime.Value--;
+            if (self.LifeTime.Value <= 0)
+            {
+                scoreManager.TrackPlayer.Shuffle();
+            }
+            return scoredPoints;
+        }},
+        { ScoreModifierEnum.HardCut, (self, track, scoreManager, scoredPoints, context, lifetimeNotification) => {
+            if (lifetimeNotification && self.LifeTime.Value <= 0) return scoredPoints;
+            if(!context.Equals(ScoreContextEnum.TrackEnd)) return scoredPoints;
+            self.LifeTime.Value--;
+            scoreManager.TrackPlayer.abilityBlocked = true;
+            return scoredPoints;
+        }},
+        { ScoreModifierEnum.NegativeBeat, (self, track, scoreManager, scoredPoints, context, lifetimeNotification) => {
+            if (lifetimeNotification && self.LifeTime.Value <= 0) return scoredPoints;
+            if(!context.Equals(ScoreContextEnum.TrackEnd)) return scoredPoints;
+            self.LifeTime.Value--;
+            if (self.LifeTime.Value <= 0)
+            {
+                ModifierInstance modifier = new ModifierInstance()
+                    {
+                        LifeTime = ScriptableObject.CreateInstance<IntVariable>(),
+                        Modifier = ScoreModifierEnum.InvertGain,
+                    };
+                modifier.LifeTime.Value = 1;
+                scoreManager.AddModifier(modifier, track.albumCover);
+            }
+            return scoredPoints;
+        }}
     };
     public static Dictionary<ScoreModifierEnum, string> enumToDescription = new Dictionary<ScoreModifierEnum, string>() 
     {
