@@ -46,10 +46,11 @@ namespace TrackScripts
             {
                 return;
             }
+            Vector3 startPosition = trackHolder.transform.position;
+            transform.position = startPosition;
 
             if (playlistControllerStart.TryDequeue(out currentTrack))
             {
-                Vector3 startPosition = trackHolder.transform.position;
                 Vector3 endPosition = playlistControllerEnd.GetLastChild().transform.position;
                 if (duration == 0)
                 {
@@ -57,7 +58,6 @@ namespace TrackScripts
                 }
                 Tween.Position(
                     target: transform,
-                    startPosition,
                     endPosition,
                     duration: duration == 0 ? 0.5f : duration,
                     ease: Ease.InOutExpo,
