@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5006272292317583228}
   - component: {fileID: 6234473259023943088}
   - component: {fileID: 3493713267669759454}
+  - component: {fileID: 3036669907862228770}
   m_Layer: 5
   m_Name: DiscoTrackHolder
   m_TagString: Untagged
@@ -89,6 +90,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb2f1e421fb24f7cada8ca8f4d849115, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  albumCover: {fileID: 0}
+  text: {fileID: 0}
   track: {fileID: 11400000, guid: 092577e1cc3d80b4ab1f9f34af4d1a2e, type: 2}
 --- !u!114 &3493713267669759454
 MonoBehaviour:
@@ -103,3 +106,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canvas: {fileID: 0}
+--- !u!114 &3036669907862228770
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5043225398177759444}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a10bfe96ea0cc9843b7e707f614c985a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Message: 
+  sprite: {fileID: 0}
