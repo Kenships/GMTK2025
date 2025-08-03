@@ -11,9 +11,13 @@ public class Tooltip : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     public bool shopTooltip;
     void IPointerEnterHandler.OnPointerEnter(PointerEventData eventData)
     {
-        if (shopTooltip) 
+        if (track)
         {
-            TooltipManager.instance.DisplayShopTooltip(track);
+            TooltipManager.instance.DisplayTrackTooltip(track, shopTooltip);
+        }
+        else if (Message != null) 
+        {
+            TooltipManager.instance.DisplayModifierTooltip(Message);
         }
     }
 

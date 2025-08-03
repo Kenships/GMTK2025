@@ -8,11 +8,10 @@ using UnityEngine.UI;
 public class TooltipManager : MonoBehaviour
 {
     public static TooltipManager instance;
-    [SerializeField] private GameObject IconTooltip;
-    [SerializeField] private GameObject NoIconTooltip;
+    [SerializeField] private GameObject ModifierTooltip;
+    [SerializeField] private GameObject ShopTooltip;
     private GameObject curTooltip;
     private TextMeshProUGUI toolTipText;
-    private RectTransform textBoxRect;
     [SerializeField] private float toolTipPadding;
     [SerializeField] private float iconHeight;
     [SerializeField] private Color Electronic;
@@ -34,7 +33,7 @@ public class TooltipManager : MonoBehaviour
 
     private void Awake()
     {
-        if (instance != null) 
+        if (instance != null)
         {
             Destroy(this);
             return;
@@ -70,21 +69,21 @@ public class TooltipManager : MonoBehaviour
             rect.anchoredPosition = canvas.renderMode == RenderMode.ScreenSpaceCamera ? getTooltipPositionCamera() : getTooltipPosition();
         }
     }
-    public void DisplayShopTooltip(TrackSO track)
+    public void DisplayTrackTooltip(TrackSO track, bool shop)
     {
         if (curTooltip != null) HideTooltip();
-        Debug.Log("Yays");
         string color0 = "#" + ColorUtility.ToHtmlStringRGB(tagColors[track.tags[0]]);
         string color1 = "#" + ColorUtility.ToHtmlStringRGB(tagColors[track.tags[1]]);
 
-        curTooltip = Instantiate(NoIconTooltip, Vector2.zero, Quaternion.identity, transform);
+        curTooltip = Instantiate(ShopTooltip, Vector2.zero, Quaternion.identity, transform);
         curTooltip.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = track.name;
         curTooltip.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = "" + track.points;
         curTooltip.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = "" + track.description;
         curTooltip.transform.GetChild(4).GetChild(0).GetComponent<TextMeshProUGUI>().text = "<color=" + color0 + ">" + track.tags[0];
-        curTooltip.transform.GetChild(4).GetChild(1).GetComponent<TextMeshProUGUI>().text = "<color="+ color1 + ">" + track.tags[1];
-        curTooltip.transform.GetChild(4).GetChild(2).GetComponent<TextMeshProUGUI>().text = "" + track.price + "$";
-        if (track.description == null || track.description == "") 
+        curTooltip.transform.GetChild(4).GetChild(1).GetComponent<TextMeshProUGUI>().text = "<color=" + color1 + ">" + track.tags[1];
+        if (shop) curTooltip.transform.GetChild(4).GetChild(2).GetComponent<TextMeshProUGUI>().text = "" + track.price + "$";
+        else curTooltip.transform.GetChild(4).GetChild(2).GetComponent<TextMeshProUGUI>().text = "";
+        if (track.description == null || track.description == "")
         {
             curTooltip.transform.GetChild(2).gameObject.SetActive(false);
             curTooltip.transform.GetChild(1).gameObject.SetActive(false);
@@ -95,17 +94,17 @@ public class TooltipManager : MonoBehaviour
 
         rect.anchoredPosition = canvas.renderMode == RenderMode.ScreenSpaceCamera ? getTooltipPositionCamera() : getTooltipPosition();
     }
-    public void DisplayTooltip(string message) 
+    public void DisplayModifierTooltip(string message)
     {
         if (curTooltip != null) HideTooltip();
 
-        curTooltip = Instantiate(NoIconTooltip, Vector2.zero, Quaternion.identity, transform);
-        toolTipText = curTooltip.GetComponentInChildren<TextMeshProUGUI>();
-        toolTipText.text = message;
+        curTooltip = Instantiate(ModifierTooltip, Vector2.zero, Quaternion.identity, transform);
+        curTooltip.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = message;
         rect = curTooltip.GetComponent<RectTransform>();
-        rect.anchoredPosition = canvas.renderMode == RenderMode.ScreenSpaceCamera ? getTooltipPositionCamera() : getTooltipPosition();
         curTooltip.SetActive(true);
         Canvas.ForceUpdateCanvases();
+
+        rect.anchoredPosition = canvas.renderMode == RenderMode.ScreenSpaceCamera ? getTooltipPositionCamera() : getTooltipPosition();
     }
     public void HideTooltip() 
     {
