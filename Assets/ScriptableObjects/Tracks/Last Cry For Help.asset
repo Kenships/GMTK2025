@@ -19,7 +19,7 @@ MonoBehaviour:
   defaultPoints: 6
   points: 6
   price: 4
-  description: 
+  description: Next Song's scores are halved
   trackName: Last Cry For Help
   tags: 070000000b000000
   bars: 2
