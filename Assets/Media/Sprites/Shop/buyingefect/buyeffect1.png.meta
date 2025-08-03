@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: ba36269dd02133d4c84449b1eeba3657
+guid: fee32c44797e73d4f9b363d710e9aee5
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -96652515078810796
-    second: managetracks_0
+      213: 7558716136757298890
+    second: buyeffect1_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: managetracks_0
+      name: buyeffect1_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 104
-        height: 204
+        width: 48
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 4535414bc0f98aef0800000000000000
-      internalID: -96652515078810796
+      spriteID: ac68e615744f5e860800000000000000
+      internalID: 7558716136757298890
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      managetracks_0: -96652515078810796
+      buyeffect1_0: 7558716136757298890
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
