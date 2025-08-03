@@ -109,15 +109,19 @@ namespace ScoreManager
             GameObject modIcon = Instantiate(prefab, modifierGrid.transform, false);
 
             modIcon.GetComponent<Image>().sprite = display;
-            modIcon.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "" + modifier.LifeTime.Value;
-            if (modifier.LifeTime >= 999) 
+            if (modifier.LifeTime >= 999)
             {
                 int count = 0;
                 foreach (ModifierInstance m in modifiers)
                 {
-                    if(m.Modifier.Equals(modifier.Modifier)) count++;
+                    if (m.Modifier.Equals(modifier.Modifier)) count++;
                 }
                 modIcon.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "x" + count;
+                modIcon.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "";
+            }
+            else 
+            {
+                modIcon.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "" + modifier.LifeTime.Value;
             }
             Debug.Log("Displaying modifier" + modifier);
             modIcon.GetComponent<Tooltip>().Message = ScoreModifiers.enumToDescription[modifier.Modifier];
