@@ -1760,16 +1760,16 @@ MonoBehaviour:
   ItemTooltip: {fileID: 4494120281856294742, guid: 9b26e9fe9a9f8eb42875912f0af9ed2e, type: 3}
   toolTipPadding: 0
   iconHeight: 0
-  Electronic: {r: 0, g: 0, b: 0, a: 0}
-  Wind: {r: 0, g: 0, b: 0, a: 0}
-  String: {r: 0, g: 0, b: 0, a: 0}
-  Percussion: {r: 0, g: 0, b: 0, a: 0}
-  MusicBox: {r: 0, g: 0, b: 0, a: 0}
-  Anger: {r: 0, g: 0, b: 0, a: 0}
-  Joy: {r: 0, g: 0, b: 0, a: 0}
-  Fear: {r: 0, g: 0, b: 0, a: 0}
-  Envy: {r: 0, g: 0, b: 0, a: 0}
-  Sadness: {r: 0, g: 0, b: 0, a: 0}
+  Electronic: {r: 0.49056602, g: 0.3529257, b: 0, a: 0}
+  Wind: {r: 0, g: 0.5566038, b: 0.52964616, a: 0}
+  String: {r: 0.6037736, g: 0.6037736, b: 0.6037736, a: 0}
+  Percussion: {r: 0.2830189, g: 0.08754261, b: 0.033374865, a: 0}
+  MusicBox: {r: 0.19324267, g: 0.2, b: 0.058823526, a: 0}
+  Anger: {r: 0.735849, g: 0.045122836, b: 0.045122836, a: 0}
+  Joy: {r: 0.44226718, g: 0.5, b: 0.09198114, a: 0}
+  Fear: {r: 0.18612505, g: 0.0731132, b: 0.2924528, a: 0}
+  Envy: {r: 0.10487319, g: 0.26415092, b: 0.080989674, a: 0}
+  Sadness: {r: 0.093611434, g: 0.07409222, b: 0.3490566, a: 0}
 --- !u!114 &407828537
 MonoBehaviour:
   m_ObjectHideFlags: 0

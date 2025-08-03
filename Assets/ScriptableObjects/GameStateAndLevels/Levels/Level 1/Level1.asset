@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eeb5f42d65f24c6a8a8966b9543a09a7, type: 3}
   m_Name: Level1
   m_EditorClassIdentifier: 
-  levelName: Level 1
+  levelName: First Steps
   minimumWinScore: 150
   numberOfBars: 112
   endOfRoundCredits: 10
