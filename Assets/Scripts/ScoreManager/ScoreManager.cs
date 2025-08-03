@@ -6,6 +6,7 @@ using PrimeTween;
 using TMPro;
 using TrackScripts;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace ScoreManager

@@ -67,7 +67,7 @@ namespace Level
 
         private int OverScoreToMoney()
         {
-            return overScore.Value;
+            return Mathf.Min(Mathf.RoundToInt(overScore.Value/100f), 10);
         }
 
         private void ApplyFinalModifiers()

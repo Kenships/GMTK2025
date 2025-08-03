@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 namespace TrackScripts
 {
@@ -47,6 +48,11 @@ namespace TrackScripts
         [SerializeField] private InventorySO inventory;
 
         [SerializeField] private DebuffApplier dbApplier;
+
+        [SerializeField] private GameObject abilityHolder;
+
+        [SerializeField]
+        private GameObject ItemPrefab;
 
         public int currentBarNumber;
         
@@ -99,6 +105,12 @@ namespace TrackScripts
                 };
                 modifier.LifeTime.Value = 999;
                 scoreManager.AddModifier(modifier, item.itemCover);
+            }
+            for (int i = 0; i < inventory.items.Count; i++)
+            {
+                GameObject go = Instantiate(ItemPrefab, abilityHolder.transform.GetChild(i));
+                go.GetComponent<ItemHolder>().Item = inventory.items[i];
+                go.GetComponent<Image>().sprite = inventory.items[i].itemCover;
             }
         }
         private void OnSongEnd()
