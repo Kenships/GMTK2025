@@ -30,15 +30,19 @@ public class ShopController : MonoBehaviour
 
     [SerializeField] private IntVariable dollars;
     [SerializeField] private TMP_Text buttonText;
+    [SerializeField] private AudioSource sellSound;
+    [SerializeField] private AudioSource buySound;
     private int rerollPrice;
 
     void Start()
     {
+        var tempBank = Instantiate(shopBank);
         // tempInventory.tracks = new List<TrackSO>(playerInventory.tracks);
         // tempInventory.items = new List<ItemSO>(playerInventory.items);
-        
+
         // tempBank.tracks = new List<TrackSO>(playerInventory.tracks);
         // tempBank.items = new List<ItemSO>(playerInventory.items);
+        shopBank = tempBank;
         rerollPrice = 1;
         buttonText.text = "REROLL: $"+rerollPrice;
         UpdateShop();
@@ -64,6 +68,9 @@ public class ShopController : MonoBehaviour
 
             var holder = e.GetComponent<ItemHolder>();
             holder.Item = item;
+
+            var itemImage = e.GetComponent<Image>();
+            itemImage.sprite = item.itemCover;
 
             e.GetComponentInChildren<Button>().onClick.AddListener(() => BuyItem(item, e));
         }
@@ -95,11 +102,13 @@ public class ShopController : MonoBehaviour
         foreach (var item in playerInventory.items)
         {
             var e = Instantiate(BItem, ownedItemsUI);
-            e.GetComponentInChildren<TextMeshProUGUI>().text = item.itemName;
+            //e.GetComponentInChildren<TextMeshProUGUI>().text = item.itemName;
 
             var holder = e.GetComponent<ItemHolder>();
             holder.Item = item;
-    
+
+            var itemImage = e.GetComponent<Image>();
+            itemImage.sprite = item.itemCover;
 
         }
         foreach (var track in playerInventory.tracks)
@@ -151,6 +160,8 @@ public class ShopController : MonoBehaviour
         cg.alpha = 0f;
         cg.blocksRaycasts = false;
 
+        buySound.Play();
+
         UpdateInventory();
     }
 
@@ -182,6 +193,8 @@ public class ShopController : MonoBehaviour
         var cg = e.GetComponent<CanvasGroup>();
         cg.alpha = 0f;
         cg.blocksRaycasts = false;
+
+        buySound.Play();
 
         UpdateInventory();
     }
@@ -215,6 +228,8 @@ public class ShopController : MonoBehaviour
         selectedTrackGO = null;
         selectedTrackSO = null;
 
+        sellSound.Play();
+
         UpdateInventory();
     }
 
@@ -225,6 +240,7 @@ public class ShopController : MonoBehaviour
         rerollPrice = rerollPrice + 1;
         buttonText.text = "REROLL: $"+rerollPrice;
         Shuffle(shopBank.availableTracks);
+        sellSound.Play();
         UpdateShop();
     }
 

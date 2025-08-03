@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: SkateBoard
   m_EditorClassIdentifier: 
   itemCover: {fileID: 5370473749554967267, guid: ead84edf1c51d284ca375b2e122485af, type: 3}
-  description: Skating the same track has never been funner. Playing 4 or more of
-    any instrument type gives 20% boost to score.
+  description: Skating the same track has never been funner. \nPlaying 4 or more
+    of any instrument type gives 20% boost to score.
   price: 5
   itemName: Skateboard
   scoreModifier: 16

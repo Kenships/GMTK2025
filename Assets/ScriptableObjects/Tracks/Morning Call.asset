@@ -16,9 +16,9 @@ MonoBehaviour:
   albumCover: {fileID: 21300000, guid: 8bfbc075dd4de3f4e944f3cdca68cbd5, type: 3}
   volumeOverride: 0
   ability: 5
-  defaultPoints: 2
-  points: 2
-  price: 0
+  defaultPoints: 6
+  points: 6
+  price: 4
   description: +4 points if after a Wind
   trackName: Morning Call
   tags: 050000000a000000

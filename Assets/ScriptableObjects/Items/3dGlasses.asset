@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: 3dGlasses
   m_EditorClassIdentifier: 
   itemCover: {fileID: 2396183773777878524, guid: 2dc6300357673bb4898dad8e44ab803f, type: 3}
-  description: Gives you insight to the latesst negative modifier... Then removes
-    it.
+  description: 2020 vision\nDouble score \nafter 3 consecutive songs with the same
+    instrument type.
   price: 5
   itemName: 3D Glasses
-  scoreModifier: 17
+  scoreModifier: 7
+  count: 0

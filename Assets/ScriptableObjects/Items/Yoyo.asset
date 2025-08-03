@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Yoyo
   m_EditorClassIdentifier: 
   itemCover: {fileID: 8629085071164893314, guid: db2103ac9e352e445b194cebcc5092a7, type: 3}
-  description: Gives +2 when tracks with the same emotion is played back-to-back.
+  description: Gives +2 when tracks \nwith the same emotion is played back-to-back.
   price: 5
   itemName: Yoyo
   scoreModifier: 13
