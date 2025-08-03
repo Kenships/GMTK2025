@@ -121,14 +121,14 @@ namespace ScoreManager
                 foreach (ModifierInstance m in modifiers)
                 {
                     if (m.Modifier.Equals(modifier.Modifier)) count++;
+                    Debug.Log(count);
                 }
-                modIcon.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = count != 0 ? "x" + count : "";
-                modIcon.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "";
-                modIcon.transform.GetChild(0).gameObject.SetActive(false);
+                Debug.Log("Dount Done:" + count);
+                modIcon.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = count != 0 ? "x" + count : "";
             }
             else 
             {
-                modIcon.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "" + modifier.LifeTime.Value;
+                modIcon.transform.GetComponentInChildren<TextMeshProUGUI>().text = "" + modifier.LifeTime.Value;
             }
             Debug.Log("Displaying modifier" + modifier);
             modIcon.GetComponent<Tooltip>().Message = ScoreModifiers.enumToDescription[modifier.Modifier];
@@ -145,7 +145,10 @@ namespace ScoreManager
                 }
                 else if(modIcon != null)
                 {
-                    modIcon.GetComponentInChildren<TextMeshProUGUI>().text = "" + v;
+                    if (modifier.LifeTime < 999) 
+                    {
+                        modIcon.GetComponentInChildren<TextMeshProUGUI>().text = "" + v;
+                    }
                 }
             };
             return true;//Incase we want to reject modifiers for some reason (player has 100) and notify some function
