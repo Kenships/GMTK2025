@@ -82,7 +82,9 @@ namespace Level
             {
                 if (firstPlay)
                 {
-                    audioSource.PlayOneShot(winSound);
+                    audioSource.clip = winSound;
+                    audioSource.Play();
+                    firstPlay = false;
                 }
 
                 if (!audioSource.isPlaying)

@@ -818,6 +818,16 @@ MonoBehaviour:
   NoIconTooltip: {fileID: 6099752000140320841, guid: 345a71161b0b95e41974fd190166768f, type: 3}
   toolTipPadding: 0
   iconHeight: 0
+  Electronic: {r: 0, g: 0, b: 0, a: 0}
+  Wind: {r: 0, g: 0, b: 0, a: 0}
+  String: {r: 0, g: 0, b: 0, a: 0}
+  Percussion: {r: 0, g: 0, b: 0, a: 0}
+  MusicBox: {r: 0, g: 0, b: 0, a: 0}
+  Anger: {r: 0, g: 0, b: 0, a: 0}
+  Joy: {r: 0, g: 0, b: 0, a: 0}
+  Fear: {r: 0, g: 0, b: 0, a: 0}
+  Envy: {r: 0, g: 0, b: 0, a: 0}
+  Sadness: {r: 0, g: 0, b: 0, a: 0}
 --- !u!114 &407828537
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2716,7 +2726,7 @@ MonoBehaviour:
   SFXVolume: {fileID: 11400000, guid: 03b44a471901dd4478580bfb7abf8211, type: 2}
   BackgroundVolume: {fileID: 11400000, guid: e557695fb4c83fb439b9e997e9da2c79, type: 2}
   Mute: {fileID: 11400000, guid: d6bde6a488b99d041865fb649b29495d, type: 2}
-  audioType: 0
+  audioType: 1
 --- !u!82 &1502756372
 AudioSource:
   m_ObjectHideFlags: 0
@@ -2729,7 +2739,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0

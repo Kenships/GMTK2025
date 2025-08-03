@@ -19,7 +19,7 @@ public class GameStartSequence : MonoBehaviour
     
     [SerializeField] List<PlaylistController> playlists;
     
-    [SerializeField] private ScriptableListTrackSO inventory;
+    [SerializeField] private InventorySO inventory;
 
     private CountdownTimer countDownTimer;
     private AudioSource audioSource;
@@ -32,7 +32,7 @@ public class GameStartSequence : MonoBehaviour
 
     private void Start()
     {
-        List<TrackSO> tracks = new List<TrackSO>(inventory);
+        List<TrackSO> tracks = inventory.tracks;
 
         foreach (TrackSO track in tracks)
         {

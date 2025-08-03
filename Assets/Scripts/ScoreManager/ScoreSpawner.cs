@@ -24,6 +24,11 @@ public class ScoreSpawner : MonoBehaviour
         Score.OnValueChanged += SpawnScore;
     }
 
+    private void OnDestroy()
+    {
+        Score.OnValueChanged -= SpawnScore;
+    }
+
     private void SpawnScore(int obj)
     {
         int gainedScore = Score.Value - PrevScore.Value;
