@@ -136,15 +136,15 @@ public class TooltipManager : MonoBehaviour
             float xSign = (screenPoint.x > cam.pixelWidth / 2f) ? -1f : 1f;
             float ySign = (screenPoint.y > cam.pixelHeight / 2f) ? -1f : 1f;
             Vector2 screenOffset = new Vector2(
-                                                xSign * cam.pixelWidth * 0.04f,   
-                                                ySign * cam.pixelHeight * 0.04f  
+                                                xSign * (rect.sizeDelta.x * 0.5f + toolTipPadding) + xSign * cam.pixelWidth * 0.02f,
+                                                ySign * (rect.sizeDelta.y * 0.5f + toolTipPadding) + ySign * cam.pixelHeight * 0.02f  
                                             );
 
             Vector2 canvasOffset = GetCanvasOffset(screenOffset);
             float offsetX = xSign * (rect.sizeDelta.x * 0.5f + toolTipPadding) + xSign * canvasOffset.x;
             float offsetY = ySign * (rect.sizeDelta.y * 0.5f + toolTipPadding) + ySign * canvasOffset.y;
 
-            return localPoint + new Vector2(offsetX, offsetY);
+            return localPoint + screenOffset;
         }
 
         return Vector2.zero;
