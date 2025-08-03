@@ -116,12 +116,13 @@ namespace ScoreManager
                 {
                     if (m.Modifier.Equals(modifier.Modifier)) count++;
                 }
-                modIcon.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "x" + count;
-                modIcon.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "";
+                modIcon.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = "x" + count;
+                modIcon.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "";
+                modIcon.transform.GetChild(0).gameObject.SetActive(false);
             }
             else 
             {
-                modIcon.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "" + modifier.LifeTime.Value;
+                modIcon.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "" + modifier.LifeTime.Value;
             }
             Debug.Log("Displaying modifier" + modifier);
             modIcon.GetComponent<Tooltip>().Message = ScoreModifiers.enumToDescription[modifier.Modifier];
@@ -130,6 +131,7 @@ namespace ScoreManager
             {
                 if (v <= 0 && modIcon != null)
                 {
+                    modIcon.transform.GetChild(1).gameObject.SetActive(false);
                     modIcon.transform.GetChild(0).gameObject.SetActive(false);
                     //Nothing matters except true since we jsut want to tell it its lifetime was updated, and to cancel callbacks if necessary
                     ScoreModifiers.enumToModifier[modifier.Modifier](modifier, null, this, cachedScore, ScoreContextEnum.TimestampAction, true);
