@@ -96,6 +96,8 @@ namespace TrackScripts
 
             if (currentBarNumber >= levelData.numberOfBars)
             {
+                backgroundSource.Stop();
+                audioSource.Stop();
                 endGame.Raise(levelData);
             }
             else
