@@ -15,7 +15,7 @@ MonoBehaviour:
   levelName: Crowd Control
   minimumWinScore: 150
   numberOfBars: 112
-  endOfRoundCredits: 10
+  endOfRoundCredits: 88
   debuffCooldown: 15
   debuffLifeTime: 2
   debuffs: 14000000150000001600000017000000

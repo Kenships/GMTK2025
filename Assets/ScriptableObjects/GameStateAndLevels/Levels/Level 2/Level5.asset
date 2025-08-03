@@ -15,7 +15,7 @@ MonoBehaviour:
   levelName: Chaos
   minimumWinScore: 300
   numberOfBars: 112
-  endOfRoundCredits: 10
+  endOfRoundCredits: 88
   debuffCooldown: 15
   debuffLifeTime: 2
   debuffs: 1600000017000000180000001900000015000000140000000f0000000c000000

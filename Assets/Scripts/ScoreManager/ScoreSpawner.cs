@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class ScoreSpawner : MonoBehaviour
 {
+    
     [SerializeField] private Transform disc;
     
     [SerializeField] private Transform spawnPoint;
@@ -18,6 +19,7 @@ public class ScoreSpawner : MonoBehaviour
     
     [SerializeField] private Color positive;
     [SerializeField] private Color negative;
+    [SerializeField] private Color gold;
 
     private void Start()
     {
@@ -32,10 +34,16 @@ public class ScoreSpawner : MonoBehaviour
     private void SpawnScore(int obj)
     {
         int gainedScore = Score.Value - PrevScore.Value;
+
+        
         
         GameObject scoreText = Instantiate(prefab, spawnPoint.position, Quaternion.identity, spawnPoint);
         scoreText.GetComponent<TextMeshProUGUI>().text = gainedScore > 0 ? $"+{gainedScore}pt" : $"{gainedScore}pt";
         scoreText.GetComponent<TextMeshProUGUI>().color = gainedScore > 0 ? positive : negative;
+        if (gainedScore > 1000)
+        {
+            scoreText.GetComponent<TextMeshProUGUI>().color = gold;
+        }
         Sequence.Create(Tween.Scale(
             target: scoreText.transform,
             endValue: 1.2f,
@@ -57,7 +65,7 @@ public class ScoreSpawner : MonoBehaviour
                 cycles: 2,
                 cycleMode: CycleMode.Rewind
             )
-                ).ChainDelay(0.6f)
+                ).ChainDelay(gainedScore > 1000 ? 2f : 0.6f)
         .OnComplete(() => Destroy(scoreText));
         
     }

@@ -15,7 +15,7 @@ MonoBehaviour:
   levelName: Rainy Days
   minimumWinScore: 250
   numberOfBars: 112
-  endOfRoundCredits: 10
+  endOfRoundCredits: 88
   debuffCooldown: 15
   debuffLifeTime: 2
   debuffs: 140000001500000018000000

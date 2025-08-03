@@ -15,7 +15,7 @@ MonoBehaviour:
   levelName: Feeling Lucky
   minimumWinScore: 200
   numberOfBars: 112
-  endOfRoundCredits: 10
+  endOfRoundCredits: 88
   debuffCooldown: 15
   debuffLifeTime: 2
   debuffs: 130000001500000019000000

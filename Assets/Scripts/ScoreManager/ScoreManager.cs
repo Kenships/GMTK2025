@@ -51,6 +51,7 @@ namespace ScoreManager
         private int cachedScore;
 
         public List<ModifierInstance> modifiers;
+        public ScriptableEventNoParam bigBen;
         [SerializeField] private GameObject modifierGrid;
         [SerializeField] private GameObject modIconPrefab;
         [SerializeField] private GameObject itemModIconPrefab;

@@ -52,6 +52,9 @@ namespace TrackScripts
         [SerializeField] private GameObject abilityHolder;
 
         [SerializeField]
+        private IntVariable numberOfBarsLeft;
+
+        [SerializeField]
         private GameObject ItemPrefab;
 
         public int currentBarNumber;
@@ -191,7 +194,9 @@ namespace TrackScripts
             CountdownTimerRepeat scoreTimer = new CountdownTimerRepeat(timeForOneBar, currentTrack.bars);
             scoreTimer.OnTimerRaised += () =>
             {
+                
                 currentBarNumber++;
+                numberOfBarsLeft.Value = Mathf.Max(levelData.numberOfBars - currentBarNumber, 0);
                 OnDownBeat?.Invoke();
                 scoreManager.addPoints(scoreManager.GetUpToDateTrack(currentTrack).points / scoreManager.GetUpToDateTrack(currentTrack).bars);
                 scoreManager.ConsolidatePoints(currentTrack, ScoreContextEnum.BarStart);
@@ -231,6 +236,7 @@ namespace TrackScripts
 
         private void OnApplicationPause(bool pauseStatus)
         {
+            
             backgroundSource.Pause();
             audioSource.Pause();
             

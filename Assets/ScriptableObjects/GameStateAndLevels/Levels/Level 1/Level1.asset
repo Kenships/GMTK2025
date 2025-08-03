@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelName: First Steps
   minimumWinScore: 150
-  numberOfBars: 112
+  numberOfBars: 88
   endOfRoundCredits: 10
   debuffCooldown: 10
   debuffLifeTime: 1

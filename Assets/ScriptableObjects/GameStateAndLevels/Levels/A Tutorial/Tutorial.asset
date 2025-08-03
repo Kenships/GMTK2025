@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Tutorial
   m_EditorClassIdentifier: 
   levelName: Tutorial
-  minimumWinScore: 20
+  minimumWinScore: 50
   numberOfBars: 24
   endOfRoundCredits: 10
   debuffCooldown: 20

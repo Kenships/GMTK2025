@@ -10,7 +10,7 @@ namespace Level
 
         private void Start()
         {
-            GetComponent<TextMeshProUGUI>().text = gameState.GetCurrentLevelData().levelName + "\n PointsToWin: " + gameState.GetCurrentLevelData().minimumWinScore;
+            GetComponent<TextMeshProUGUI>().text = gameState.GetCurrentLevelData().levelName + "PointsToWin: " + gameState.GetCurrentLevelData().minimumWinScore;
         }
     }
 }

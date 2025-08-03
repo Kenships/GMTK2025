@@ -206,6 +206,7 @@ public class ScoreModifiers
                 float chance = 0.05f + count * 0.01f;
                 if(UnityEngine.Random.value < chance)
                 {
+                    scoreManager.bigBen.Raise();
                     scoreManager.addPoints(9001 * scoreManager.GetUpToDateTrack(track).points);
                 }
                 return scoredPoints;
@@ -480,7 +481,7 @@ public class ScoreModifiers
         { ScoreModifierEnum.MoodTuner, "+2 points when repeating an emotion" },
         { ScoreModifierEnum.AmpStack, "+1 points on song end after Percussion" },
         { ScoreModifierEnum.RubiksCube, "+10 points after 5 emotions in a row" },
-        { ScoreModifierEnum.BandTogether, "1.2× final score for \n4 same-instrument tracks in a row" },
+        { ScoreModifierEnum.BandTogether, "1.2ï¿½ final score for \n4 same-instrument tracks in a row" },
         { ScoreModifierEnum.Relief, "Removes newest modifier" },
         { ScoreModifierEnum.AngelicLuck, "Angelic touch chance increases by 1%" },
         { ScoreModifierEnum.ShuffleIn, "About to shuffle the deck" },
