@@ -216,7 +216,7 @@ public class ShopController : MonoBehaviour
     {
         if (selectedTrackGO == null) return;
 
-        if (playerInventory.tracks.Count <= 5) return;
+        if (playerInventory.tracks.Count == 1) return;
         
         if (playerInventory.tracks.Contains(selectedTrackSO))
         {
