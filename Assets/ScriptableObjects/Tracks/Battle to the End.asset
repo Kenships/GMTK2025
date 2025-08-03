@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Battle to the End
   m_EditorClassIdentifier: 
   clip: {fileID: 8300000, guid: 350ac110be2338d43b8603a29ef57ac5, type: 3}
-  albumCover: {fileID: -1308640978892665142, guid: 760e087699cc18340bca00e3a35f701f, type: 3}
+  albumCover: {fileID: 21300000, guid: a6e942b5ae93b6b4e8f62d95c2ca379f, type: 3}
   volumeOverride: 0
   ability: 7
   defaultPoints: 4

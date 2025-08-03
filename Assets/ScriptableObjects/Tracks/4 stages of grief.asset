@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 4 stages of grief
   m_EditorClassIdentifier: 
   clip: {fileID: 8300000, guid: 0e19be7a90403ad43a2d18f25729c1f4, type: 3}
-  albumCover: {fileID: 3954227090488385968, guid: 96b4a840e0b71644cae00307bb33ff0a, type: 3}
+  albumCover: {fileID: 21300000, guid: a3a1ebd0becdd8340bac0c926bf747fb, type: 3}
   volumeOverride: 0
   ability: 0
   defaultPoints: 16

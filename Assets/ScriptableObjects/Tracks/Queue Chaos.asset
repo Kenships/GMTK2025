@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Queue Chaos
   m_EditorClassIdentifier: 
   clip: {fileID: 8300000, guid: 9f31805cb7f5b264499004d12848c962, type: 3}
-  albumCover: {fileID: -3872793530793798720, guid: caac353b4f7b4fc4f8587497b9dee5f8, type: 3}
+  albumCover: {fileID: 21300000, guid: 562996ae6c2e9ca46aadc1ddcce82a48, type: 3}
   volumeOverride: 0
   ability: 16
   defaultPoints: 24

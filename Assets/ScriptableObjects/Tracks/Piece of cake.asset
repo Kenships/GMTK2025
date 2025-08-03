@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Piece of cake
   m_EditorClassIdentifier: 
   clip: {fileID: 8300000, guid: 95618d2d4f62beb4786544b357658fca, type: 3}
-  albumCover: {fileID: -5907165304398876512, guid: 01a70ef5c068ab94a8e2f3894b867b0c, type: 3}
+  albumCover: {fileID: 21300000, guid: c5aa0eedfc3c9044bb405ee8245b6c18, type: 3}
   volumeOverride: 0
   ability: 26
   defaultPoints: 6

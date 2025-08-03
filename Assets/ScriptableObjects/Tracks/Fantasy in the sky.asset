@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Fantasy in the sky
   m_EditorClassIdentifier: 
   clip: {fileID: 8300000, guid: 9633e33e189d73a4f8e34e617382f1ab, type: 3}
-  albumCover: {fileID: -1690557259254582395, guid: 5b6efee98e4bac34a8bb53f289e530cb, type: 3}
+  albumCover: {fileID: 21300000, guid: 1922591089cec9a4ba9ea6b52f65522e, type: 3}
   volumeOverride: 0
   ability: 3
   defaultPoints: -4

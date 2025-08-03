@@ -80,7 +80,7 @@ public class ShopController : MonoBehaviour
             var e = Instantiate(BTrack, buyTracksUI);
             e.GetComponentInChildren<TextMeshProUGUI>().text = $"{track.trackName} - ${track.price}";
 
-            Debug.Log(track);
+            Debug.Log(track.albumCover);
             var albumImage = e.GetComponent<Image>();
             albumImage.sprite = track.albumCover;
 

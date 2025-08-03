@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Mamamia
   m_EditorClassIdentifier: 
   clip: {fileID: 8300000, guid: efe68e5c3a312164e9beecbe9ec59763, type: 3}
-  albumCover: {fileID: -3622982404928176633, guid: ea2e52a2b975d8946ae4156d30133631, type: 3}
+  albumCover: {fileID: 21300000, guid: 61b11b1e3cf31804ebf81f55a4d4b806, type: 3}
   volumeOverride: 0
   ability: 8
   defaultPoints: 16
