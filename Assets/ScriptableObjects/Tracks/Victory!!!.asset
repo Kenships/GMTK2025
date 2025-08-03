@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Victory!!!
   m_EditorClassIdentifier: 
   clip: {fileID: 8300000, guid: ab6c6138c53ebc94c98ceffd61810a1a, type: 3}
-  albumCover: {fileID: 897324308, guid: 9a962c70aaa3bc645a34c5af80f621f7, type: 3}
+  albumCover: {fileID: 2266395591118621882, guid: 1e916f52aa92c0f409149ae8293aef9e, type: 3}
   volumeOverride: 0
   ability: 22
   defaultPoints: 12

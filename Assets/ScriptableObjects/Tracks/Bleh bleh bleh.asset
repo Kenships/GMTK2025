@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Bleh bleh bleh
   m_EditorClassIdentifier: 
   clip: {fileID: 8300000, guid: aed58d5d5b46ea34c88faeff1e1a2fd7, type: 3}
-  albumCover: {fileID: -754499157, guid: 9a962c70aaa3bc645a34c5af80f621f7, type: 3}
+  albumCover: {fileID: 5949239749187410575, guid: f9c42be72d233974b9928886052f9439, type: 3}
   volumeOverride: 0
   ability: 14
   defaultPoints: 16

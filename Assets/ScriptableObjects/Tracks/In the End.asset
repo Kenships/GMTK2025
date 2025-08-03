@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: In the End
   m_EditorClassIdentifier: 
   clip: {fileID: 8300000, guid: ca3db382e99c7e24697c05334ac7de77, type: 3}
-  albumCover: {fileID: -839743082, guid: 9a962c70aaa3bc645a34c5af80f621f7, type: 3}
+  albumCover: {fileID: -2311518377372611816, guid: 8a6e283207a579045b05cc24d7382ea9, type: 3}
   volumeOverride: 0
   ability: 18
   defaultPoints: 16

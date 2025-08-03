@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Thunder!!!
   m_EditorClassIdentifier: 
   clip: {fileID: 8300000, guid: 2e7796b58f50e144d96a4aa624229795, type: 3}
-  albumCover: {fileID: 951105033, guid: 9a962c70aaa3bc645a34c5af80f621f7, type: 3}
+  albumCover: {fileID: 9078623318578753597, guid: 1c273c08aec8079409c7f25c2c5e2742, type: 3}
   volumeOverride: 0
   ability: 13
   defaultPoints: 8

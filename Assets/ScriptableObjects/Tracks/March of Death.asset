@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: March of Death
   m_EditorClassIdentifier: 
   clip: {fileID: 8300000, guid: 30ac61ecffb4d6340a1ba40d29d8cf6a, type: 3}
-  albumCover: {fileID: -1353320604, guid: 9a962c70aaa3bc645a34c5af80f621f7, type: 3}
+  albumCover: {fileID: -3055052450673223855, guid: 4c3f83ab33dc2684dbaf8b3f6f49a3e5, type: 3}
   volumeOverride: 0
   ability: 12
   defaultPoints: 10

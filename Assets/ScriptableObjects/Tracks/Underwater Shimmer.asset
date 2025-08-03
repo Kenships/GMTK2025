@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Underwater Shimmer
   m_EditorClassIdentifier: 
   clip: {fileID: 8300000, guid: b061de32e3b311d43b92123362db0dfe, type: 3}
-  albumCover: {fileID: -1353320604, guid: 9a962c70aaa3bc645a34c5af80f621f7, type: 3}
+  albumCover: {fileID: 8401738140243572269, guid: 1796207f5e60f134fa6b534e2737ffb1, type: 3}
   volumeOverride: 0
   ability: 10
   defaultPoints: 8

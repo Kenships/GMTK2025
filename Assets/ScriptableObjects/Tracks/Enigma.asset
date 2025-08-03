@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Enigma
   m_EditorClassIdentifier: 
   clip: {fileID: 8300000, guid: e287b40d8293946498b7c3a5483c7fe3, type: 3}
-  albumCover: {fileID: -754499157, guid: 9a962c70aaa3bc645a34c5af80f621f7, type: 3}
+  albumCover: {fileID: -22719331586375785, guid: 44eb9e21c40c05f47a5006aecd3b873d, type: 3}
   volumeOverride: 0
   ability: 23
   defaultPoints: 8
