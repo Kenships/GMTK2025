@@ -47,7 +47,7 @@ public class SettingsOpen : MonoBehaviour
 
     private void Open(InputAction.CallbackContext callbackContext)
     {
-        if (tutorial.Value) return;
+        if (!tutorial.Value) return;
         
         gameObject.SetActive(true);
     }

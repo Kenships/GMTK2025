@@ -34,15 +34,11 @@ public class ShopController : MonoBehaviour
 
     void Start()
     {
-        var tempInventory = Instantiate(playerInventory);
         // tempInventory.tracks = new List<TrackSO>(playerInventory.tracks);
         // tempInventory.items = new List<ItemSO>(playerInventory.items);
-        playerInventory = tempInventory;
-
-        var tempBank = Instantiate(shopBank);
+        
         // tempBank.tracks = new List<TrackSO>(playerInventory.tracks);
         // tempBank.items = new List<ItemSO>(playerInventory.items);
-        shopBank = tempBank;
         rerollPrice = 1;
         buttonText.text = "REROLL: $"+rerollPrice;
         UpdateShop();
@@ -207,11 +203,13 @@ public class ShopController : MonoBehaviour
     {
         if (selectedTrackGO == null) return;
 
+        if (playerInventory.tracks.Count <= 5) return;
+        
         if (playerInventory.tracks.Contains(selectedTrackSO))
         {
             playerInventory.tracks.Remove(selectedTrackSO);
             shopBank.availableTracks.Add(selectedTrackSO);
-            dollars.Value += selectedTrackSO.price;
+            dollars.Value += selectedTrackSO.price / 2;
         }
 
         selectedTrackGO = null;
