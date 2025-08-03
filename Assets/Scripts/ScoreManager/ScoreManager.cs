@@ -56,7 +56,6 @@ namespace ScoreManager
         [SerializeField] private Sprite defaultIconSprite;
         [SerializeField] List<Sprite> modIconSprites;
         public Dictionary<ModifierInstance, GameObject> modToIcon = new Dictionary<ModifierInstance, GameObject>() {};
-        public Dictionary<ScoreModifierEnum, Sprite> modToSprite = new Dictionary<ScoreModifierEnum, Sprite>() {};
         public List<ModifierInstance> expiredModifiers;
         private Dictionary<TrackSO, TrackSO> trackTypeToModified = new () { };
     
@@ -102,16 +101,14 @@ namespace ScoreManager
             }
         }
 
-        public bool AddModifier(ModifierInstance modifier) 
+        public bool AddModifier(ModifierInstance modifier, Sprite display)
         {
             modifiers.Add(modifier);
-            GameObject modIcon = Instantiate(modIconPrefab);
-            modIcon.transform.SetParent(modifierGrid.transform, false);
-            Sprite sprite = modToSprite.TryGetValue(modifier.Modifier, out var result) && result != null? result : defaultIconSprite;
+            GameObject modIcon = Instantiate(modIconPrefab, modifierGrid.transform, false);
 
-            modIconPrefab.GetComponent<Image>().sprite = sprite;
+            modIcon.GetComponent<Image>().sprite = display;
             modIcon.GetComponentInChildren<TextMeshProUGUI>().text = "" + modifier.LifeTime.Value;
-            Debug.Log("Displaying modifier" + modifier.ToString());
+            Debug.Log("Displaying modifier" + modifier);
             modIcon.GetComponent<Tooltip>().Message = ScoreModifiers.enumToDescription[modifier.Modifier];
             modToIcon.Add(modifier, modIcon);
             modifier.LifeTime.OnValueChanged += (v) => 

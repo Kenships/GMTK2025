@@ -15,5 +15,5 @@ MonoBehaviour:
   levelName: Level 1
   minimumWinScore: 20
   numberOfBars: 224
-  endOfRoundCredits: 100
+  endOfRoundCredits: 10
   highScore: {fileID: 11400000, guid: 972cea54b744bfa45897acfb2fe18c2b, type: 2}

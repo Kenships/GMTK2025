@@ -88,7 +88,7 @@ namespace DefaultNamespace
                         Modifier = ScoreModifierEnum.X2,
                     };
                     modifier.LifeTime.Value = 3;
-                    scoreManager.AddModifier(modifier);
+                    scoreManager.AddModifier(modifier, track.albumCover);
                 },
                 timestampActions = new List<TimestampAction>()
             }},
@@ -106,7 +106,7 @@ namespace DefaultNamespace
                         Modifier = ScoreModifierEnum.ElectronicStreak,
                     };
                     modifier.LifeTime.Value = 1;
-                    scoreManager.AddModifier(modifier);
+                    scoreManager.AddModifier(modifier, track.albumCover);
                     Action<TrackSO> callback = (track) => ScoreModifiers.enumToModifier[ScoreModifierEnum.ElectronicStreak](modifier, track, scoreManager, 0, ScoreContextEnum.TrackStart, false);
                     modifier.callback = callback;
                     scoreManager.TrackPlayer.SongStart += callback;
@@ -171,7 +171,7 @@ namespace DefaultNamespace
                         Modifier = ScoreModifierEnum.Lose5,
                     };
                     modifier.LifeTime.Value = 1;
-                    scoreManager.AddModifier(modifier);
+                    scoreManager.AddModifier(modifier, track.albumCover);
                     Action<TrackSO> callback = (track) => ScoreModifiers.enumToModifier[ScoreModifierEnum.Lose5](modifier, track, scoreManager, 0, ScoreContextEnum.TrackStart, false);
                     modifier.callback = callback;
                     scoreManager.TrackPlayer.SongStart += callback;
@@ -196,7 +196,7 @@ namespace DefaultNamespace
                         Modifier = ScoreModifierEnum.RepeatNonWind,
                     };
                     modifier.LifeTime.Value = 1;
-                    scoreManager.AddModifier(modifier);
+                    scoreManager.AddModifier(modifier, track.albumCover);
                     Action<TrackSO> callback = (track) => ScoreModifiers.enumToModifier[ScoreModifierEnum.RepeatNonWind](modifier, track, scoreManager, 0, ScoreContextEnum.TrackStart, false);
                     modifier.callback = callback;
                     scoreManager.TrackPlayer.SongStart += callback;
@@ -278,7 +278,7 @@ namespace DefaultNamespace
                         Modifier = ScoreModifierEnum.LastSongPlayed,
                     };
                     modifier.LifeTime.Value = 1;
-                    scoreManager.AddModifier(modifier);
+                    scoreManager.AddModifier(modifier, track.albumCover);
                     Action<TrackSO> callback = (track) => ScoreModifiers.enumToModifier[ScoreModifierEnum.LastSongPlayed](modifier, track, scoreManager, 0, ScoreContextEnum.TrackStart, false);
                     modifier.callback = callback;
                     scoreManager.TrackPlayer.SongStart += callback;
@@ -331,7 +331,7 @@ namespace DefaultNamespace
                         Modifier = ScoreModifierEnum.AddThree
                     };
                     m.LifeTime.Value = 3;
-                    scoreManager.AddModifier(m);
+                    scoreManager.AddModifier(m, track.albumCover);
                 },
                 timestampActions = new List<TimestampAction>()
             }},
@@ -369,7 +369,7 @@ namespace DefaultNamespace
                         Modifier = ScoreModifierEnum.GainNowLoseIfNoJoy,
                     };
                     modifier.LifeTime.Value = 3;
-                    scoreManager.AddModifier(modifier);
+                    scoreManager.AddModifier(modifier, track.albumCover);
                     Action<TrackSO> callback = (track) => ScoreModifiers.enumToModifier[ScoreModifierEnum.GainNowLoseIfNoJoy](modifier, track, scoreManager, 0, ScoreContextEnum.TrackStart, false);
                     modifier.callback = callback;
                     scoreManager.TrackPlayer.SongStart += callback;
@@ -390,7 +390,7 @@ namespace DefaultNamespace
                         Modifier = ScoreModifierEnum.InvertGain,
                     };
                     modifier.LifeTime.Value = 3;
-                    scoreManager.AddModifier(modifier);
+                    scoreManager.AddModifier(modifier, track.albumCover);
                 },
                 timestampActions = new List<TimestampAction>()
             }},
@@ -408,7 +408,7 @@ namespace DefaultNamespace
                         Modifier = ScoreModifierEnum.AngelicTouch,
                     };
                     modifier.LifeTime.Value = 1;
-                    scoreManager.AddModifier(modifier);
+                    scoreManager.AddModifier(modifier, track.albumCover);
                 },
                 timestampActions = new List<TimestampAction>()
             }},
@@ -471,7 +471,7 @@ namespace DefaultNamespace
                     };
                     modifier.LifeTime.Value = 1;
                     scoreManager.addPoints(6);
-                    scoreManager.AddModifier(modifier);
+                    scoreManager.AddModifier(modifier, track.albumCover);
                     Action<TrackSO> callback = (track) => ScoreModifiers.enumToModifier[ScoreModifierEnum.EchoOfDesperation](modifier, track, scoreManager, 0, ScoreContextEnum.TrackStart, false);
                     modifier.callback = callback;
                     scoreManager.TrackPlayer.SongStart += callback;
