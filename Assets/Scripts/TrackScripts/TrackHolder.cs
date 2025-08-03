@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using TMPro;
 using TrackScripts;
 using Unity.VisualScripting;
@@ -13,6 +13,7 @@ namespace DefaultNamespace
         [SerializeField] private Image albumCover;
         [SerializeField] private TextMeshProUGUI text;
         [SerializeField] private TrackSO track;
+        [SerializeField] private bool shop;
         
         public TrackSO Track {get => track; set => track = value;}
 
@@ -28,15 +29,8 @@ namespace DefaultNamespace
                     text.text = Track.name;
                 }
             }
-            GetComponent<Tooltip>().Message = "Name: " + track.trackName + "\n" +
-                                              "Points: " + track.points + "\n" +
-                                              "Bar Count: " + track.bars + "\n" + 
-                                              "Price: " + track.price + "\n" +
-                                              "Resell Price: " + track.price/2 + "\n" +
-                                              "Tags: " + track.tags[0] + ", " + track.tags[1] + "\n" + "\n" + 
-                                              
-                                              track.description;
-
+            GetComponent<Tooltip>().shopTooltip = shop;
+            GetComponent<Tooltip>().track = track;
         }
     }
 }

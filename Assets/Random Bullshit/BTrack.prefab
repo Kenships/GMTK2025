@@ -91,6 +91,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   track: {fileID: 0}
+  shop: 1
 --- !u!225 &-6998254238859500379
 CanvasGroup:
   m_ObjectHideFlags: 0

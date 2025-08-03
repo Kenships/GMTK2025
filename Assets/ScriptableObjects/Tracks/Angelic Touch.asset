@@ -19,7 +19,7 @@ MonoBehaviour:
   defaultPoints: 0
   points: 0
   price: 4
-  description: On the next song, 1% chance to gain 9000x its score
+  description: On the next song, \n1% chance to gain 9000x its score
   trackName: Angelic Touch
   tags: 060000000d000000
   bars: 4

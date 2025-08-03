@@ -9,9 +9,10 @@ public class Tooltip : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     public Sprite sprite;
     void IPointerEnterHandler.OnPointerEnter(PointerEventData eventData)
     {
-        Debug.Log("Sprite" + !sprite);
-        if (!sprite) TooltipManager.instance.DisplayTooltip(Message);
-        else TooltipManager.instance.DisplayTooltip(sprite, Message);
+        if (shopTooltip) 
+        {
+            TooltipManager.instance.DisplayShopTooltip(track);
+        }
     }
 
     void IPointerExitHandler.OnPointerExit(PointerEventData eventData)
