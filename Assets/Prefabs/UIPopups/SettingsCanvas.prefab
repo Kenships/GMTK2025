@@ -1033,7 +1033,7 @@ MonoBehaviour:
   m_text: Fullscreen
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 973db1e70683a52419b96baf7d35570e, type: 2}
-  m_sharedMaterial: {fileID: -7319289178166071694, guid: 973db1e70683a52419b96baf7d35570e, type: 2}
+  m_sharedMaterial: {fileID: -2378078378024870890, guid: 973db1e70683a52419b96baf7d35570e, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2179,7 +2179,7 @@ MonoBehaviour:
   m_text: GitHub
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 973db1e70683a52419b96baf7d35570e, type: 2}
-  m_sharedMaterial: {fileID: -7319289178166071694, guid: 973db1e70683a52419b96baf7d35570e, type: 2}
+  m_sharedMaterial: {fileID: -2378078378024870890, guid: 973db1e70683a52419b96baf7d35570e, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2390,7 +2390,7 @@ MonoBehaviour:
   m_text: Mute
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 973db1e70683a52419b96baf7d35570e, type: 2}
-  m_sharedMaterial: {fileID: -7319289178166071694, guid: 973db1e70683a52419b96baf7d35570e, type: 2}
+  m_sharedMaterial: {fileID: -2378078378024870890, guid: 973db1e70683a52419b96baf7d35570e, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -3219,7 +3219,7 @@ MonoBehaviour:
   m_text: Itch
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 973db1e70683a52419b96baf7d35570e, type: 2}
-  m_sharedMaterial: {fileID: -7319289178166071694, guid: 973db1e70683a52419b96baf7d35570e, type: 2}
+  m_sharedMaterial: {fileID: -2378078378024870890, guid: 973db1e70683a52419b96baf7d35570e, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
