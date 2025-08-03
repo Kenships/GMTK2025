@@ -24,6 +24,11 @@ namespace Level
             {
                 currentLevel.Value = 1;
             }
+
+            if (currentLevel.Value > 0)
+            {
+                tutorialPlayed.Value = true;
+            }
             
             return levelData[currentLevel.Value];
         }

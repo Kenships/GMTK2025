@@ -38,10 +38,12 @@ public class AudioController : MonoBehaviour
 
     private void OnDestroy()
     {
-        MasterVolume.OnValueChanged -= UpdateBackgroundVolume;
+        MasterVolume.OnValueChanged -= UpdateMasterVolume;
         SFXVolume.OnValueChanged -= UpdateSFXVolume;
         BackgroundVolume.OnValueChanged -= UpdateBackgroundVolume;
         Mute.OnValueChanged -= UpdateMute;
+        
+        Debug.Log(name);
     }
     
     private void UpdateMute(bool isMute)

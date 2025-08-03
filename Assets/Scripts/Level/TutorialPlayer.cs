@@ -55,6 +55,13 @@ namespace Level
             next.OnRaised += QueueNext;
             tutorialModifier.OnRaised += OnTutorialModifier;
         }
+        
+        private void OnDestroy()
+        {
+            startTutorial.OnRaised -= PrepareTutorial;
+            next.OnRaised -= QueueNext;
+            tutorialModifier.OnRaised -= OnTutorialModifier;
+        }
 
         private void OnTutorialModifier()
         {
@@ -85,7 +92,7 @@ namespace Level
         {
             if (tutorialPlayed.Value)
             {
-                Destroy(gameObject);
+                gameObject.SetActive(false);
             }
             else
             {
@@ -93,10 +100,7 @@ namespace Level
             }
         }
 
-        private void OnDestroy()
-        {
-            next.OnRaised -= QueueNext;
-        }
+        
 
         private void QueueNext()
         {

@@ -1,3 +1,4 @@
+using System;
 using DefaultNamespace;
 using Obvious.Soap;
 using PrimeTween;
@@ -28,6 +29,11 @@ namespace TrackScripts
         {
             moveTrack.OnRaised += MoveTrackOnRaised;
             gameObject.SetActive(false);
+        }
+
+        private void OnDestroy()
+        {
+            moveTrack.OnRaised -= MoveTrackOnRaised;
         }
 
         private void InputActionOnperformed(InputAction.CallbackContext obj)

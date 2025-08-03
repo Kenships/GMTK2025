@@ -731,7 +731,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: aa3871a2036221e4aa6b77828ecf9f3b, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.6076312
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -850,7 +850,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: 4cfb16dea5c63094485d832624b76a00, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.60001755
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -1755,6 +1755,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ModifierTooltip: {fileID: 6099752000140320841, guid: 7457fa15e486e2b4ab5ba3c7afb269b7, type: 3}
   ShopTooltip: {fileID: 6099752000140320841, guid: 345a71161b0b95e41974fd190166768f, type: 3}
+  ItemTooltip: {fileID: 0}
   toolTipPadding: 0
   iconHeight: 0
   Electronic: {r: 0, g: 0, b: 0, a: 0}
@@ -3118,8 +3119,8 @@ MonoBehaviour:
   Score: {fileID: 11400000, guid: 6eb54474f19aef049935ff9f3e8b99e1, type: 2}
   PreviousScore: {fileID: 11400000, guid: 58528e1e458b8a84b837963365e5981e, type: 2}
   modifierGrid: {fileID: 175931974}
-  modIconPrefab: {fileID: 3125472869697621992, guid: 6d9768cc200ad214a947168d4f419f4e, type: 3}
-  itemModIconPrefab: {fileID: 0}
+  modIconPrefab: {fileID: 3125472869697621992, guid: 23aadcfd096583041a81cbd9a9c5a1f9, type: 3}
+  itemModIconPrefab: {fileID: 3125472869697621992, guid: 6d9768cc200ad214a947168d4f419f4e, type: 3}
   defaultIconSprite: {fileID: 2868101353237766674, guid: c2498da77ce7e364aa77dd1be1516bed, type: 3}
   modIconSprites: []
 --- !u!4 &698750219
@@ -3865,6 +3866,10 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4292094545796089855, guid: 8f4d7683fe3f7b648bddd7b3bd644655, type: 3}
+      propertyPath: m_Volume
+      value: 0.6076312
+      objectReference: {fileID: 0}
     - target: {fileID: 5423157216861163579, guid: 8f4d7683fe3f7b648bddd7b3bd644655, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -4095,7 +4100,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: 43850178ba7e1c144962f056e3a94f8e, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.60001755
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -4506,6 +4511,10 @@ PrefabInstance:
     - target: {fileID: 8009002884175203250, guid: 8f906736534cf6f43a1f3349b825b802, type: 3}
       propertyPath: Loop
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8009002884175203250, guid: 8f906736534cf6f43a1f3349b825b802, type: 3}
+      propertyPath: m_Volume
+      value: 0.6076312
       objectReference: {fileID: 0}
     - target: {fileID: 8009002884175203250, guid: 8f906736534cf6f43a1f3349b825b802, type: 3}
       propertyPath: m_Resource
@@ -5198,7 +5207,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8009002884175203250, guid: 8f906736534cf6f43a1f3349b825b802, type: 3}
       propertyPath: m_Volume
-      value: 0.238
+      value: 0.60001755
       objectReference: {fileID: 0}
     - target: {fileID: 8009002884175203250, guid: 8f906736534cf6f43a1f3349b825b802, type: 3}
       propertyPath: m_Resource
@@ -7240,6 +7249,10 @@ PrefabInstance:
     - target: {fileID: 183410306035842633, guid: cb0fbc07ed6866143a612d05d0458849, type: 3}
       propertyPath: m_hasFontAssetChanged
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 846049891833631129, guid: cb0fbc07ed6866143a612d05d0458849, type: 3}
+      propertyPath: m_Volume
+      value: 0.6076312
       objectReference: {fileID: 0}
     - target: {fileID: 1192921894219814271, guid: cb0fbc07ed6866143a612d05d0458849, type: 3}
       propertyPath: m_Name

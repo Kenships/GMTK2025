@@ -20,7 +20,7 @@ MonoBehaviour:
   _debugLogEnabled: 0
   _saved: 0
   _defaultValue: 0
-  _resetOn: 0
+  _resetOn: 2
   _runtimeValue: 100
   _isClamped: 0
   _min:
