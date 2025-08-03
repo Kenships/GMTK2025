@@ -1300,8 +1300,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4deb5ee146a6f8f43bc87e0920a434a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IconTooltip: {fileID: 8645629221669667667, guid: 344b324ef1e9b1a48acef29d59814fc3, type: 3}
-  NoIconTooltip: {fileID: 8645629221669667667, guid: 344b324ef1e9b1a48acef29d59814fc3, type: 3}
+  IconTooltip: {fileID: 6099752000140320841, guid: 345a71161b0b95e41974fd190166768f, type: 3}
+  NoIconTooltip: {fileID: 6099752000140320841, guid: 345a71161b0b95e41974fd190166768f, type: 3}
   toolTipPadding: 0
   iconHeight: 0
   Electronic: {r: 0, g: 0, b: 0, a: 0}
