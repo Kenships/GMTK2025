@@ -10,17 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 69f5cda4b0f3a65448ee36b0c903aa3b, type: 3}
-  m_Name: Not the Licc
+  m_Name: Victory!!!
   m_EditorClassIdentifier: 
-  clip: {fileID: 8300000, guid: 75644611eb36a0246892dc2fd5885883, type: 3}
-  albumCover: {fileID: -16894110, guid: 9a962c70aaa3bc645a34c5af80f621f7, type: 3}
+  clip: {fileID: 8300000, guid: ab6c6138c53ebc94c98ceffd61810a1a, type: 3}
+  albumCover: {fileID: 897324308, guid: 9a962c70aaa3bc645a34c5af80f621f7, type: 3}
   volumeOverride: 0
-  ability: 0
-  defaultPoints: 0
-  points: 0
-  price: 0
-  description: 
-  trackName: Not the Licc
-  tags: 060000000b000000
+  ability: 22
+  defaultPoints: 12
+  points: 12
+  price: 4
+  description: +3 Points per Joy in active queue,\n -3 Points per Sadness in active
+    queue
+  trackName: Victory!!!
+  tags: 040000000a000000
   bars: 4
   repeat: 0

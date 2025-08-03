@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 69f5cda4b0f3a65448ee36b0c903aa3b, type: 3}
-  m_Name: One Day of peace
+  m_Name: Bleh bleh bleh
   m_EditorClassIdentifier: 
-  clip: {fileID: 8300000, guid: bb780617fca11b74bae1e1fa987d1ad4, type: 3}
-  albumCover: {fileID: 2116106990, guid: 9a962c70aaa3bc645a34c5af80f621f7, type: 3}
+  clip: {fileID: 8300000, guid: e287b40d8293946498b7c3a5483c7fe3, type: 3}
+  albumCover: {fileID: -754499157, guid: 9a962c70aaa3bc645a34c5af80f621f7, type: 3}
   volumeOverride: 0
-  ability: 6
-  defaultPoints: 2
-  points: 2
+  ability: 14
+  defaultPoints: 0
+  points: 0
   price: 0
   description: 
-  trackName: One Day of peace
+  trackName: Bleh bleh bleh
   tags: 050000000c000000
   bars: 4
   repeat: 0

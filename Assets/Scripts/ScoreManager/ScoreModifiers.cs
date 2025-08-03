@@ -10,7 +10,7 @@ using UnityEngine.InputSystem.Android;
 public enum ScoreModifierEnum
 {
     All, // For affecting ALL modifiers
-    X2, ElectronicStreak, Lose5, RepeatNonWind, LastSongPlayed, SetToThree, InstrumentType, GainNowLoseIfNoJoy, InvertGain, AngelicTouch, EchoOfDesperation
+    X2, ElectronicStreak, Lose5, RepeatNonWind, LastSongPlayed, SetToThree, InstrumentType, GainNowLoseIfNoJoy, InvertGain, AngelicTouch, EchoOfDesperation, AddThree
 }
 public enum ScoreContextEnum 
 {
@@ -21,16 +21,23 @@ public class ScoreModifiers
     public static Dictionary<ScoreModifierEnum, Func<ModifierInstance, TrackSO, ScoreManager.ScoreManager, int, ScoreContextEnum, bool, int>> enumToModifier = new()
     {
         { ScoreModifierEnum.X2, (self, track, scoreManager, scoredPoints, context, lifetimeNotification) => {
-            if (lifetimeNotification || self.LifeTime.Value <= 0) return scoredPoints;
+            if (lifetimeNotification && self.LifeTime.Value <= 0) return scoredPoints;
             if(self.counter == 0)
             {
                 if(context.Equals(ScoreContextEnum.TrackEnd)) self.counter++;
                 return scoredPoints;
             }
-            self.LifeTime.Value--;
+            if(context.Equals(ScoreContextEnum.TrackEnd))
+            {
+                self.LifeTime.Value--;
+            }
+            if (self.LifeTime.Value <= 0)
+            {
+                return scoredPoints;
+            }
             return scoredPoints * 2;
-        }}, //Example modifier
-        { ScoreModifierEnum.SetToThree, (self, track, scoreManager, scoredPoints, context, lifetimeNotification) => {
+        }},
+        { ScoreModifierEnum.AddThree, (self, track, scoreManager, scoredPoints, context, lifetimeNotification) => {
             if (lifetimeNotification || self.LifeTime.Value <= 0) return scoredPoints;
             if(self.counter == 0)
             {
@@ -38,7 +45,7 @@ public class ScoreModifiers
                 return scoredPoints;
             }
             self.LifeTime.Value--;
-            return 3;
+            return scoredPoints + 3;
         }},
         { ScoreModifierEnum.ElectronicStreak, (self, track, scoreManager, scoredPoints, context, lifetimeNotification) => {
             if (lifetimeNotification && self.LifeTime.Value <= 0) { scoreManager.TrackPlayer.SongEnd -= self.callback; return 0; }
@@ -156,7 +163,6 @@ public class ScoreModifiers
             }
             if (self.LifeTime.Value <= 0)
             {
-                scoreManager.TrackPlayer.SongEnd -= self.callback;
                 return scoredPoints;
             }
             return scoredPoints * -1;

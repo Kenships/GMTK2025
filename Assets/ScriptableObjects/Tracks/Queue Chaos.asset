@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 69f5cda4b0f3a65448ee36b0c903aa3b, type: 3}
-  m_Name: Underwater Shimmer
+  m_Name: Queue Chaos
   m_EditorClassIdentifier: 
-  clip: {fileID: 8300000, guid: b061de32e3b311d43b92123362db0dfe, type: 3}
-  albumCover: {fileID: -1353320604, guid: 9a962c70aaa3bc645a34c5af80f621f7, type: 3}
+  clip: {fileID: 8300000, guid: 9f31805cb7f5b264499004d12848c962, type: 3}
+  albumCover: {fileID: -754499157, guid: 9a962c70aaa3bc645a34c5af80f621f7, type: 3}
   volumeOverride: 0
-  ability: 10
-  defaultPoints: 4
-  points: 10
-  price: 0
-  description: 
-  trackName: Underwater Shimmer
-  tags: 040000000c000000
+  ability: 16
+  defaultPoints: 24
+  points: 24
+  price: 4
+  description: Queue the CHAOS (Shuffles playlists)
+  trackName: Queue Chaos
+  tags: 0700000009000000
   bars: 4
   repeat: 0

@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 69f5cda4b0f3a65448ee36b0c903aa3b, type: 3}
-  m_Name: ElvenForest
+  m_Name: Piece of cake
   m_EditorClassIdentifier: 
-  clip: {fileID: 8300000, guid: 883f329a3443bee409356e8fe91ef4e6, type: 3}
-  albumCover: {fileID: -1250019611, guid: 9a962c70aaa3bc645a34c5af80f621f7, type: 3}
+  clip: {fileID: 8300000, guid: 95618d2d4f62beb4786544b357658fca, type: 3}
+  albumCover: {fileID: 188288607, guid: 9a962c70aaa3bc645a34c5af80f621f7, type: 3}
   volumeOverride: 0
-  ability: 9
-  defaultPoints: 0
-  points: 0
-  price: 0
-  description: 
-  trackName: ElvenForest
-  tags: 050000000c000000
+  ability: 26
+  defaultPoints: 6
+  points: 6
+  price: 4
+  description: +4 points if after a Percussion
+  trackName: Piece of cake
+  tags: 070000000a000000
   bars: 2
   repeat: 0

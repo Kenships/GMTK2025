@@ -15,11 +15,11 @@ MonoBehaviour:
   clip: {fileID: 8300000, guid: 9633e33e189d73a4f8e34e617382f1ab, type: 3}
   albumCover: {fileID: 2049055421, guid: 9a962c70aaa3bc645a34c5af80f621f7, type: 3}
   volumeOverride: 0
-  ability: 4
-  defaultPoints: 2
-  points: 2
-  price: 0
-  description: 
+  ability: 3
+  defaultPoints: -4
+  points: -4
+  price: 8
+  description: x2 for the next 3 songs
   trackName: Fantasy in the sky
   tags: 0300000009000000
   bars: 4

@@ -16,7 +16,7 @@ namespace DefaultNamespace
         ScoreAgainOnEnd,
         ScoreModify2xFor4Scores,
         ElectronicStreak,
-        Extra3AfterWind,
+        ExtraAfterWind,
         DecrementModifierLifetimes,
         IncreaseTrackPointBy2,
         Gain5Lose5,
@@ -28,7 +28,7 @@ namespace DefaultNamespace
         LastSongPlayed,
         RemoveModifier,
         Shuffle,
-        SetToThree,
+        AddThree,
         GainAfterFear,
         GainNowLoseIfNoJoy,
         InvertGain,
@@ -36,7 +36,8 @@ namespace DefaultNamespace
         CrowdSync,
         SignalJam,
         NapTime,
-        EchoOfDesperation
+        EchoOfDesperation,
+        ExtraAfterPercussion
     }
 
     public struct TimestampAction
@@ -81,13 +82,13 @@ namespace DefaultNamespace
                 },
                 endAction = (scoreManager, track, playlist) =>
                 {
-                    ModifierInstance mod = new ModifierInstance()
+                    ModifierInstance modifier = new ModifierInstance()
                     {
                         LifeTime = ScriptableObject.CreateInstance<IntVariable>(),
-                        Modifier = ScoreModifierEnum.X2
+                        Modifier = ScoreModifierEnum.X2,
                     };
-                    mod.LifeTime.Value = 4;
-                    scoreManager.AddModifier(mod);
+                    modifier.LifeTime.Value = 3;
+                    scoreManager.AddModifier(modifier);
                 },
                 timestampActions = new List<TimestampAction>()
             }},
@@ -112,7 +113,7 @@ namespace DefaultNamespace
                 },
                 timestampActions = new List<TimestampAction>()
             }},
-            {TrackAbilityEnum.Extra3AfterWind, new TrackAbility()
+            {TrackAbilityEnum.ExtraAfterWind, new TrackAbility()
             {
                 startAction = (scoreManager, track, playlist) =>
                 {
@@ -125,7 +126,7 @@ namespace DefaultNamespace
                     {
                         if (history[history.Count-2].tags.Contains(Tag.Wind) || history[history.Count-2].tags.Contains(Tag.MusicBox))
                         {
-                            scoreManager.addPoints(3);
+                            scoreManager.addPoints(4);
                         }
                     }
                 },
@@ -316,7 +317,7 @@ namespace DefaultNamespace
                 },
                 timestampActions = new List<TimestampAction>()
             }},
-            {TrackAbilityEnum.SetToThree, new TrackAbility()
+            {TrackAbilityEnum.AddThree, new TrackAbility()
             {
                 startAction = (scoreManager, track, playlist) =>
                 {
@@ -327,7 +328,7 @@ namespace DefaultNamespace
                     ModifierInstance m = new ModifierInstance()
                     {
                         LifeTime = ScriptableObject.CreateInstance<IntVariable>(),
-                        Modifier = ScoreModifierEnum.SetToThree
+                        Modifier = ScoreModifierEnum.AddThree
                     };
                     m.LifeTime.Value = 3;
                     scoreManager.AddModifier(m);
@@ -474,6 +475,25 @@ namespace DefaultNamespace
                     Action<TrackSO> callback = (track) => ScoreModifiers.enumToModifier[ScoreModifierEnum.EchoOfDesperation](modifier, track, scoreManager, 0, ScoreContextEnum.TrackStart, false);
                     modifier.callback = callback;
                     scoreManager.TrackPlayer.SongStart += callback;
+                },
+                timestampActions = new List<TimestampAction>()
+            }},
+            {TrackAbilityEnum.ExtraAfterPercussion, new TrackAbility()
+            {
+                startAction = (scoreManager, track, playlist) =>
+                {
+
+                },
+                endAction = (scoreManager, track, playlist) =>
+                {
+                    List<TrackSO> history = scoreManager.TrackPlayer.trackHistory;
+                    if(history.Count-2 >= 0)
+                    {
+                        if (history[history.Count-2].tags.Contains(Tag.Percussion) || history[history.Count-2].tags.Contains(Tag.MusicBox))
+                        {
+                            scoreManager.addPoints(4);
+                        }
+                    }
                 },
                 timestampActions = new List<TimestampAction>()
             }},

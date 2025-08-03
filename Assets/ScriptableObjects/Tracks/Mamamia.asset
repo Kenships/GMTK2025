@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 69f5cda4b0f3a65448ee36b0c903aa3b, type: 3}
-  m_Name: Enigma
+  m_Name: Mamamia
   m_EditorClassIdentifier: 
-  clip: {fileID: 8300000, guid: e287b40d8293946498b7c3a5483c7fe3, type: 3}
-  albumCover: {fileID: -754499157, guid: 9a962c70aaa3bc645a34c5af80f621f7, type: 3}
+  clip: {fileID: 8300000, guid: efe68e5c3a312164e9beecbe9ec59763, type: 3}
+  albumCover: {fileID: -1250019611, guid: 9a962c70aaa3bc645a34c5af80f621f7, type: 3}
   volumeOverride: 0
-  ability: 23
-  defaultPoints: 0
-  points: 0
-  price: 0
-  description: 
-  trackName: Enigma
-  tags: 040000000b000000
+  ability: 8
+  defaultPoints: 16
+  points: 16
+  price: 4
+  description: +5 points on end,\n -5 points on next start
+  trackName: 
+  tags: 070000000a000000
   bars: 4
   repeat: 0
