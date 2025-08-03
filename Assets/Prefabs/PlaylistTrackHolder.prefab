@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 7023652590616574176}
   - component: {fileID: 2814650120932189418}
   - component: {fileID: 1230477383156270210}
+  - component: {fileID: 7118591956648922216}
   m_Layer: 5
   m_Name: PlaylistTrackHolder
   m_TagString: Untagged
@@ -124,6 +125,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canvas: {fileID: 0}
+--- !u!114 &7118591956648922216
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 280936450964254957}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a10bfe96ea0cc9843b7e707f614c985a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Message: 
+  sprite: {fileID: 0}
 --- !u!1 &1446246544262708288
 GameObject:
   m_ObjectHideFlags: 0
