@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using Obvious.Soap;
+using PrimeTween;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -45,15 +46,28 @@ namespace Level
             winScoreButton.SetActive(false);
             loseScoreText.SetActive(false);
             loseScoreButton.SetActive(false);
-
+            
             if (overScore >= 0)
             {
-                
+                endScreen.GetComponent<Image>().sprite = winScoreSprite;
+                winScoreText.SetActive(true);
+                StartCoroutine(LerpWin());
             }
-            
-            endScreen.GetComponent<Image>().sprite = overScore >= 0 ? winScoreSprite : loseScoreSprite;
-            
-            StartCoroutine(LerpWin());
+            else
+            {
+                endScreen.GetComponent<Image>().sprite = loseScoreSprite;
+                loseScoreText.SetActive(true);
+                StartCoroutine(LerpLose());
+            }
+
+            Tween.Position(
+                target: transform,
+                startValue:transform.position,
+                endValue: Vector3.zero,
+                duration: 0.4f,
+                ease: Ease.InOutExpo,
+                cycles: 1
+                );
         }
 
         IEnumerator LerpLose()
@@ -153,11 +167,6 @@ namespace Level
             
             totalMoneyText.SetActive(true);
             winScoreButton.SetActive(true);
-        }
-
-        private void Update()
-        {
-            
         }
     }
 }

@@ -1,4 +1,5 @@
 using System;
+using ImprovedTimers;
 using Obvious.Soap;
 using PrimeTween;
 using UnityEngine;
@@ -8,6 +9,7 @@ namespace Level
 {
     public class EndSequence : MonoBehaviour
     {
+        [SerializeField] GameStateSO gameState;
         
         [SerializeField] ScriptableEventLevelDataSO onGameEnd;
         [SerializeField] ScoreManager.ScoreManager scoreManager;
@@ -17,8 +19,13 @@ namespace Level
         [SerializeField] private IntVariable moneyGained;
         [SerializeField] private IntVariable score;
         [SerializeField] private IntVariable overScore;
-        
-        
+
+        private AudioSource audioSource;
+        private void Awake()
+        {
+            audioSource = GetComponent<AudioSource>();
+        }
+
         private void Start()
         {
             onGameEnd.OnRaised += OnGameEndOnOnRaised;
@@ -31,6 +38,7 @@ namespace Level
 
         private void OnGameEndOnOnRaised(LevelDataSO LevelData)
         {
+            audioSource.Play();
             ApplyFinalModifiers();
 
             if (LevelData.highScore.Value < score.Value)
@@ -45,8 +53,15 @@ namespace Level
             moneyGained.Value = totalMoneyGained;
             
             money.Value += totalMoneyGained;
+
+            if (overScore.Value >= 0)
+            {
+                gameState.currentLevel.Value++;
+            }
             
-            endScreen.SetActive(true);
+            CountdownTimer countdownTimer = new CountdownTimer(3f);
+            countdownTimer.OnTimerEnd += () => endScreen.SetActive(true);
+            countdownTimer.Start();
         }
 
         private int OverScoreToMoney()
