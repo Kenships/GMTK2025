@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Artificial sparkle
   m_EditorClassIdentifier: 
   clip: {fileID: 8300000, guid: 27d88318d82b15d44ac38bfe57ed6280, type: 3}
-  albumCover: {fileID: 8017617034449777989, guid: ad47ef3047f7a2246ae4c79f7a8316d1, type: 3}
+  albumCover: {fileID: 21300000, guid: 53f8df1c2a7fab5478b4b3138c28b5c1, type: 3}
   volumeOverride: 0
   ability: 4
   defaultPoints: -4

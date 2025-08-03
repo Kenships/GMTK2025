@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: One Day of peace
   m_EditorClassIdentifier: 
   clip: {fileID: 8300000, guid: bb780617fca11b74bae1e1fa987d1ad4, type: 3}
-  albumCover: {fileID: 7456979074165982790, guid: ee8df336cd23b6f4094da680eb53c077, type: 3}
+  albumCover: {fileID: 21300000, guid: 37313329db05a31409a56dc0eb3d2d98, type: 3}
   volumeOverride: 0
   ability: 6
   defaultPoints: 12

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Morning Call
   m_EditorClassIdentifier: 
   clip: {fileID: 8300000, guid: 0ccb189026a2ec94babaa1ecd87126f1, type: 3}
-  albumCover: {fileID: -9131772946494345978, guid: 0cfa860d2dabefc458910974099930ab, type: 3}
+  albumCover: {fileID: 21300000, guid: 8bfbc075dd4de3f4e944f3cdca68cbd5, type: 3}
   volumeOverride: 0
   ability: 5
   defaultPoints: 2

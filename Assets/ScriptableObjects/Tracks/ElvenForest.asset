@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ElvenForest
   m_EditorClassIdentifier: 
   clip: {fileID: 8300000, guid: 883f329a3443bee409356e8fe91ef4e6, type: 3}
-  albumCover: {fileID: -377088452805341376, guid: a6d0adc21c59a004d8f514728b15062c, type: 3}
+  albumCover: {fileID: 21300000, guid: 20564a4f62dc01e48bb542f5e4c0c9d7, type: 3}
   volumeOverride: 0
   ability: 9
   defaultPoints: 8
