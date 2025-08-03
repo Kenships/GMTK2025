@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1085483337089304493}
   - component: {fileID: 6428635829042588378}
   - component: {fileID: 7509828959624469027}
+  - component: {fileID: 9194573077918068225}
   m_Layer: 5
   m_Name: AlbumTrackHolder
   m_TagString: Untagged
@@ -37,7 +38,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -187, y: 157}
-  m_SizeDelta: {x: 200, y: 200}
+  m_SizeDelta: {x: 140, y: 140}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8846739690919333786
 CanvasRenderer:
@@ -102,4 +103,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb2f1e421fb24f7cada8ca8f4d849115, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  albumCover: {fileID: 0}
+  text: {fileID: 0}
   track: {fileID: 0}
+--- !u!114 &9194573077918068225
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4929057030261350418}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a10bfe96ea0cc9843b7e707f614c985a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Message: 
+  sprite: {fileID: 0}

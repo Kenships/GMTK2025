@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using DefaultNamespace;
 using ImprovedTimers;
+using Level;
 using Obvious.Soap;
 using UnityEngine;
 using UnityEngine.Events;
@@ -10,8 +11,9 @@ namespace TrackScripts
 {
     public class TrackPlayer : MonoBehaviour
     {
-        [Header("Game Start Trigger")]
-        [SerializeField] private ScriptableEventNoParam startGame;
+        [Header("Game Start/End Trigger")]
+        [SerializeField] private ScriptableEventLevelDataSO startGame;
+        [SerializeField] private ScriptableEventLevelDataSO endGame;
 
         [Header("Track References")]
         [SerializeField] private GameSettingsSO settings;
@@ -26,7 +28,7 @@ namespace TrackScripts
 
         [SerializeField] private PlaylistController discoBall;
 
-        [SerializeField] private PlaylistController activePlaylist;
+        [SerializeField] public PlaylistController activePlaylist;
 
         [SerializeField] private PlaylistController backupPlaylist;
 
@@ -38,44 +40,51 @@ namespace TrackScripts
         [SerializeField] private ScriptableEventNoParam discoToBackup;
         
         [SerializeField] private ScriptableEventNoParam discoToActive;
-        
 
         [SerializeField] private FloatVariable progress;
 
+        public int currentBarNumber;
+        
         public UnityAction OnDownBeat;
-
-        public FloatVariable PlayBackSpeed;
 
         private TrackSO currentTrack;
         
         private bool firstRun = true;
 
-        private void Awake()
-        {
-            PlayBackSpeed.Value = 1;
-        }
+        public List<TrackSO> trackHistory = new();
+        public Action<TrackSO> SongEnd;
+        public Action<TrackSO> SongStart;
+        
+        private LevelDataSO levelData;
+        public bool abilityBlocked;
+        private bool abilityBlock;
+
 
         private void Start()
         {
             backgroundSource.clip = backgroundClip;
-            PlayBackSpeed.OnValueChanged += (value) =>
-                                            {
-                                                audioSource.pitch = value; 
-                                                backgroundSource.pitch = value;
-                                            };
-            startGame.OnRaised += () =>
-            {
-                firstRun = true;
-                backgroundSource.Play();
-                Play();
-            };
+            
+            startGame.OnRaised += StartGame;
             
             Debug.Log(audioSource.clip);
         }
 
+        private void OnDestroy()
+        {
+            startGame.OnRaised -= StartGame;
+        }
+
+        private void StartGame(LevelDataSO levelData)
+        {
+            this.levelData = levelData;
+            firstRun = true;
+            backgroundSource.Play();
+            Play();
+        }
+
         private void OnSongEnd()
         {
-            if (TrackAbilities.EnumToAbility.TryGetValue(currentTrack.ability, out var ability))
+            if (!abilityBlock && TrackAbilities.EnumToAbility.TryGetValue(currentTrack.ability, out var ability))
             {
                 List<TrackSO> allTracks = new List<TrackSO>();
                 allTracks.AddRange(discoBall.GetAllTracks());
@@ -84,18 +93,37 @@ namespace TrackScripts
                 
                 ability.endAction.Invoke(scoreManager, currentTrack, allTracks);
             }
-            Play();
+            SongEnd?.Invoke(currentTrack);
+            scoreManager.NotifyTrackEnd(currentTrack);
+
+            if (currentBarNumber >= levelData.numberOfBars)
+            {
+                backgroundSource.Stop();
+                audioSource.Stop();
+                endGame.Raise(levelData);
+            }
+            else
+            {
+                Play();
+            }
         }
 
         private void Play()
         {
             
-            
             audioSource.Stop();
-        
-            currentTrack = activePlaylist.GetNextInQueue();
-            
-            if (!firstRun)
+            bool repeated = false;
+            if (currentTrack != null && currentTrack.repeat)
+            {
+                currentTrack.repeat = false;
+                repeated = true;
+            }
+            else
+            {
+                currentTrack = activePlaylist.GetNextInQueue();
+            }
+
+            if (!firstRun && !repeated)
             {
                 if (backupPlaylist.TrackCount > 0)
                 {
@@ -118,25 +146,30 @@ namespace TrackScripts
                 currentTrack = discoBall.GetNextInQueue();
                 firstRun = false;
             }
+            SongStart?.Invoke(currentTrack);
+            Debug.Log(currentTrack.name + " has been played");
+            trackHistory.Add(currentTrack);
             audioSource.clip = currentTrack.clip;
 
             audioSource.Play();
 
-            float timeForOneBar = currentTrack.clip.length / 4f / PlayBackSpeed;
+            float timeForOneBar = currentTrack.clip.length / 4f;
             
+            Debug.Log(timeForOneBar);
             
             CountdownTimerRepeat scoreTimer = new CountdownTimerRepeat(timeForOneBar, currentTrack.bars);
             scoreTimer.OnTimerRaised += () =>
             {
+                currentBarNumber++;
                 OnDownBeat?.Invoke();
-                scoreManager.ScorePoints(currentTrack, currentTrack.points / currentTrack.bars);
+                scoreManager.addPoints(scoreManager.GetUpToDateTrack(currentTrack).points / scoreManager.GetUpToDateTrack(currentTrack).bars);
+                scoreManager.ConsolidatePoints(currentTrack, ScoreContextEnum.BarStart);
             };
 
             scoreTimer.OnTimerEnd += OnSongEnd;
-            
-            scoreTimer.Start();
-
-            if (TrackAbilities.EnumToAbility.TryGetValue(currentTrack.ability, out var ability))
+            abilityBlock = abilityBlocked; 
+            abilityBlocked = false;
+            if (!abilityBlock && TrackAbilities.EnumToAbility.TryGetValue(currentTrack.ability, out var ability))
             {
                 List<TrackSO> allTracks = new List<TrackSO>();
                 allTracks.AddRange(discoBall.GetAllTracks());
@@ -146,14 +179,15 @@ namespace TrackScripts
                 ability.startAction(scoreManager, currentTrack, allTracks);
                 foreach (TimestampAction ta in ability.timestampActions)
                 {
-                    float adjustedTime = ta.audioTime / PlayBackSpeed.Value;
+                    float adjustedTime = ta.audioTime;
                     
                     var taTimer = new CountdownTimer(adjustedTime);
                     taTimer.Start();
                     taTimer.OnTimerEnd += () => { ta.Action(scoreManager, currentTrack, allTracks); };
                 }   
             }
-            
+            scoreTimer.Start();
+
         }
 
         private void Update()
@@ -162,11 +196,6 @@ namespace TrackScripts
             {
                 progress.Value = audioSource.time / (audioSource.clip.length * (currentTrack.bars / 4f)) * 100f;
             }
-
-            // if (audioSource.clip && !audioSource.isPlaying)
-            // {
-            //     OnSongEnd();
-            // }
         }
 
         private void OnApplicationPause(bool pauseStatus)
@@ -180,6 +209,81 @@ namespace TrackScripts
         {
             backgroundSource.UnPause();
             audioSource.UnPause();
+        }
+        
+        public void Shuffle()
+        {
+            List<TrackSO> tracks = new List<TrackSO>();
+            tracks.AddRange(discoBall.GetAllTracks());
+            tracks.AddRange(activePlaylist.GetAllTracks());
+            tracks.AddRange(backupPlaylist.GetAllTracks());
+            
+            System.Random random = new System.Random();
+            int n = tracks.Count;
+            while (n > 1)
+            {
+                n--;
+                int k = random.Next(n + 1);
+                (tracks[k], tracks[n]) = (tracks[n], tracks[k]);
+            }
+            
+            discoBall.RemoveAll();
+            activePlaylist.RemoveAll();
+            backupPlaylist.RemoveAll();
+            
+            int i = 0;
+            
+            for (int j = 0; j < discoBall.Capacity; j++)
+            {
+                if(i >= tracks.Count) break;
+            
+                Debug.Log(discoBall.TryEnqueue(tracks[i]));
+            
+                i++;
+            }
+            
+            for (int j = 0; j < activePlaylist.Capacity; j++)
+            {
+                if(i >= tracks.Count) break;
+            
+                Debug.Log(activePlaylist.TryEnqueue(tracks[i]));
+            
+                i++;
+            }
+            
+            for (int j = 0; j < backupPlaylist.Capacity; j++)
+            {
+                if(i >= tracks.Count) break;
+            
+                Debug.Log(backupPlaylist.TryEnqueue(tracks[i]));
+            
+                i++;
+            }
+
+            firstRun = true;
+        }
+        public void SwitchActiveQueue()
+        {
+            var activeTracks = new List<TrackSO>(activePlaylist.GetAllTracks());
+            var playlistQueue = new List<TrackSO>(backupPlaylist.GetAllTracks());
+
+            activePlaylist.RemoveAll();
+            backupPlaylist.RemoveAll();
+
+            for (int i = 0; i < Math.Min(2, playlistQueue.Count); i++)
+            {
+                activePlaylist.TryEnqueue(playlistQueue[i]);
+            }
+
+            foreach (var track in activeTracks)
+            {
+                backupPlaylist.TryEnqueue(track);
+            }
+
+            for (int i = 2; i < playlistQueue.Count; i++)
+            {
+                backupPlaylist.TryEnqueue(playlistQueue[i]);
+            }
         }
     }
 }

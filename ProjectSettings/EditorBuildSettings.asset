@@ -10,11 +10,11 @@ EditorBuildSettings:
     guid: 8c9cfa26abfee488c85f1582747f6a02
   - enabled: 1
     path: Assets/Scenes/GameScene.unity
-    guid: f712d4c497bcb1a408641515df0a23a0
+    guid: 842e554891dc7ba498b4e058c3bb988d
   - enabled: 1
     path: Assets/Scenes/ShopScene.unity
     guid: 0187e854b31b19142888799608d87d0d
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/AbilityTest.unity
     guid: ea5a9e3bde645254b9ee003c3b2401e4
   m_configObjects:

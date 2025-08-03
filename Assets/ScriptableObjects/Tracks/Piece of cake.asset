@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69f5cda4b0f3a65448ee36b0c903aa3b, type: 3}
+  m_Name: Piece of cake
+  m_EditorClassIdentifier: 
+  clip: {fileID: 8300000, guid: 95618d2d4f62beb4786544b357658fca, type: 3}
+  albumCover: {fileID: -5907165304398876512, guid: 01a70ef5c068ab94a8e2f3894b867b0c, type: 3}
+  volumeOverride: 0
+  ability: 26
+  defaultPoints: 6
+  points: 6
+  price: 4
+  description: +4 points if after a Percussion
+  trackName: Piece of cake
+  tags: 070000000a000000
+  bars: 2
+  repeat: 0

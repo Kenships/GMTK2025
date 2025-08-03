@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69f5cda4b0f3a65448ee36b0c903aa3b, type: 3}
+  m_Name: Queue Chaos
+  m_EditorClassIdentifier: 
+  clip: {fileID: 8300000, guid: 9f31805cb7f5b264499004d12848c962, type: 3}
+  albumCover: {fileID: -3872793530793798720, guid: caac353b4f7b4fc4f8587497b9dee5f8, type: 3}
+  volumeOverride: 0
+  ability: 16
+  defaultPoints: 24
+  points: 24
+  price: 4
+  description: Queue the CHAOS (Shuffles playlists)
+  trackName: Queue Chaos
+  tags: 0700000009000000
+  bars: 4
+  repeat: 0
