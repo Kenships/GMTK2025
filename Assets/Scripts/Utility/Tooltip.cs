@@ -17,13 +17,13 @@ public class Tooltip : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         {
             TooltipManager.instance.DisplayTrackTooltip(track, shopTooltip);
         }
+        else if (item)
+        {
+            TooltipManager.instance.DisplayItemTooltip(item);
+        }
         else if (Message != null)
         {
             TooltipManager.instance.DisplayModifierTooltip(Message);
-        }
-        else if(item)
-        {
-            TooltipManager.instance.DisplayItemTooltip(item);
         }
     }
 
