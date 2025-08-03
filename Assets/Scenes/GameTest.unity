@@ -877,9 +877,9 @@ MonoBehaviour:
   TrackPlayer: {fileID: 950056265}
   Score: {fileID: 11400000, guid: 6eb54474f19aef049935ff9f3e8b99e1, type: 2}
   PreviousScore: {fileID: 11400000, guid: 58528e1e458b8a84b837963365e5981e, type: 2}
-  modifierGrid: {fileID: 1250762687}
-  modIconPrefab: {fileID: 3125472869697621992, guid: 6d9768cc200ad214a947168d4f419f4e, type: 3}
-  defaultIconSprite: {fileID: 2868101353237766674, guid: c2498da77ce7e364aa77dd1be1516bed, type: 3}
+  modifierGrid: {fileID: 0}
+  modIconPrefab: {fileID: 0}
+  defaultIconSprite: {fileID: 0}
   modIconSprites: []
 --- !u!4 &698750219
 Transform:
@@ -940,8 +940,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f638c72316443ed93c9a9e0fe109ea7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startGame: {fileID: 11400000, guid: 897360a55de959444a664b504991aa4a, type: 2}
-  endGame: {fileID: 11400000, guid: 404b6b6b3bf336d4fadb789020308f90, type: 2}
+  startGame: {fileID: 0}
+  endGame: {fileID: 0}
   settings: {fileID: 11400000, guid: 7bd9d722c57bdd545a7bef6550ed1df2, type: 2}
   audioSource: {fileID: 610126914}
   backgroundSource: {fileID: 458840328}
@@ -1460,9 +1460,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IconTooltip: {fileID: 6099752000140320841, guid: 345a71161b0b95e41974fd190166768f, type: 3}
-  NoIconTooltip: {fileID: 6099752000140320841, guid: c08af33a158fa7e4cbc7d24673b40233, type: 3}
+  NoIconTooltip: {fileID: 6099752000140320841, guid: 345a71161b0b95e41974fd190166768f, type: 3}
   toolTipPadding: 0
   iconHeight: 0
+  Electronic: {r: 0.9433962, g: 0.8134778, b: 0.06674972, a: 0}
+  Wind: {r: 0.29887962, g: 0.28248486, b: 0.8679245, a: 0}
+  String: {r: 0.990566, g: 0.96837175, b: 0.9672036, a: 0}
+  Percussion: {r: 0.3490566, g: 0.12466376, b: 0.04116233, a: 0}
+  MusicBox: {r: 0.13207549, g: 0.11173577, b: 0.10653259, a: 0}
+  Anger: {r: 0.7735849, g: 0.20069422, b: 0.20069422, a: 0}
+  Joy: {r: 0.8773585, g: 0.8369769, b: 0.21106264, a: 0}
+  Fear: {r: 0.27189392, g: 0.5522826, b: 0.8867924, a: 0}
+  Envy: {r: 0.28143132, g: 0.754717, b: 0.1459594, a: 0}
+  Sadness: {r: 0.117096595, g: 0.087575644, b: 0.4528302, a: 0}
 --- !u!1 &1918839494
 GameObject:
   m_ObjectHideFlags: 0
@@ -2143,6 +2153,22 @@ PrefabInstance:
     - target: {fileID: 8189561844999719075, guid: 6361abd6be0aed647b91e7c03c66d5d7, type: 3}
       propertyPath: m_RaycastTarget
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9140529582371996988, guid: 6361abd6be0aed647b91e7c03c66d5d7, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9140529582371996988, guid: 6361abd6be0aed647b91e7c03c66d5d7, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9140529582371996988, guid: 6361abd6be0aed647b91e7c03c66d5d7, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: 9140529582371996988, guid: 6361abd6be0aed647b91e7c03c66d5d7, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -100
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
