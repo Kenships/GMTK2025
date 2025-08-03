@@ -144,7 +144,9 @@ public class ShopController : MonoBehaviour
 
         //Destroy(e);
         e.GetComponentInChildren<Button>().interactable = false;
-        e.GetComponent<CanvasGroup>().alpha = 0f;
+        var cg = e.GetComponent<CanvasGroup>();
+        cg.alpha = 0f;
+        cg.blocksRaycasts = false;
 
         UpdateInventory();
     }
@@ -161,7 +163,9 @@ public class ShopController : MonoBehaviour
 
         // Destroy(e);
         e.GetComponentInChildren<Button>().interactable = false;
-        e.GetComponent<CanvasGroup>().alpha = 0f;
+        var cg = e.GetComponent<CanvasGroup>();
+        cg.alpha = 0f;
+        cg.blocksRaycasts = false;
 
         UpdateInventory();
     }
