@@ -1,9 +1,10 @@
-using System;
-using System.Collections.Generic;
 using DefaultNamespace;
 using ImprovedTimers;
 using Level;
 using Obvious.Soap;
+using ScoreManager;
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -42,6 +43,8 @@ namespace TrackScripts
         [SerializeField] private ScriptableEventNoParam discoToActive;
 
         [SerializeField] private FloatVariable progress;
+        
+        [SerializeField] private InventorySO inventory;
 
         public int currentBarNumber;
         
@@ -79,9 +82,23 @@ namespace TrackScripts
             this.levelData = levelData;
             firstRun = true;
             backgroundSource.Play();
+            initItems();
             Play();
         }
-
+        private void initItems() 
+        {
+            foreach (ItemSO item in inventory.items) 
+            {
+                if (item.scoreModifier.Equals(ScoreModifierEnum.Null)) continue;
+                ModifierInstance modifier = new ModifierInstance()
+                {
+                    LifeTime = ScriptableObject.CreateInstance<IntVariable>(),
+                    Modifier = item.scoreModifier,
+                };
+                modifier.LifeTime.Value = 999;
+                scoreManager.AddModifier(modifier, item.itemCover);
+            }
+        }
         private void OnSongEnd()
         {
             if (!abilityBlock && TrackAbilities.EnumToAbility.TryGetValue(currentTrack.ability, out var ability))

@@ -11,9 +11,10 @@ using UnityEngine.InputSystem.Android;
 
 public enum ScoreModifierEnum
 {
+    Null,//Error value
     All, // For affecting ALL modifiers
     X2, ElectronicStreak, Lose5, RepeatNonWind, LastSongPlayed, InstrumentType, GainNowLoseIfNoJoy, InvertGain, AngelicTouch, EchoOfDesperation, AddThree,
-    MoodTuner, EncoreToken, AmpStack, RubiksCube, BandTogether, Relief, AngelicLuck,
+    MoodTuner, AmpStack, RubiksCube, BandTogether, Relief, AngelicLuck,
     ShuffleIn, HardCut, NegativeBeat
 }
 public enum ScoreContextEnum 
@@ -403,6 +404,15 @@ public class ScoreModifiers
         { ScoreModifierEnum.InvertGain, "Multiply points by -1!" },
         { ScoreModifierEnum.AngelicTouch, "99% of gamblers quit before \n they make it BIG" },
         { ScoreModifierEnum.EchoOfDesperation, "Points are halved" },
-        { ScoreModifierEnum.AddThree, "Gain 3 extra points on scoring!" }
+        { ScoreModifierEnum.AddThree, "Gain 3 extra points on scoring!" },
+        { ScoreModifierEnum.MoodTuner, "+2 points when repeating an emotion" },
+        { ScoreModifierEnum.AmpStack, "+1 points on song end after Percussion" },
+        { ScoreModifierEnum.RubiksCube, "+10 points after 5 emotions in a row" },
+        { ScoreModifierEnum.BandTogether, "1.2× final score for \n4 same-instrument tracks in a row" },
+        { ScoreModifierEnum.Relief, "Removes newest modifier" },
+        { ScoreModifierEnum.AngelicLuck, "Angelic touch chance increases by 1%" },
+        { ScoreModifierEnum.ShuffleIn, "About to shuffle the deck" },
+        { ScoreModifierEnum.HardCut, "Abilities have been deactivated" },
+        { ScoreModifierEnum.NegativeBeat, "Multiply scores by -1" }
     };
 }

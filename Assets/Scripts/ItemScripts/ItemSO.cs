@@ -10,5 +10,6 @@ namespace DefaultNamespace
         public string description;
         public int price;
         public string itemName;
+        public ScoreModifierEnum scoreModifier = ScoreModifierEnum.Null;
     }
 }
