@@ -149,6 +149,7 @@ GameObject:
   - component: {fileID: 6807204605525583708}
   - component: {fileID: 6837102811160766808}
   - component: {fileID: 9219668870483375141}
+  - component: {fileID: 1939377948106428217}
   m_Layer: 5
   m_Name: BItem
   m_TagString: Untagged
@@ -239,6 +240,21 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!114 &1939377948106428217
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7283496541450412047}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a10bfe96ea0cc9843b7e707f614c985a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Message: 
+  track: {fileID: 0}
+  shopTooltip: 0
 --- !u!1 &8672863127667309750
 GameObject:
   m_ObjectHideFlags: 0

@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5319821148967498419}
   - component: {fileID: 3345109900464302057}
   - component: {fileID: -6998254238859500379}
+  - component: {fileID: 3790504274942801910}
   m_Layer: 5
   m_Name: BTrack
   m_TagString: Untagged
@@ -105,6 +106,21 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!114 &3790504274942801910
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 536095408354253229}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a10bfe96ea0cc9843b7e707f614c985a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Message: 
+  track: {fileID: 0}
+  shopTooltip: 0
 --- !u!1 &3102260024756252340
 GameObject:
   m_ObjectHideFlags: 0

@@ -2,16 +2,20 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UIElements;
 using UnityEngine.UI;
+using TrackScripts;
 
 public class Tooltip : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     public string Message;
-    public Sprite sprite;
+    public TrackSO track;
+    public bool shopTooltip;
     void IPointerEnterHandler.OnPointerEnter(PointerEventData eventData)
     {
-        Debug.Log("Sprite" + !sprite);
-        if (!sprite) TooltipManager.instance.DisplayTooltip(Message);
-        else TooltipManager.instance.DisplayTooltip(sprite, Message);
+        if (shopTooltip) 
+        {
+            TooltipManager.instance.DisplayShopTooltip(track);
+        }
+        else TooltipManager.instance.DisplayTooltip(Message);
     }
 
     void IPointerExitHandler.OnPointerExit(PointerEventData eventData)

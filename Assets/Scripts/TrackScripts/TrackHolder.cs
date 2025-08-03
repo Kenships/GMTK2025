@@ -28,15 +28,8 @@ namespace DefaultNamespace
                     text.text = Track.name;
                 }
             }
-            GetComponent<Tooltip>().Message = "Name: " + track.trackName + "\n" +
-                                              "Points: " + track.points + "\n" +
-                                              "Bar Count: " + track.bars + "\n" + 
-                                              "Price: " + track.price + "\n" +
-                                              "Resell Price: " + track.price/2 + "\n" +
-                                              "Tags: " + track.tags[0] + ", " + track.tags[1] + "\n" + "\n" + 
-                                              
-                                              track.description;
-
+            GetComponent<Tooltip>().shopTooltip = true;
+            GetComponent<Tooltip>().track = track;
         }
     }
 }
