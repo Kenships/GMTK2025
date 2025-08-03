@@ -12,6 +12,7 @@ namespace Level
         public int numberOfBars;
         public int endOfRoundCredits;
         public float debuffCooldown;
+        public int debuffLifeTime;
         public List<ScoreModifierEnum> debuffs;
         public IntVariable highScore;
     }

@@ -16,6 +16,7 @@ MonoBehaviour:
   minimumWinScore: 0
   numberOfBars: 24
   endOfRoundCredits: 10
-  debuffCooldown: 7
-  debuffs: 
+  debuffCooldown: 20
+  debuffLifeTime: 3
+  debuffs: 130000001400000015000000
   highScore: {fileID: 11400000, guid: 972cea54b744bfa45897acfb2fe18c2b, type: 2}
