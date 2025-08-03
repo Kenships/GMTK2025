@@ -32,6 +32,11 @@ namespace DefaultNamespace
         GainAfterFear,
         GainNowLoseIfNoJoy,
         InvertGain,
+        AngelicTouch,
+        CrowdSync,
+        SignalJam,
+        NapTime,
+        EchoOfDesperation
     }
 
     public struct TimestampAction
@@ -54,14 +59,14 @@ namespace DefaultNamespace
 
     public class TrackAbilities
     {
-        public static Dictionary<TrackAbilityEnum, TrackAbility> EnumToAbility = new() 
+        public static Dictionary<TrackAbilityEnum, TrackAbility> EnumToAbility = new()
         {
             {TrackAbilityEnum.ScoreAgainOnEnd, new TrackAbility()
             {
                 startAction = (scoreManager, track, playlist) =>
                 {
-                    
-                }, 
+
+                },
                 endAction = (scoreManager, track, playlist) =>
                 {
                     scoreManager.addPoints(scoreManager.GetUpToDateTrack(track).points);
@@ -72,8 +77,8 @@ namespace DefaultNamespace
             {
                 startAction = (scoreManager, track, playlist) =>
                 {
-                    
-                }, 
+
+                },
                 endAction = (scoreManager, track, playlist) =>
                 {
                     ModifierInstance mod = new ModifierInstance()
@@ -86,11 +91,11 @@ namespace DefaultNamespace
                 },
                 timestampActions = new List<TimestampAction>()
             }},
-            {TrackAbilityEnum.ElectronicStreak, new TrackAbility() 
+            {TrackAbilityEnum.ElectronicStreak, new TrackAbility()
             {
                 startAction = (scoreManager, track, playlist) =>
                 {
-                    
+
                 },
                 endAction = (scoreManager, track, playlist) =>
                 {
@@ -121,7 +126,7 @@ namespace DefaultNamespace
                         if (history[history.Count-2].tags.Contains(Tag.Wind) || history[history.Count-2].tags.Contains(Tag.MusicBox))
                         {
                             scoreManager.addPoints(3);
-                        } 
+                        }
                     }
                 },
                 timestampActions = new List<TimestampAction>()
@@ -172,7 +177,7 @@ namespace DefaultNamespace
                 },
                 endAction = (scoreManager, track, playlist) =>
                 {
-                    
+
                 },
                 timestampActions = new List<TimestampAction>()
             }},
@@ -211,10 +216,12 @@ namespace DefaultNamespace
                         if (history[history.Count-2].tags.Contains(Tag.String) || history[history.Count-2].tags.Contains(Tag.MusicBox))
                         {
                             track.points += 1;
+                            scoreManager.GetUpToDateTrack(track).points += 1;
                         }
                         if (history[history.Count-2].tags.Contains(Tag.Percussion) || history[history.Count-2].tags.Contains(Tag.MusicBox))
                         {
                             track.points -= 2;
+                            scoreManager.GetUpToDateTrack(track).points -= 2;
                         }
                     }
                 },
@@ -240,7 +247,7 @@ namespace DefaultNamespace
                 },
                 endAction = (scoreManager, track, playlist) =>
                 {
-                    scoreManager.addPoints(10 - 2 * scoreManager.TrackPlayer.trackHistory.Count);
+                    scoreManager.addPoints(- 2 * (scoreManager.TrackPlayer.trackHistory.Count - 1));
                 },
                 timestampActions = new List<TimestampAction>()
             }},
@@ -383,6 +390,90 @@ namespace DefaultNamespace
                     };
                     modifier.LifeTime.Value = 3;
                     scoreManager.AddModifier(modifier);
+                },
+                timestampActions = new List<TimestampAction>()
+            }},
+            {TrackAbilityEnum.AngelicTouch, new TrackAbility()
+            {
+                startAction = (scoreManager, track, playlist) =>
+                {
+
+                },
+                endAction = (scoreManager, track, playlist) =>
+                { 
+                    ModifierInstance modifier = new ModifierInstance()
+                    {
+                        LifeTime = ScriptableObject.CreateInstance<IntVariable>(),
+                        Modifier = ScoreModifierEnum.AngelicTouch,
+                    };
+                    modifier.LifeTime.Value = 1;
+                    scoreManager.AddModifier(modifier);
+                },
+                timestampActions = new List<TimestampAction>()
+            }},
+            {TrackAbilityEnum.CrowdSync, new TrackAbility()
+            {
+                startAction = (scoreManager, track, playlist) =>
+                {
+
+                },
+                endAction = (scoreManager, track, playlist) =>
+                {
+                    int sadCount = 0;
+                    int happyCount = 0;
+                    foreach(TrackSO t in scoreManager.TrackPlayer.activePlaylist.GetAllTracks())
+                    {
+                        if (t.tags.Contains(Tag.Joy)) happyCount++;
+                        if (t.tags.Contains(Tag.Sadness)) sadCount++;
+                    }
+                    scoreManager.addPoints(happyCount * 3 + sadCount * -3);
+                },
+                timestampActions = new List<TimestampAction>()
+            }},
+            {TrackAbilityEnum.SignalJam, new TrackAbility()
+            {
+                startAction = (scoreManager, track, playlist) =>
+                {
+
+                },
+                endAction = (scoreManager, track, playlist) =>
+                {
+                    scoreManager.TrackPlayer.SwitchActiveQueue();
+                },
+                timestampActions = new List<TimestampAction>()
+            }},
+            {TrackAbilityEnum.NapTime, new TrackAbility()
+            {
+                startAction = (scoreManager, track, playlist) =>
+                {
+
+                },
+                endAction = (scoreManager, track, playlist) =>
+                {
+                    scoreManager.TrackPlayer.abilityBlocked = true;
+                    scoreManager.addPoints(6);
+                },
+                timestampActions = new List<TimestampAction>()
+            }},
+            {TrackAbilityEnum.EchoOfDesperation, new TrackAbility()
+            {
+                startAction = (scoreManager, track, playlist) =>
+                {
+
+                },
+                endAction = (scoreManager, track, playlist) =>
+                {
+                    ModifierInstance modifier = new ModifierInstance()
+                    {
+                        LifeTime = ScriptableObject.CreateInstance<IntVariable>(),
+                        Modifier = ScoreModifierEnum.EchoOfDesperation,
+                    };
+                    modifier.LifeTime.Value = 1;
+                    scoreManager.addPoints(6);
+                    scoreManager.AddModifier(modifier);
+                    Action<TrackSO> callback = (track) => ScoreModifiers.enumToModifier[ScoreModifierEnum.EchoOfDesperation](modifier, track, scoreManager, 0, ScoreContextEnum.TrackStart, false);
+                    modifier.callback = callback;
+                    scoreManager.TrackPlayer.SongStart += callback;
                 },
                 timestampActions = new List<TimestampAction>()
             }},

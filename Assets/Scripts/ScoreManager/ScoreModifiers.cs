@@ -10,7 +10,7 @@ using UnityEngine.InputSystem.Android;
 public enum ScoreModifierEnum
 {
     All, // For affecting ALL modifiers
-    X2, ElectronicStreak, Lose5, RepeatNonWind, LastSongPlayed, SetToThree, InstrumentType, GainNowLoseIfNoJoy, InvertGain
+    X2, ElectronicStreak, Lose5, RepeatNonWind, LastSongPlayed, SetToThree, InstrumentType, GainNowLoseIfNoJoy, InvertGain, AngelicTouch, EchoOfDesperation
 }
 public enum ScoreContextEnum 
 {
@@ -76,12 +76,6 @@ public class ScoreModifiers
             if( !track.repeat) {
                 if (!track.tags.Contains(Tag.Wind) && !track.tags.Contains(Tag.MusicBox))
                 {
-                    Debug.Log("setting repeat to true");
-
-                    Debug.Log(track.name);
-                    Debug.Log(track.tags[0]);
-
-                    Debug.Log(track.tags[1]);
                     track.repeat = true;
                     self.LifeTime.Value -= 1;
                 }
@@ -130,14 +124,10 @@ public class ScoreModifiers
             if (lifetimeNotification && self.LifeTime.Value <= 0) 
             {
                 scoreManager.TrackPlayer.SongStart -= self.callback;
-                if(self.counter < 2)
-                {
-                    scoreManager.addPoints(-20);
-                }
-                return 0;
             }
             if(!context.Equals(ScoreContextEnum.TrackStart)) return scoredPoints;
-            if (scoreManager.GetUpToDateTrack(track).tags.Contains(Tag.Joy))
+            self.LifeTime.Value--;
+            if (track.tags.Contains(Tag.Joy))
             {
                 self.counter++;
             }
@@ -170,6 +160,44 @@ public class ScoreModifiers
                 return scoredPoints;
             }
             return scoredPoints * -1;
+        }},
+        { ScoreModifierEnum.AngelicTouch, (self, track, scoreManager, scoredPoints, context, lifetimeNotification) => {
+            if (lifetimeNotification && self.LifeTime.Value <= 0) { scoreManager.TrackPlayer.SongStart -= self.callback; return scoredPoints; }
+            if(!context.Equals(ScoreContextEnum.TrackEnd)) return scoredPoints;
+            if (self.counter == 0) { self.counter++; return scoredPoints; }                 
+            self.LifeTime.Value--;
+            if (track.tags.Contains(Tag.Joy))
+            {
+                int roll = UnityEngine.Random.Range(0, 10);
+                if(roll == 5) 
+                {
+                    scoreManager.addPoints(9000 * scoreManager.GetUpToDateTrack(track).points);
+                }
+                return scoredPoints;
+            }
+            if (self.LifeTime.Value <= 0)
+            {
+                scoreManager.TrackPlayer.SongStart -= self.callback;
+                return 0;
+            }
+            return scoredPoints;
+        }},
+        { ScoreModifierEnum.EchoOfDesperation, (self, track, scoreManager, scoredPoints, context, lifetimeNotification) => {
+            if (lifetimeNotification && self.LifeTime.Value <= 0) { scoreManager.TrackPlayer.SongStart -= self.callback; return scoredPoints; }
+            if(self.counter == 0 && context.Equals(ScoreContextEnum.TrackStart))
+            {
+                self.counter++;
+                return scoredPoints;
+            }
+            else if(self.counter == 0) return scoredPoints;
+            if(!context.Equals(ScoreContextEnum.TrackStart)) return scoredPoints/2;
+            self.LifeTime.Value--;
+            if (self.LifeTime.Value <= 0)
+            {
+                scoreManager.TrackPlayer.SongStart -= self.callback;
+                return scoredPoints;
+            }
+            return scoredPoints;
         }},
     };
 }

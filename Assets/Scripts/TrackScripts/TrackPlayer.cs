@@ -28,7 +28,7 @@ namespace TrackScripts
 
         [SerializeField] private PlaylistController discoBall;
 
-        [SerializeField] private PlaylistController activePlaylist;
+        [SerializeField] public PlaylistController activePlaylist;
 
         [SerializeField] private PlaylistController backupPlaylist;
 
@@ -56,6 +56,8 @@ namespace TrackScripts
         public Action<TrackSO> SongStart;
         
         private LevelDataSO levelData;
+        public bool abilityBlocked;
+        private bool abilityBlock;
 
 
         private void Start()
@@ -82,7 +84,7 @@ namespace TrackScripts
 
         private void OnSongEnd()
         {
-            if (TrackAbilities.EnumToAbility.TryGetValue(currentTrack.ability, out var ability))
+            if (!abilityBlock && TrackAbilities.EnumToAbility.TryGetValue(currentTrack.ability, out var ability))
             {
                 List<TrackSO> allTracks = new List<TrackSO>();
                 allTracks.AddRange(discoBall.GetAllTracks());
@@ -163,8 +165,9 @@ namespace TrackScripts
             };
 
             scoreTimer.OnTimerEnd += OnSongEnd;
-
-            if (TrackAbilities.EnumToAbility.TryGetValue(currentTrack.ability, out var ability))
+            abilityBlock = abilityBlocked; 
+            abilityBlocked = false;
+            if (!abilityBlock && TrackAbilities.EnumToAbility.TryGetValue(currentTrack.ability, out var ability))
             {
                 List<TrackSO> allTracks = new List<TrackSO>();
                 allTracks.AddRange(discoBall.GetAllTracks());
@@ -256,6 +259,29 @@ namespace TrackScripts
             }
 
             firstRun = true;
+        }
+        public void SwitchActiveQueue()
+        {
+            var activeTracks = new List<TrackSO>(activePlaylist.GetAllTracks());
+            var playlistQueue = new List<TrackSO>(backupPlaylist.GetAllTracks());
+
+            activePlaylist.RemoveAll();
+            backupPlaylist.RemoveAll();
+
+            for (int i = 0; i < Math.Min(2, playlistQueue.Count); i++)
+            {
+                activePlaylist.TryEnqueue(playlistQueue[i]);
+            }
+
+            foreach (var track in activeTracks)
+            {
+                backupPlaylist.TryEnqueue(track);
+            }
+
+            for (int i = 2; i < playlistQueue.Count; i++)
+            {
+                backupPlaylist.TryEnqueue(playlistQueue[i]);
+            }
         }
     }
 }
