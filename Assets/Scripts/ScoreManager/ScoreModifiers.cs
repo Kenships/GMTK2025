@@ -6,6 +6,7 @@ using TrackScripts;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem.Android;
+using ImprovedTimers;
 
 public enum ScoreModifierEnum
 {
@@ -15,7 +16,7 @@ public enum ScoreModifierEnum
 }
 public enum ScoreContextEnum 
 {
-    TrackStart, TrackEnd, TimestampAction, BarStart
+    TrackStart, TrackEnd, TimestampAction, BarStart, AbilityActivated
 }
 public class ScoreModifiers
 {
@@ -182,10 +183,18 @@ public class ScoreModifiers
             self.LifeTime.Value--;
             if (track.tags.Contains(Tag.Joy))
             {
-                int roll = UnityEngine.Random.Range(0, 10);
-                if(roll == 5)
+                int count = 0;
+                foreach (ModifierInstance modifier in scoreManager.modifiers)
                 {
-                    scoreManager.addPoints(9000 * scoreManager.GetUpToDateTrack(track).points);
+                    if (modifier.Modifier.Equals(ScoreModifierEnum.AngelicLuck) && modifier.LifeTime.Value > 0)
+                    {
+                        count++;
+                    }
+                }
+                float chance = 0.05f + count * 0.01f;
+                if(UnityEngine.Random.value < chance)
+                {
+                    scoreManager.addPoints(9001 * scoreManager.GetUpToDateTrack(track).points);
                 }
                 return scoredPoints;
             }
@@ -279,6 +288,71 @@ public class ScoreModifiers
                     scoreManager.addPoints(10);
                 }
             }
+            return scoredPoints;
+        }},
+        { ScoreModifierEnum.BandTogether, (self, track, scoreManager, scoredPoints, context, lifetimeNotification) => {
+            if(self.LifeTime.Value < 2000) self.LifeTime.Value = 2000;
+            if(!context.Equals(ScoreContextEnum.TrackEnd)) return scoredPoints;
+            List<Tag> instrumentTags = new List<Tag> { Tag.String, Tag.Wind, Tag.Percussion, Tag.Electronic };
+            Tag myInstrumentTag = Tag.Null;
+
+            // Identify which instrument tag applies to the current track
+            foreach (Tag t in track.tags)
+            {
+                if (instrumentTags.Contains(t))
+                {
+                    myInstrumentTag = t;
+                    break;
+                }
+            }
+
+            List<TrackSO> history = scoreManager.TrackPlayer.trackHistory;
+
+            if (history.Count >= 3 && self.LifeTime.Value <= 2999)
+            {
+                bool match = true;
+                for (int i = 1; i <= 3; i++)
+                {
+                    var tags = history[history.Count - i].tags;
+                    if (!(tags.Contains(myInstrumentTag) || tags.Contains(Tag.MusicBox)))
+                    {
+                        match = false;
+                        break;
+                    }
+                }
+
+                if (match)
+                {
+                    self.LifeTime.Value = 1000000;
+                }
+            }
+
+            return scoredPoints;
+        }},
+        { ScoreModifierEnum.Relief, (self, track, scoreManager, scoredPoints, context, lifetimeNotification) => {
+            if(self.LifeTime.Value < 2000) self.LifeTime.Value = 2000;
+            if (!context.Equals(ScoreContextEnum.AbilityActivated)) return scoredPoints;
+            if (self.LifeTime.Value <= 2000) 
+            {
+                self.LifeTime.Value = 2000;
+                return scoredPoints;
+            }
+            foreach(ModifierInstance m in scoreManager.modifiers)
+            {
+                if (m.LifeTime.Value < 999 && m.LifeTime.Value > 0)
+                {
+                    m.LifeTime.Value = -1;
+                    ScoreModifiers.enumToModifier[m.Modifier](m, null, scoreManager, 0, ScoreContextEnum.TimestampAction, true);
+                    break;
+                }
+            }
+            self.LifeTime.Value = 2000;
+            CountdownTimer countdownTimer = new CountdownTimer(3f);
+            countdownTimer.OnTimerEnd += () => self.LifeTime.Value = self.LifeTime.Value <= 0 ? self.LifeTime.Value : 100000;
+            return scoredPoints;
+        }},
+        { ScoreModifierEnum.AngelicLuck, (self, track, scoreManager, scoredPoints, context, lifetimeNotification) => {
+            if(self.LifeTime.Value < 2000) self.LifeTime.Value = 2000;
             return scoredPoints;
         }},
     };
