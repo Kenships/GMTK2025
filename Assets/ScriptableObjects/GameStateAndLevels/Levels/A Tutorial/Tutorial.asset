@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eeb5f42d65f24c6a8a8966b9543a09a7, type: 3}
   m_Name: Tutorial
   m_EditorClassIdentifier: 
-  levelName: Level 1
-  minimumWinScore: 0
+  levelName: Tutorial
+  minimumWinScore: 20
   numberOfBars: 24
   endOfRoundCredits: 10
   debuffCooldown: 20
   debuffLifeTime: 3
-  debuffs: 130000001400000015000000
+  debuffs: 16000000
   highScore: {fileID: 11400000, guid: 972cea54b744bfa45897acfb2fe18c2b, type: 2}

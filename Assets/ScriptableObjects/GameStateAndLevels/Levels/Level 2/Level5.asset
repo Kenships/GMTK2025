@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Level5
   m_EditorClassIdentifier: 
   levelName: Chaos
-  minimumWinScore: 200
+  minimumWinScore: 300
   numberOfBars: 112
   endOfRoundCredits: 10
   debuffCooldown: 15

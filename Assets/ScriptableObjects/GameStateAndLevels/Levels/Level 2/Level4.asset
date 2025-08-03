@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Level4
   m_EditorClassIdentifier: 
   levelName: Rainy Days
-  minimumWinScore: 175
+  minimumWinScore: 250
   numberOfBars: 112
   endOfRoundCredits: 10
   debuffCooldown: 15

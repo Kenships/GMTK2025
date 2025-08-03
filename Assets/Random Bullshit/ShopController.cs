@@ -43,6 +43,7 @@ public class ShopController : MonoBehaviour
         // tempBank.tracks = new List<TrackSO>(playerInventory.tracks);
         // tempBank.items = new List<ItemSO>(playerInventory.items);
         shopBank = tempBank;
+        Shuffle(shopBank.availableTracks);
         rerollPrice = 1;
         buttonText.text = "REROLL: $"+rerollPrice;
         UpdateShop();

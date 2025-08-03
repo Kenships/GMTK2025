@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Level3
   m_EditorClassIdentifier: 
   levelName: Feeling Lucky
-  minimumWinScore: 150
+  minimumWinScore: 200
   numberOfBars: 112
   endOfRoundCredits: 10
   debuffCooldown: 15

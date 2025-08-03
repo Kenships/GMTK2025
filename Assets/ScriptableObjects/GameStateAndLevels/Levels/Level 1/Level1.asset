@@ -18,5 +18,5 @@ MonoBehaviour:
   endOfRoundCredits: 10
   debuffCooldown: 10
   debuffLifeTime: 1
-  debuffs: 130000001400000015000000
+  debuffs: 1400000015000000
   highScore: {fileID: 11400000, guid: 972cea54b744bfa45897acfb2fe18c2b, type: 2}

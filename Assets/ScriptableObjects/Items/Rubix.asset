@@ -16,5 +16,6 @@ MonoBehaviour:
   description: Lets mix and match these emotions. \nGives 10 points for playing all
     emotions.
   price: 5
-  itemName: 
+  itemName: Rubix Cube
   scoreModifier: 15
+  count: 0

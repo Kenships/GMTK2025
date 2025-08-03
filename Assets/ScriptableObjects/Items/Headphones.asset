@@ -16,5 +16,6 @@ MonoBehaviour:
   description: Listen to the beat of the drums. \nAny track after percussion is +1
     points
   price: 5
-  itemName: 
+  itemName: HeadPhones
   scoreModifier: 14
+  count: 0
