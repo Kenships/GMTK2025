@@ -15,6 +15,7 @@ public class SettingsOpen : MonoBehaviour
     [SerializeField] private Transform rightDiskEnd;
 
     [SerializeField] private BoolVariable fullScreen;
+    [SerializeField] private BoolVariable tutorial;
     
     [SerializeField] private List<AudioSource> audioSources;
 
@@ -46,6 +47,7 @@ public class SettingsOpen : MonoBehaviour
 
     private void Open(InputAction.CallbackContext callbackContext)
     {
+        if (tutorial.Value) return;
         
         gameObject.SetActive(true);
     }
