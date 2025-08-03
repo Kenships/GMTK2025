@@ -1763,7 +1763,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f56ae0663879904980be2901cc264d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameState: {fileID: 0}
+  gameState: {fileID: 11400000, guid: 809a66c841cdef54caad57a248c5d1af, type: 2}
   onGameEnd: {fileID: 11400000, guid: 404b6b6b3bf336d4fadb789020308f90, type: 2}
   scoreManager: {fileID: 698750218}
   endScreen: {fileID: 1502756370}
