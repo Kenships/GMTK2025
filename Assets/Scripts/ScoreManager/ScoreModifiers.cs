@@ -38,13 +38,20 @@ public class ScoreModifiers
             return scoredPoints * 2;
         }},
         { ScoreModifierEnum.AddThree, (self, track, scoreManager, scoredPoints, context, lifetimeNotification) => {
-            if (lifetimeNotification || self.LifeTime.Value <= 0) return scoredPoints;
+            if (lifetimeNotification && self.LifeTime.Value <= 0) return scoredPoints;
             if(self.counter == 0)
             {
                 if(context.Equals(ScoreContextEnum.TrackEnd)) self.counter++;
                 return scoredPoints;
             }
-            self.LifeTime.Value--;
+            if(context.Equals(ScoreContextEnum.TrackEnd))
+            {
+                self.LifeTime.Value--;
+            }
+            if (self.LifeTime.Value <= 0)
+            {
+                return scoredPoints;
+            }
             return scoredPoints + 3;
         }},
         { ScoreModifierEnum.ElectronicStreak, (self, track, scoreManager, scoredPoints, context, lifetimeNotification) => {
