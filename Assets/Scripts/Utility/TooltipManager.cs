@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using TMPro;
+using TrackScripts;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -13,8 +15,19 @@ public class TooltipManager : MonoBehaviour
     private RectTransform textBoxRect;
     [SerializeField] private float toolTipPadding;
     [SerializeField] private float iconHeight;
+    [SerializeField] private Color Electronic;
+    [SerializeField] private Color Wind;
+    [SerializeField] private Color String;
+    [SerializeField] private Color Percussion;
+    [SerializeField] private Color MusicBox;
+    [SerializeField] private Color Anger;
+    [SerializeField] private Color Joy;
+    [SerializeField] private Color Fear;
+    [SerializeField] private Color Envy;
+    [SerializeField] private Color Sadness;
+    private Dictionary<Tag, Color> tagColors;
+
     Camera cam;
-    Vector3 min, max;
     RectTransform rect;
     Canvas canvas;
     CanvasScaler canvasScaler;
@@ -27,13 +40,24 @@ public class TooltipManager : MonoBehaviour
             return;
         }
         instance = this;
+        tagColors = new Dictionary<Tag, Color>
+        {
+            { Tag.Electronic, Electronic },
+            { Tag.Wind, Wind },
+            { Tag.String, String },
+            { Tag.Percussion, Percussion },
+            { Tag.MusicBox, MusicBox },
+            { Tag.Anger, Anger },
+            { Tag.Joy, Joy },
+            { Tag.Fear, Fear },
+            { Tag.Envy, Envy },
+            { Tag.Sadness, Sadness },
+        };
     }
     // Start is called before the first frame update
     void Start()
     {
         cam = Camera.main;
-        min = new Vector3(0, 0, 0);
-        max = new Vector3(cam.pixelWidth, cam.pixelHeight, 0);
         curTooltip = null;
         canvas = GetComponent<Canvas>();
         canvasScaler = GetComponent<CanvasScaler>();
@@ -46,8 +70,7 @@ public class TooltipManager : MonoBehaviour
             rect.anchoredPosition = canvas.renderMode == RenderMode.ScreenSpaceCamera ? getTooltipPositionCamera() : getTooltipPosition();
         }
     }
-
-    public void DisplayTooltip(Sprite icon, string message) 
+    public void DisplayShopTooltip(TrackSO track)
     {
         if (curTooltip != null) HideTooltip();
         Debug.Log("Yays");
@@ -78,12 +101,11 @@ public class TooltipManager : MonoBehaviour
 
         curTooltip = Instantiate(NoIconTooltip, Vector2.zero, Quaternion.identity, transform);
         toolTipText = curTooltip.GetComponentInChildren<TextMeshProUGUI>();
-        Vector2 size = toolTipText.GetPreferredValues(message);
         toolTipText.text = message;
-        toolTipText.GetPreferredValues(message);
         rect = curTooltip.GetComponent<RectTransform>();
         rect.anchoredPosition = canvas.renderMode == RenderMode.ScreenSpaceCamera ? getTooltipPositionCamera() : getTooltipPosition();
         curTooltip.SetActive(true);
+        Canvas.ForceUpdateCanvases();
     }
     public void HideTooltip() 
     {
@@ -98,8 +120,8 @@ public class TooltipManager : MonoBehaviour
         float xSign = (Mouse.current.position.value.x > cam.pixelWidth / 2.0f) ? -1f : 1f;
         float ySign = (Mouse.current.position.value.y > cam.pixelHeight / 2.0f) ? -1f : 1f;
 
-        float xVal = Mouse.current.position.value.x + xSign * (rect.rect.width / canvasScaler.referenceResolution.x) * cam.pixelWidth * 0.5f + xSign * cam.pixelHeight * 0.04f;
-        float yVal = Mouse.current.position.value.y + ySign * (rect.rect.height / canvasScaler.referenceResolution.y) * cam.pixelHeight * 0.5f + ySign * cam.pixelHeight * 0.04f;
+        float xVal = Mouse.current.position.value.x + xSign * (rect.sizeDelta.x / canvasScaler.referenceResolution.x) * cam.pixelWidth * 0.5f + xSign * cam.pixelHeight * 0.04f;
+        float yVal = Mouse.current.position.value.y + ySign * (rect.sizeDelta.y / canvasScaler.referenceResolution.y) * cam.pixelHeight * 0.5f + ySign * cam.pixelHeight * 0.04f;
         mousePos = new Vector2(xVal, yVal);
         return mousePos;
     }
@@ -114,15 +136,15 @@ public class TooltipManager : MonoBehaviour
             float xSign = (screenPoint.x > cam.pixelWidth / 2f) ? -1f : 1f;
             float ySign = (screenPoint.y > cam.pixelHeight / 2f) ? -1f : 1f;
             Vector2 screenOffset = new Vector2(
-                                                xSign * cam.pixelWidth * 0.04f,   
-                                                ySign * cam.pixelHeight * 0.04f  
+                                                xSign * (rect.sizeDelta.x * 0.5f + toolTipPadding) + xSign * cam.pixelWidth * 0.02f,
+                                                ySign * (rect.sizeDelta.y * 0.5f + toolTipPadding) + ySign * cam.pixelHeight * 0.02f  
                                             );
 
             Vector2 canvasOffset = GetCanvasOffset(screenOffset);
             float offsetX = xSign * (rect.sizeDelta.x * 0.5f + toolTipPadding) + xSign * canvasOffset.x;
             float offsetY = ySign * (rect.sizeDelta.y * 0.5f + toolTipPadding) + ySign * canvasOffset.y;
 
-            return localPoint + new Vector2(offsetX, offsetY);
+            return localPoint + screenOffset;
         }
 
         return Vector2.zero;
