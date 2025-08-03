@@ -14,10 +14,13 @@ namespace Level
         [SerializeField] private GameObject winScoreText;
         [SerializeField] private Sprite winScoreSprite;
         [SerializeField] private GameObject winScoreButton;
+        [SerializeField] private AudioClip winSound;
+        [SerializeField] private AudioClip winLoop;
         
         [SerializeField] private GameObject loseScoreText;
         [SerializeField] private Sprite loseScoreSprite;
         [SerializeField] private GameObject loseScoreButton;
+        [SerializeField] private AudioClip loseSound;
         
         [SerializeField] private IntVariable score;
         [SerializeField] private IntVariable scoreDisplay;
@@ -35,10 +38,12 @@ namespace Level
        
         [SerializeField] private GameObject totalMoneyText;
         
+        private AudioSource audioSource;
 
         private void OnEnable()
         {
-            Debug.Log("Starting end card");
+            audioSource = GetComponent<AudioSource>();
+            
             overScoreText.SetActive(false);
             moneyGainedText.SetActive(false);
             totalMoneyText.SetActive(false);
@@ -47,7 +52,7 @@ namespace Level
             loseScoreText.SetActive(false);
             loseScoreButton.SetActive(false);
             
-            if (overScore >= 0)
+            if (overScore.Value >= 0)
             {
                 endScreen.GetComponent<Image>().sprite = winScoreSprite;
                 winScoreText.SetActive(true);
@@ -59,7 +64,7 @@ namespace Level
                 loseScoreText.SetActive(true);
                 StartCoroutine(LerpLose());
             }
-
+            
             Tween.Position(
                 target: transform,
                 startValue:transform.position,
@@ -68,6 +73,32 @@ namespace Level
                 ease: Ease.InOutExpo,
                 cycles: 1
                 );
+        }
+        
+        bool firstPlay = true;
+        private void Update()
+        {
+            if (overScore.Value >= 0)
+            {
+                if (firstPlay)
+                {
+                    audioSource.PlayOneShot(winSound);
+                }
+
+                if (!audioSource.isPlaying)
+                {
+                    audioSource.loop = true;
+                    audioSource.clip = winLoop;
+                    audioSource.Play();
+                }
+            }
+            else
+            {
+                audioSource.loop = true;
+                audioSource.clip = loseSound;
+                audioSource.Play();
+            }
+            
         }
 
         IEnumerator LerpLose()
@@ -98,6 +129,7 @@ namespace Level
 
         IEnumerator LerpWin()
         {
+            
             yield return new WaitForSeconds(0.5f);
             
             float t = 0;
