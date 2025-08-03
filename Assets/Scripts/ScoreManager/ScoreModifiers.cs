@@ -10,7 +10,8 @@ using UnityEngine.InputSystem.Android;
 public enum ScoreModifierEnum
 {
     All, // For affecting ALL modifiers
-    X2, ElectronicStreak, Lose5, RepeatNonWind, LastSongPlayed, InstrumentType, GainNowLoseIfNoJoy, InvertGain, AngelicTouch, EchoOfDesperation, AddThree
+    X2, ElectronicStreak, Lose5, RepeatNonWind, LastSongPlayed, InstrumentType, GainNowLoseIfNoJoy, InvertGain, AngelicTouch, EchoOfDesperation, AddThree,
+    MoodTuner, EncoreToken, AmpStack, RubiksCube, BandTogether, Relief, AngelicLuck
 }
 public enum ScoreContextEnum 
 {
@@ -209,6 +210,74 @@ public class ScoreModifiers
             {
                 scoreManager.TrackPlayer.SongStart -= self.callback;
                 return scoredPoints;
+            }
+            return scoredPoints;
+        }},
+        { ScoreModifierEnum.MoodTuner, (self, track, scoreManager, scoredPoints, context, lifetimeNotification) => {
+            self.LifeTime.Value = 9999;
+            if(context.Equals(ScoreContextEnum.TrackEnd))
+            {
+                List<Tag> emotionTags = new List<Tag> { Tag.Joy, Tag.Sadness, Tag.Anger, Tag.Fear, Tag.Envy };
+                Tag myEmotionTag = Tag.Null;
+                foreach(Tag t in track.tags)
+                {
+                    if (emotionTags.Contains(t))
+                    {
+                        myEmotionTag = t;
+                        break;
+                    }
+                }
+
+                List<TrackSO> history = scoreManager.TrackPlayer.trackHistory;
+                if(history.Count-2 >= 0)
+                {
+                    if (history[history.Count-2].tags.Contains(myEmotionTag))
+                    {
+                        scoreManager.addPoints(2);
+                    }
+                }
+            }
+            return scoredPoints;
+        }},
+        { ScoreModifierEnum.AmpStack, (self, track, scoreManager, scoredPoints, context, lifetimeNotification) => {
+            self.LifeTime.Value = 9999;
+            if(context.Equals(ScoreContextEnum.TrackEnd))
+            {
+                List<TrackSO> history = scoreManager.TrackPlayer.trackHistory;
+                if(history.Count-2 >= 0)
+                {
+                    if (history[history.Count-2].tags.Contains(Tag.Percussion))
+                    {
+                        scoreManager.addPoints(1);
+                    }
+                }
+            }
+            return scoredPoints;
+        }},
+        { ScoreModifierEnum.RubiksCube, (self, track, scoreManager, scoredPoints, context, lifetimeNotification) => {
+            self.LifeTime.Value = 9999;
+            if (context.Equals(ScoreContextEnum.TrackEnd))
+            {
+                List<Tag> emotionTags = new List<Tag> { Tag.Joy, Tag.Sadness, Tag.Anger, Tag.Fear, Tag.Envy };
+                HashSet<Tag> foundEmotions = new HashSet<Tag>();
+
+                List<TrackSO> history = scoreManager.TrackPlayer.trackHistory;
+
+                foreach (TrackSO pastTrack in history)
+                {
+                    foreach (Tag tag in pastTrack.tags)
+                    {
+                        if (emotionTags.Contains(tag))
+                        {
+                            foundEmotions.Add(tag);
+                        }
+                    }
+                }
+
+                if (foundEmotions.Count == emotionTags.Count)
+                {
+                    scoreManager.addPoints(10);
+                }
             }
             return scoredPoints;
         }},
