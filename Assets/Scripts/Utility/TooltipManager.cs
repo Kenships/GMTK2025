@@ -1,10 +1,8 @@
 using TMPro;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
-public interface ITooltip { }
 public class TooltipManager : MonoBehaviour
 {
     public static TooltipManager instance;
