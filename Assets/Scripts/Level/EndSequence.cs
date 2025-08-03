@@ -74,9 +74,13 @@ namespace Level
         {
             foreach (ModifierInstance modifier in scoreManager.modifiers) 
             {
-                if (modifier.Modifier.Equals(ScoreModifierEnum.LastSongPlayed) && modifier.LifeTime > 0) 
+                if (modifier.Modifier.Equals(ScoreModifierEnum.LastSongPlayed) && modifier.LifeTime.Value > 0)
                 {
                     scoreManager.Score.Value *= 3;
+                }
+                else if (modifier.Modifier.Equals(ScoreModifierEnum.BandTogether) && modifier.LifeTime.Value > 3000)) 
+                {
+                    scoreManager.Score.Value = (int)(scoreManager.Score.Value * 1.2f);
                 }
             }
         }
